@@ -20,7 +20,8 @@ import {
   ThumbsDown,
   Check,
   ArrowRight,
-  Filter
+  Filter,
+  Tag
 } from 'lucide-react';
 import { FAQ_DATA } from './constants';
 import { Category, FAQItem } from './types';
@@ -73,7 +74,7 @@ const SidebarItem: React.FC<{
     className={`
       w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
       ${active 
-        ? 'bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-400 shadow-sm' 
+        ? 'bg-indigo-50 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 shadow-sm' 
         : 'text-slate-500 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white hover:shadow-sm'}
     `}
   >
@@ -104,7 +105,7 @@ const ModuleCard: React.FC<{
     </div>
 
     <div className="flex items-center justify-between mb-6 w-full z-10">
-      <div className="p-3 bg-blue-50 dark:bg-slate-700 rounded-xl text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+      <div className="p-3 bg-indigo-50 dark:bg-slate-700 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
         <Icon size={24} strokeWidth={2} />
       </div>
       <span className="text-xs font-semibold px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded-lg">
@@ -121,10 +122,10 @@ const ArticleCard: React.FC<{ item: FAQItem, onClick: () => void }> = ({ item, o
   return (
     <button 
       onClick={onClick}
-      className="group bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-200 dark:hover:border-blue-900 transition-all flex flex-col h-full text-left w-full"
+      className="group bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-900 transition-all flex flex-col h-full text-left w-full"
     >
       <div className="flex items-start justify-between w-full mb-3">
-        <h3 className="font-bold text-slate-900 dark:text-white text-base leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors pr-4">
+        <h3 className="font-bold text-slate-900 dark:text-white text-base leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors pr-4">
           {item.question}
         </h3>
         <ArrowRight size={18} className="text-slate-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 flex-shrink-0" />
@@ -152,6 +153,7 @@ const ArticleCard: React.FC<{ item: FAQItem, onClick: () => void }> = ({ item, o
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null); // New state for Tag Filter
   const [selectedArticle, setSelectedArticle] = useState<FAQItem | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -168,7 +170,6 @@ export default function App() {
 
   // Constants for view logic
   const isSearching = searchQuery.length > 0;
-  // We only show the grid if we are not searching globally AND not viewing an article
   const showHomeGrid = !selectedCategory && !selectedArticle;
 
   // Toggle Dark Mode
@@ -180,36 +181,29 @@ export default function App() {
     }
   }, [isDarkMode]);
 
-  // Handle "Copy to Clipboard" buttons inside HTML content
+  // Handle "Copy to Clipboard" buttons
   useEffect(() => {
     if (!selectedArticle) return;
-
     const contentDiv = document.querySelector('.article-content');
     if (!contentDiv) return;
 
     const handleCopyClick = async (e: Event) => {
       const target = (e.target as HTMLElement).closest('.copy-btn');
       if (!target) return;
-
       const textToCopy = target.getAttribute('data-copy');
       if (textToCopy) {
         try {
           await navigator.clipboard.writeText(textToCopy);
-          
           const originalContent = target.innerHTML;
           target.classList.add('copied');
           target.innerHTML = `<span class="flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copiado!</span>`;
-          
           setTimeout(() => {
             target.classList.remove('copied');
             target.innerHTML = originalContent;
           }, 2000);
-        } catch (err) {
-          console.error('Failed to copy', err);
-        }
+        } catch (err) { console.error('Failed to copy', err); }
       }
     };
-
     contentDiv.addEventListener('click', handleCopyClick);
     return () => contentDiv.removeEventListener('click', handleCopyClick);
   }, [selectedArticle]);
@@ -219,41 +213,49 @@ export default function App() {
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     Object.values(Category).forEach(cat => counts[cat] = 0);
-    
     FAQ_DATA.forEach(item => {
-      if (counts[item.category] !== undefined) {
-        counts[item.category]++;
-      }
+      if (counts[item.category] !== undefined) counts[item.category]++;
     });
     return counts;
   }, []);
 
+  // Logic: Extract Available Tags for Current Category
+  const availableTags = useMemo(() => {
+    if (!selectedCategory) return [];
+    
+    const tagsMap = new Map<string, number>();
+    FAQ_DATA.filter(item => item.category === selectedCategory).forEach(item => {
+      item.tags.forEach(tag => {
+        tagsMap.set(tag, (tagsMap.get(tag) || 0) + 1);
+      });
+    });
+
+    // Return tags sorted by frequency
+    return Array.from(tagsMap.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(entry => entry[0]);
+  }, [selectedCategory]);
+
   // Filter Logic
   const filteredFAQs = useMemo(() => {
     return FAQ_DATA.filter(item => {
-      // If we are in "Home" (no category selected), we only show results if searching.
-      // If we are in a Category, we filter by that category AND the search query.
-      
       const matchesCategory = !selectedCategory || item.category === selectedCategory;
+      const matchesTag = !selectedTag || item.tags.includes(selectedTag);
       
       const query = searchQuery.toLowerCase();
       const matchesSearch = !query || 
                             item.question.toLowerCase().includes(query) || 
                             item.tags.some(tag => tag.toLowerCase().includes(query));
 
-      return matchesCategory && matchesSearch;
+      return matchesCategory && matchesSearch && matchesTag;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, selectedTag]);
 
   // Logic: Previous / Next Navigation
   const navigationData = useMemo(() => {
     if (!selectedArticle) return null;
-    
-    // We navigate within the currently filtered list (contextual navigation)
     const currentIndex = filteredFAQs.findIndex(item => item.id === selectedArticle.id);
-    
     if (currentIndex === -1) return null;
-
     return {
       prev: currentIndex > 0 ? filteredFAQs[currentIndex - 1] : null,
       next: currentIndex < filteredFAQs.length - 1 ? filteredFAQs[currentIndex + 1] : null
@@ -265,10 +267,8 @@ export default function App() {
   const handleAskAI = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!aiQuestion.trim()) return;
-
     setIsAiLoading(true);
     setAiAnswer(null);
-
     try {
       const answer = await askGemini(aiQuestion);
       setAiAnswer(answer);
@@ -282,6 +282,7 @@ export default function App() {
   const handleSidebarClick = (cat: Category | null) => {
     setSelectedCategory(cat);
     setSelectedArticle(null);
+    setSelectedTag(null);
     setSearchQuery(''); 
     setIsMobileMenuOpen(false);
   };
@@ -289,7 +290,6 @@ export default function App() {
   const handleArticleClick = (item: FAQItem) => {
     setSelectedArticle(item);
     setFeedbackGiven(null);
-    // Scroll to top
     const container = document.getElementById('main-scroll-container');
     if(container) container.scrollTo(0,0);
   };
@@ -299,8 +299,12 @@ export default function App() {
     setFeedbackGiven(null);
   };
 
+  const handleTagClick = (tag: string) => {
+    setSelectedTag(selectedTag === tag ? null : tag);
+  };
+
   return (
-    <div className={`flex h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans overflow-hidden selection:bg-blue-100 selection:text-blue-900`}>
+    <div className={`flex h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans overflow-hidden selection:bg-indigo-100 selection:text-indigo-900`}>
       
       {/* Sidebar */}
       <aside 
@@ -312,7 +316,7 @@ export default function App() {
       >
         <div className="p-8">
           <div className="flex items-center gap-3 mb-10">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-violet-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20">
               T
             </div>
             <div>
@@ -352,7 +356,7 @@ export default function App() {
                 {isDarkMode ? <Moon size={16} /> : <Sun size={16} />}
                 {isDarkMode ? 'Modo Escuro' : 'Modo Claro'}
               </span>
-              <div className={`w-8 h-4 rounded-full relative transition-colors ${isDarkMode ? 'bg-blue-600' : 'bg-slate-300'}`}>
+              <div className={`w-8 h-4 rounded-full relative transition-colors ${isDarkMode ? 'bg-indigo-600' : 'bg-slate-300'}`}>
                  <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-transform duration-200 ${isDarkMode ? 'left-4.5 translate-x-0.5' : 'left-0.5'}`}></div>
               </div>
            </button>
@@ -399,9 +403,9 @@ export default function App() {
             <div className="flex items-center gap-3">
                  <button 
                     onClick={() => setShowAiModal(true)}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-lg shadow-slate-500/10"
+                    className="flex items-center gap-2 px-4 py-2 bg-indigo-900 dark:bg-white text-white dark:text-slate-900 rounded-full text-sm font-semibold hover:bg-indigo-800 dark:hover:bg-slate-100 transition-colors shadow-lg shadow-indigo-500/10"
                 >
-                    <Sparkles size={16} className="text-yellow-400 dark:text-blue-600" />
+                    <Sparkles size={16} className="text-yellow-400 dark:text-indigo-600" />
                     <span className="hidden sm:inline">Assistente IA</span>
                 </button>
             </div>
@@ -463,26 +467,29 @@ export default function App() {
 
                   <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     
-                    {/* Header */}
-                    <div className="px-8 pt-10 md:px-12 md:pt-12 pb-6 border-b border-slate-50 dark:border-slate-800/50">
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        <span className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase rounded-full tracking-wider border border-blue-100 dark:border-blue-800">
+                    {/* Immersive Article Header Banner */}
+                    <div className="relative px-8 pt-16 pb-12 md:px-12 md:pt-20 md:pb-16 bg-gradient-to-br from-indigo-50 to-white dark:from-slate-900 dark:to-slate-900/50 border-b border-slate-100 dark:border-slate-800">
+                      <div className="flex flex-wrap items-center gap-2 mb-6">
+                        <span className="px-3 py-1 bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase rounded-md tracking-wider border border-indigo-100 dark:border-slate-700 shadow-sm">
                           {selectedArticle.category}
                         </span>
                         {selectedArticle.tags.map(tag => (
-                          <span key={tag} className="px-3 py-1 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase rounded-full tracking-wider border border-slate-100 dark:border-slate-700">
-                            #{tag}
+                          <span key={tag} className="flex items-center gap-1 px-3 py-1 bg-white/60 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 text-xs font-medium uppercase rounded-md tracking-wider border border-slate-200/50 dark:border-slate-700">
+                            <Tag size={10} /> {tag}
                           </span>
                         ))}
                       </div>
-                      <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
+                      <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight mb-4">
                         {selectedArticle.question}
                       </h1>
+                      <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+                        {selectedArticle.answer}
+                      </p>
                     </div>
 
                     {/* Content */}
                     <div 
-                      className="article-content px-8 py-8 md:px-12 md:py-12"
+                      className="article-content px-8 py-10 md:px-16 md:py-16"
                       dangerouslySetInnerHTML={{ __html: selectedArticle.content || `<p>${selectedArticle.answer}</p>` }} 
                     />
 
@@ -516,35 +523,38 @@ export default function App() {
                         )}
                     </div>
 
-                    {/* Navigation Footer (Prev/Next) */}
+                    {/* Enhanced Navigation Footer (Cards) */}
                     {(navigationData?.prev || navigationData?.next) && (
-                      <div className="grid grid-cols-2 border-t border-slate-200 dark:border-slate-800 divide-x divide-slate-200 dark:divide-slate-800">
-                         <div className="p-6 md:p-8 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30">
+                         {/* Prev Card */}
+                         <div className="p-6 md:p-8 border-b sm:border-b-0 sm:border-r border-slate-200 dark:border-slate-800 hover:bg-indigo-50/50 dark:hover:bg-slate-800/80 transition-colors group cursor-pointer" onClick={() => navigationData.prev && handleArticleClick(navigationData.prev)}>
                             {navigationData.prev ? (
-                               <button onClick={() => handleArticleClick(navigationData.prev!)} className="w-full text-left group">
-                                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
-                                     <ChevronLeft size={14} /> Anterior
+                               <div className="flex flex-col h-full justify-between items-start">
+                                  <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                     <ChevronLeft size={16} /> Anterior
                                   </div>
-                                  <div className="font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-1">
+                                  <div className="font-bold text-lg text-slate-800 dark:text-slate-200 group-hover:text-indigo-700 dark:group-hover:text-white transition-colors">
                                      {navigationData.prev.question}
                                   </div>
-                               </button>
+                               </div>
                             ) : (
-                              <div className="text-slate-300 dark:text-slate-700 text-sm italic">Início do módulo</div>
+                              <div className="h-full flex items-center text-slate-300 dark:text-slate-700 text-sm italic">Início do módulo</div>
                             )}
                          </div>
-                         <div className="p-6 md:p-8 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors text-right">
+
+                         {/* Next Card */}
+                         <div className="p-6 md:p-8 hover:bg-indigo-50/50 dark:hover:bg-slate-800/80 transition-colors group cursor-pointer text-right" onClick={() => navigationData.next && handleArticleClick(navigationData.next)}>
                             {navigationData.next ? (
-                               <button onClick={() => handleArticleClick(navigationData.next!)} className="w-full text-right group">
-                                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2 justify-end">
-                                     Próximo <ChevronRight size={14} />
+                               <div className="flex flex-col h-full justify-between items-end">
+                                  <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                     Próximo <ChevronRight size={16} />
                                   </div>
-                                  <div className="font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-1">
+                                  <div className="font-bold text-lg text-slate-800 dark:text-slate-200 group-hover:text-indigo-700 dark:group-hover:text-white transition-colors">
                                      {navigationData.next.question}
                                   </div>
-                               </button>
+                               </div>
                             ) : (
-                              <div className="text-slate-300 dark:text-slate-700 text-sm italic">Fim do módulo</div>
+                              <div className="h-full flex items-center justify-end text-slate-300 dark:text-slate-700 text-sm italic">Fim do módulo</div>
                             )}
                          </div>
                       </div>
@@ -558,8 +568,8 @@ export default function App() {
               <div className="max-w-7xl mx-auto pb-24 animate-fadeIn">
                 
                 {/* Module Header & Search Filter */}
-                <div className="mb-10">
-                   <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                <div className="mb-8">
+                   <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
                       <div>
                         <div className="flex items-center gap-2 mb-2">
                            <button 
@@ -587,7 +597,7 @@ export default function App() {
                            placeholder={`Buscar em ${selectedCategory}...`}
                            value={searchQuery}
                            onChange={(e) => setSearchQuery(e.target.value)}
-                           className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all shadow-sm text-slate-900 dark:text-white"
+                           className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all shadow-sm text-slate-900 dark:text-white"
                          />
                          {searchQuery && (
                            <button 
@@ -599,6 +609,27 @@ export default function App() {
                          )}
                       </div>
                    </div>
+
+                   {/* Tag Cloud Filters */}
+                   {availableTags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/50">
+                        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider py-1.5 mr-2">Filtrar por:</span>
+                        {availableTags.map(tag => (
+                          <button
+                            key={tag}
+                            onClick={() => handleTagClick(tag)}
+                            className={`
+                              px-3 py-1.5 rounded-lg text-xs font-medium transition-all
+                              ${selectedTag === tag 
+                                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20' 
+                                : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'}
+                            `}
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
+                   )}
                 </div>
 
                 {/* Articles Grid */}
@@ -615,13 +646,13 @@ export default function App() {
                     </div>
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-1">Nenhum artigo encontrado</h3>
                     <p className="text-slate-500 mb-6 max-w-sm mx-auto">
-                       Não encontramos resultados para "{searchQuery}" neste módulo.
+                       Não encontramos resultados para "{searchQuery}" {selectedTag ? `com a tag "${selectedTag}"` : ''} neste módulo.
                     </p>
                     <button 
-                      onClick={() => setSearchQuery('')}
-                      className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                      onClick={() => { setSearchQuery(''); setSelectedTag(null); }}
+                      className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline"
                     >
-                      Limpar filtro
+                      Limpar filtros
                     </button>
                   </div>
                 )}
@@ -638,7 +669,7 @@ export default function App() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col max-h-[85vh] animate-fadeIn border border-slate-200 dark:border-slate-700">
             <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/50 rounded-t-2xl">
                <div className="flex items-center gap-3">
-                 <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-lg shadow-md shadow-blue-500/20">
+                 <div className="p-2 bg-gradient-to-br from-indigo-500 to-violet-600 text-white rounded-lg shadow-md shadow-indigo-500/20">
                    <Sparkles size={20} />
                  </div>
                  <div>
@@ -654,7 +685,7 @@ export default function App() {
             <div className="p-6 overflow-y-auto flex-grow bg-white dark:bg-slate-900">
               {!aiAnswer && !isAiLoading && (
                 <div className="text-center py-12">
-                   <div className="w-12 h-12 bg-blue-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500">
+                   <div className="w-12 h-12 bg-indigo-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-indigo-500">
                       <Sparkles size={24} />
                    </div>
                   <p className="text-slate-900 dark:text-white font-medium mb-1">Como posso ajudar?</p>
@@ -672,8 +703,8 @@ export default function App() {
 
               {aiAnswer && (
                  <div className="prose prose-sm prose-slate dark:prose-invert max-w-none">
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800 mb-4">
-                       <p className="text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-wider mb-1">Resposta</p>
+                    <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-xl border border-indigo-100 dark:border-indigo-800 mb-4">
+                       <p className="text-xs font-bold text-indigo-600 dark:text-indigo-300 uppercase tracking-wider mb-1">Resposta</p>
                        <p className="whitespace-pre-wrap leading-relaxed text-slate-700 dark:text-slate-200">{aiAnswer}</p>
                     </div>
                  </div>
@@ -683,7 +714,7 @@ export default function App() {
             <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 rounded-b-2xl">
                <form onSubmit={handleAskAI} className="relative">
                  <input 
-                   className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 pr-12 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm text-slate-900 dark:text-white placeholder:text-slate-400"
+                   className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 pr-12 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-sm text-slate-900 dark:text-white placeholder:text-slate-400"
                    placeholder="Digite sua pergunta..."
                    value={aiQuestion}
                    onChange={(e) => setAiQuestion(e.target.value)}
@@ -692,7 +723,7 @@ export default function App() {
                  <button 
                    type="submit" 
                    disabled={!aiQuestion.trim() || isAiLoading}
-                   className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-blue-600 text-white rounded-lg transition-all hover:bg-blue-700 disabled:opacity-50 disabled:hover:bg-blue-600 shadow-md shadow-blue-600/20"
+                   className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-indigo-600 text-white rounded-lg transition-all hover:bg-indigo-700 disabled:opacity-50 disabled:hover:bg-indigo-600 shadow-md shadow-indigo-600/20"
                  >
                    <Send size={16} />
                  </button>

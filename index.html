@@ -8,21 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       :root {
-        /* Tema Claro (Light Mode) - Neutro e Elegante */
+        /* Tema Claro (Light Mode) - Elegant Indigo & Slate */
         --bg-body: #f8fafc;        /* Slate 50 */
         --bg-card: #ffffff;        /* White */
-        --text-primary: #0f172a;   /* Slate 900 */
+        --text-primary: #1e293b;   /* Slate 800 */
         --text-secondary: #64748b; /* Slate 500 */
         --border-color: #e2e8f0;   /* Slate 200 */
         
-        /* Acentos */
-        --primary-color: #2563eb;  /* Blue 600 */
-        --primary-light: #eff6ff;  /* Blue 50 */
+        /* Acentos - Mudando de Blue para Indigo (Mais elegante) */
+        --primary-color: #4338ca;  /* Indigo 700 */
+        --primary-light: #e0e7ff;  /* Indigo 50 */
+        --accent-hover: #4f46e5;   /* Indigo 600 */
         
         /* Componentes Internos dos Artigos */
-        --banner-bg: #f1f5f9;      /* Slate 100 (Cinza neutro ao invés de azul) */
-        --banner-border: #cbd5e1;  /* Slate 300 */
-        --banner-title: #1e293b;   /* Slate 800 */
+        --banner-bg: #f8fafc;      /* Slate 50 */
+        --banner-border: #e2e8f0;  /* Slate 200 */
+        --banner-title: #334155;   /* Slate 700 */
         --banner-text: #475569;    /* Slate 600 */
         
         --code-bg: #1e293b;
@@ -30,20 +31,21 @@
       }
 
       body.dark {
-        /* Tema Escuro (Dark Mode) - Profundo */
+        /* Tema Escuro (Dark Mode) - Deep Slate */
         --bg-body: #020617;        /* Slate 950 */
         --bg-card: #0f172a;        /* Slate 900 */
         --text-primary: #f8fafc;   /* Slate 50 */
         --text-secondary: #94a3b8; /* Slate 400 */
         --border-color: #1e293b;   /* Slate 800 */
         
-        --primary-color: #3b82f6;  /* Blue 500 */
-        --primary-light: #1e293b;  /* Slate 800 */
+        --primary-color: #6366f1;  /* Indigo 500 */
+        --primary-light: #1e1b4b;  /* Indigo 950 */
+        --accent-hover: #818cf8;   /* Indigo 400 */
 
-        --banner-bg: #172554;
-        --banner-border: #1e3a8a;
-        --banner-title: #bfdbfe;
-        --banner-text: #60a5fa;
+        --banner-bg: #1e293b;
+        --banner-border: #334155;
+        --banner-title: #e2e8f0;
+        --banner-text: #cbd5e1;
         
         --code-bg: #000000;
         --code-text: #e2e8f0;
@@ -77,7 +79,7 @@
       /* --- Article Global Styles --- */
       
       .article-content {
-        font-size: 1rem;
+        font-size: 1.05rem; /* Leitura um pouco maior */
         line-height: 1.8;
       }
       
@@ -92,7 +94,7 @@
       .article-content h2 { 
         font-size: 1.4rem; 
         font-weight: 600; 
-        color: var(--text-primary); /* Menos azul, mais escuro */
+        color: var(--text-primary); 
         margin-top: 2.5rem; 
         margin-bottom: 1rem; 
         padding-bottom: 0.5rem;
@@ -108,7 +110,7 @@
       }
       
       .article-content p { 
-        margin-bottom: 1.25rem; 
+        margin-bottom: 1.5rem; 
         color: var(--text-secondary); 
       }
       
@@ -118,7 +120,7 @@
       }
       
       .article-content li { 
-        margin-bottom: 0.5rem; 
+        margin-bottom: 0.75rem; 
         color: var(--text-secondary); 
       }
 
@@ -126,22 +128,24 @@
       .welcome-banner {
         background: var(--banner-bg);
         padding: 2rem;
-        border-radius: 0.75rem;
+        border-radius: 1rem;
         margin-bottom: 2.5rem;
         text-align: center;
-        border: 1px solid var(--border-color); /* Borda mais sutil */
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
       }
       .welcome-banner h1 { margin-bottom: 0.75rem; color: var(--banner-title); }
       .welcome-banner p { color: var(--banner-text); margin-bottom: 0; font-size: 1.1rem; }
 
       .note-box {
         background: var(--bg-body);
-        padding: 1.25rem;
-        border-left: 3px solid var(--primary-color);
+        padding: 1.5rem;
+        border-left: 4px solid var(--primary-color);
         margin: 2rem 0;
-        border-radius: 0 0.5rem 0.5rem 0;
+        border-radius: 0 0.75rem 0.75rem 0;
         color: var(--text-secondary);
-        font-size: 0.95rem;
+        font-size: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
       }
 
       .code-block {
@@ -154,6 +158,7 @@
         font-size: 0.9rem;
         overflow-x: auto;
         line-height: 1.6;
+        border: 1px solid var(--border-color);
       }
 
       .grid-container {
@@ -166,26 +171,26 @@
       .shortcut-card, .contact-card, .stage-card {
         background: var(--bg-card);
         padding: 1.5rem;
-        border-radius: 0.75rem;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        border-radius: 1rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         border: 1px solid var(--border-color);
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .shortcut-card:hover, .contact-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.1);
         border-color: var(--primary-color);
       }
       
       .shortcut-card code {
         background: var(--primary-light);
         color: var(--primary-color);
-        padding: 0.25rem 0.5rem;
-        border-radius: 0.25rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: 0.5rem;
         font-weight: 600;
         font-size: 0.85rem;
         display: inline-block;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         font-family: monospace;
       }
       
@@ -209,12 +214,12 @@
       .blue-bullets li { position: relative; padding-left: 1.75rem; }
       .blue-bullets li::before {
         content: "";
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         background-color: var(--primary-color);
-        border-radius: 50%;
+        border-radius: 2px; /* Square bullets for modern feel */
         position: absolute;
-        left: 0.5rem;
+        left: 0.25rem;
         top: 0.6em;
       }
       
@@ -222,7 +227,7 @@
         font-size: 0.75rem;
         background: transparent;
         color: var(--text-secondary);
-        padding: 4px 10px;
+        padding: 6px 12px;
         border-radius: 99px;
         border: 1px solid var(--border-color);
         cursor: pointer;
@@ -234,25 +239,25 @@
       }
       .copy-btn:hover { 
         background: var(--bg-body); 
-        color: var(--text-primary);
-        border-color: var(--text-secondary);
+        color: var(--primary-color);
+        border-color: var(--primary-color);
       }
       .copy-btn.copied {
-        background: #dcfce7;
-        color: #15803d;
-        border-color: #dcfce7;
+        background: #ecfccb;
+        color: #4d7c0f;
+        border-color: #ecfccb;
       }
       body.dark .copy-btn.copied {
-        background: #14532d;
-        color: #dcfce7;
-        border-color: #14532d;
+        background: #365314;
+        color: #ecfccb;
+        border-color: #365314;
       }
 
       /* Warning box overrides */
       .warning-box {
-        border-left: 3px solid #f59e0b;
+        border-left: 4px solid #f59e0b;
         background-color: #fffbeb;
-        padding: 1.25rem;
+        padding: 1.5rem;
         margin: 1.5rem 0;
         border-radius: 0.5rem;
         color: #92400e;
