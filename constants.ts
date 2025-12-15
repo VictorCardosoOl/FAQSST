@@ -210,7 +210,7 @@ export const FAQ_DATA: FAQItem[] = [
     id: 'atalhos-sincro',
     category: Category.COLETIVO,
     question: 'Atalhos Sincro - Mensagens Rápidas',
-    answer: 'Manual de atalhos e mensagens padronizadas para agilizar o atendimento no Sincro.',
+    answer: 'Manual de atalhos e mensagens padronizadas para agilizar o atendimento no Sincro. Clique para copiar.',
     tags: ['Sincro', 'Atalhos', 'Produtividade'],
     content: `
       <div class="welcome-banner">
@@ -222,12 +222,67 @@ export const FAQ_DATA: FAQItem[] = [
         <h2>Início da Conversa</h2>
         <div class="grid-container">
           <div class="shortcut-card">
-            <code>/saudação</code>
+            <div class="shortcut-header">
+              <h3>/saudação</h3>
+              <button class="copy-btn" data-copy="Wise System, Suporte, Bom dia! Espero que esteja bem! Em que podemos ajudar?">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
             <p>Wise System, Suporte, Bom dia! Espero que esteja bem! Em que podemos ajudar?</p>
           </div>
+          
           <div class="shortcut-card">
-            <code>/protocolo</code>
+            <div class="shortcut-header">
+              <h3>/farei</h3>
+              <button class="copy-btn" data-copy="Farei o possível para ajudar!">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
+            <p>Farei o possível para ajudar!</p>
+          </div>
+
+          <div class="shortcut-card">
+            <div class="shortcut-header">
+              <h3>/protocolo</h3>
+              <button class="copy-btn" data-copy="Verifiquei internamente e, por não haver atendimentos anteriores referentes a esta questão, este atendimento gerou o protocolo --.">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
             <p>Verifiquei internamente e... este atendimento gerou o protocolo --.</p>
+          </div>
+
+           <div class="shortcut-card">
+            <div class="shortcut-header">
+              <h3>/ocupa</h3>
+              <button class="copy-btn" data-copy="Seu contato é muito importante para nós! No momento todos os nossos agentes estão em atendimento! Peço gentilmente que aguarde um momento, em breve iremos atendê-lo(a).">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
+            <p>Todos os agentes ocupados... aguarde um momento.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Meio da Conversa</h2>
+        <div class="grid-container">
+           <div class="shortcut-card">
+            <div class="shortcut-header">
+              <h3>/momento</h3>
+              <button class="copy-btn" data-copy="Um momento por gentileza, vou verificar internamente.">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
+            <p>Um momento por gentileza, vou verificar internamente.</p>
+          </div>
+           <div class="shortcut-card">
+            <div class="shortcut-header">
+              <h3>/desculpa</h3>
+              <button class="copy-btn" data-copy="Peço desculpas pela demora.">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
+            <p>Peço desculpas pela demora.</p>
           </div>
         </div>
       </section>
@@ -236,12 +291,37 @@ export const FAQ_DATA: FAQItem[] = [
         <h2>Encerramento</h2>
         <div class="grid-container">
            <div class="shortcut-card">
-            <code>/ajudo</code>
+            <div class="shortcut-header">
+              <h3>/ajudo</h3>
+              <button class="copy-btn" data-copy="No momento, ajudo em algo mais?">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
             <p>No momento, ajudo em algo mais?</p>
           </div>
           <div class="shortcut-card">
-            <code>/pesquisa</code>
-            <p>Sua opinião é fundamental... (Mensagem de pesquisa de satisfação).</p>
+            <div class="shortcut-header">
+              <h3>/pesquisa</h3>
+              <button class="copy-btn" data-copy="A sua satisfação é a nossa prioridade! Por isso, com a finalização do seu Protocolo de Atendimento, você receberá uma pesquisa em seu e-mail. Sua opinião é fundamental para que possamos avaliar nosso atendimento e melhorar continuamente nossos serviços. Se puder avaliar neste momento o atendimento que recebeu, ficaremos imensamente gratos! Agradecemos pela confiança e por escolher a Wise System como parceira em soluções tecnológicas.">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
+            <p>Mensagem de pesquisa de satisfação.</p>
+          </div>
+        </div>
+      </section>
+      
+       <section>
+        <h2>AnyDesk</h2>
+        <div class="grid-container">
+           <div class="shortcut-card">
+            <div class="shortcut-header">
+              <h3>/anydesk</h3>
+              <button class="copy-btn" data-copy="Por favor, poderia me enviar o acesso AnyDesk?">
+                <span class="copy-icon">📋</span> Copiar
+              </button>
+            </div>
+            <p>Por favor, poderia me enviar o acesso AnyDesk?</p>
           </div>
         </div>
       </section>
@@ -265,5 +345,4 @@ export const FAQ_DATA: FAQItem[] = [
     tags: ['férias'],
     content: '<p>Envie um e-mail para rh@empresa.com com as datas desejadas e aguarde a aprovação.</p>'
   }
-  // (You can add the rest of the existing items similarly if needed, simplified here for brevity of the response)
 ];

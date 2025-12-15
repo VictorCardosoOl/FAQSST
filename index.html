@@ -7,11 +7,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --bg-body: #f8fafc;
+        --bg-card: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #475569;
+        --border-color: #e2e8f0;
+        --banner-bg: #e0f2fe;
+        --banner-border: #bae6fd;
+        --banner-title: #0c4a6e;
+        --banner-text: #0369a1;
+        --code-bg: #1e293b;
+        --code-text: #e2e8f0;
+      }
+
+      body.dark {
+        --bg-body: #0f172a;
+        --bg-card: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --border-color: #334155;
+        --banner-bg: #172554;
+        --banner-border: #1e3a8a;
+        --banner-title: #bfdbfe;
+        --banner-text: #60a5fa;
+        --code-bg: #020617;
+        --code-text: #e2e8f0;
+      }
+
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #f8fafc;
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+        transition: background-color 0.3s, color 0.3s;
       }
-      /* Custom scrollbar for better aesthetics */
+
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -29,38 +60,38 @@
 
       /* --- Article Global Styles --- */
       
-      /* Typography defaults inside articles */
-      .article-content h1 { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; }
-      .article-content h2 { font-size: 1.5rem; font-weight: 600; color: #0ea5e9; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
-      .article-content h3 { font-size: 1.25rem; font-weight: 600; color: #334155; margin-top: 1.5rem; margin-bottom: 0.75rem; }
-      .article-content p { margin-bottom: 1rem; line-height: 1.7; color: #475569; }
+      .article-content h1 { font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; }
+      .article-content h2 { font-size: 1.5rem; font-weight: 600; color: #0ea5e9; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+      .article-content h3 { font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-top: 1.5rem; margin-bottom: 0.75rem; }
+      .article-content p { margin-bottom: 1rem; line-height: 1.7; color: var(--text-secondary); }
       .article-content ul { margin-bottom: 1.5rem; padding-left: 1.5rem; }
-      .article-content li { margin-bottom: 0.5rem; color: #475569; }
+      .article-content li { margin-bottom: 0.5rem; color: var(--text-secondary); }
 
       /* Components */
       .welcome-banner {
-        background: #e0f2fe; /* sky-100 */
+        background: var(--banner-bg);
         padding: 2rem;
         border-radius: 0.75rem;
         margin-bottom: 2rem;
         text-align: center;
-        border: 1px solid #bae6fd;
+        border: 1px solid var(--banner-border);
       }
-      .welcome-banner h1 { margin-bottom: 0.5rem; color: #0c4a6e; }
-      .welcome-banner p { color: #0369a1; margin-bottom: 0; }
+      .welcome-banner h1 { margin-bottom: 0.5rem; color: var(--banner-title); }
+      .welcome-banner p { color: var(--banner-text); margin-bottom: 0; }
 
       .note-box {
-        background: #f1f5f9;
+        background: var(--bg-body);
         padding: 1.25rem;
-        border-left: 4px solid #3b82f6; /* blue-500 */
+        border-left: 4px solid #3b82f6;
         margin: 1.5rem 0;
         border-radius: 0.5rem;
-        color: #334155;
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
       }
 
       .code-block {
-        background: #1e293b;
-        color: #e2e8f0;
+        background: var(--code-bg);
+        color: var(--code-text);
         padding: 1.5rem;
         border-radius: 0.5rem;
         margin: 1.5rem 0;
@@ -76,11 +107,11 @@
       }
 
       .shortcut-card, .contact-card, .stage-card {
-        background: white;
+        background: var(--bg-card);
         padding: 1.5rem;
         border-radius: 0.75rem;
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--border-color);
         transition: transform 0.2s, box-shadow 0.2s;
       }
       .shortcut-card:hover, .contact-card:hover {
@@ -88,13 +119,24 @@
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       }
       .shortcut-card code {
-        background: #e0f2fe;
+        background: var(--banner-bg);
         color: #0284c7;
         padding: 0.25rem 0.5rem;
         border-radius: 0.25rem;
         font-weight: 600;
         display: inline-block;
         margin-bottom: 0.5rem;
+      }
+      .shortcut-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .shortcut-header h3 {
+        margin: 0 !important;
+        font-size: 1.1rem !important;
+        color: #0284c7 !important;
       }
 
       .blue-bullets { list-style: none; padding-left: 0; }
@@ -111,14 +153,39 @@
       
       .copy-btn {
         font-size: 0.75rem;
-        background: #f1f5f9;
-        padding: 4px 8px;
-        border-radius: 4px;
-        border: 1px solid #cbd5e1;
+        background: var(--bg-body);
+        color: var(--text-secondary);
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
         cursor: pointer;
-        float: right;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
       }
-      .copy-btn:active { background: #e2e8f0; }
+      .copy-btn:hover { background: var(--border-color); }
+      .copy-btn.copied {
+        background: #22c55e;
+        color: white;
+        border-color: #22c55e;
+      }
+
+      /* Warning box overrides */
+      .warning-box {
+        border-left: 4px solid #f59e0b;
+        background-color: #fef3c7;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+        color: #92400e;
+      }
+      body.dark .warning-box {
+        background-color: #451a03;
+        color: #fcd34d;
+        border-left-color: #f59e0b;
+      }
+      .warning-box h4 { margin-top: 0; color: inherit; font-weight: bold; }
 
     </style>
   <script type="importmap">
