@@ -1,348 +1,76 @@
-
 import { Category, FAQItem } from './types';
 
 export const FAQ_DATA: FAQItem[] = [
-  // --- COLETIVO MODULE (Migrated Data) ---
   {
     id: 'tratativa-protocolo-wise',
     category: Category.COLETIVO,
-    question: 'Tratativa e Abertura de Protocolos',
-    answer: 'Guia completo sobre a correta abertura e condução de protocolos no sistema W-GSC. Ideal para novos colaboradores do suporte técnico.',
-    tags: ['Protocolo', 'Atendimento', 'Processos'],
+    date: '12 Out 2024',
+    imageUrl: 'https://images.unsplash.com/photo-1553028826-f4804a6dba3b?auto=format&fit=crop&w=1200&q=80',
+    question: 'A Arte da Tratativa de Protocolos',
+    answer: 'Um manifesto sobre a excelência operacional na abertura e condução de atendimentos no sistema W-GSC.',
+    tags: ['Protocolo', 'Excelência', 'Processos'],
     content: `
       <div class="welcome-banner">
-        <h1>Guia de Abertura e Tratativa de Protocolos</h1>
-        <p>Padronização do processo de atendimento para garantir organização e responsabilidade.</p>
+        <h1>O Rigor Operacional</h1>
+        <p>Abertura e condução de protocolos sob uma nova ótica de responsabilidade.</p>
       </div>
 
       <section>
-        <h2>1. Início da Abertura</h2>
-        <p><strong>Ao atender um cliente:</strong> deve-se abrir um protocolo imediatamente no sistema <strong>W-GSC</strong>, detalhando a dúvida ou problema no campo de ocorrência.</p>
+        <h2>A Gênese do Atendimento</h2>
+        <p>O atendimento não se inicia na fala, mas no registro. Ao acolher um cliente, a materialização da sua necessidade no sistema <strong>W-GSC</strong> é o primeiro ato de respeito à sua jornada.</p>
         <div class="note-box">
-          <strong>Importante:</strong> O protocolo é de responsabilidade do agente que o abriu. Mantenha o cliente atualizado diariamente (máximo duas vezes ao dia) mesmo sem solução definitiva.
+          O protocolo não é um número; é a representação digital da confiança do cliente em nossa marca.
         </div>
       </section>
 
       <section>
-        <h2>2. Campos Obrigatórios</h2>
+        <h2>Pilares Obrigatórios</h2>
         <ul class="blue-bullets">
-          <li><strong>Cliente/Empresa</strong> e <strong>Nome do Supervisor Sigo</strong></li>
-          <li><strong>Ocorrência:</strong> Classifique conforme o tipo de solicitação.</li>
-          <li><strong>Detalhamento:</strong> Todas as informações fornecidas pelo cliente.</li>
-          <li><strong>Resolução:</strong> O que foi feito/testado, com datas e nomes.</li>
-          <li><strong>Encerramento:</strong> Somente após contato com o cliente.</li>
+          <li><strong>Identidade:</strong> Vínculo irrefutável entre Cliente e Supervisor.</li>
+          <li><strong>Contextualização:</strong> A narrativa clara do problema.</li>
+          <li><strong>Rastreabilidade:</strong> Histórico imaculado de todas as tentativas e êxitos.</li>
         </ul>
       </section>
 
-      <section>
-        <h2>3. Modelo de Preenchimento</h2>
-        <div class="code-block">
-          Empresa: xxxxxx ID: 000<br>
-          Funcionário: xxxxxx ID: 000<br>
-          O que ocorreu: [Descrição detalhada]<br>
-          "Se houver necessidade de análise do desenvolvimento, incluir caminho da pasta:<br> 
-          W:\\Transfer\\_x\\Exemplo"
-        </div>
-      </section>
-
-      <section>
-        <h2>4. Qualidade das Informações</h2>
-        <p>Informações incompletas geram erros de interpretação e retrabalho. Seja minucioso!</p>
-      </section>
+      <div class="code-block">
+        [ESTRUTURA DE DADOS]
+        Empresa: xxxxxx ID: 000
+        Status: EM ANÁLISE CRÍTICA
+        Responsável: AGENTE SUPORTE
+      </div>
     `
   },
   {
     id: 'feedback-cliente-24h',
     category: Category.COLETIVO,
-    question: 'Feedback ao Cliente a Cada 24 Horas',
-    answer: 'Guia sobre a importância e prática do feedback contínuo ao cliente, mantendo transparência e fortalecendo a relação de confiança.',
-    tags: ['Feedback', 'Cliente', 'Comunicação'],
+    date: '15 Out 2024',
+    imageUrl: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80',
+    question: 'A Estética do Feedback Contínuo',
+    answer: 'Por que o silêncio é o maior inimigo da experiência do usuário e como o feedback a cada 24h resolve isso.',
+    tags: ['Comunicação', 'Feedback', 'Luxo'],
     content: `
       <div class="welcome-banner">
-        <h1>Feedback Contínuo ao Cliente</h1>
-        <p>Manter o cliente informado é essencial para fortalecer a relação de confiança.</p>
+        <h1>O Valor da Informação</h1>
+        <p>Em um mundo de incertezas, a atualização constante é o maior luxo que podemos oferecer.</p>
       </div>
-
-      <section>
-        <h2>1. Periodicidade</h2>
-        <p>Recomenda-se um <strong>feedback a cada 24 horas</strong>, mesmo sem solução definitiva.</p>
-        <div class="note-box">
-          Demonstra comprometimento e cuidado com a experiência do cliente.
-        </div>
-      </section>
-
-      <section>
-        <h2>2. Boas Práticas</h2>
-        <ul class="blue-bullets">
-          <li><strong>Seja claro:</strong> Evite termos técnicos desnecessários.</li>
-          <li><strong>Evite o silêncio:</strong> Informe que o processo está em andamento para evitar insegurança.</li>
-          <li><strong>Registre:</strong> Anote cada contato no W-GSC.</li>
-        </ul>
-      </section>
+      <p>Manter o cliente informado não é apenas um processo, é uma filosofia de transparência. Recomendamos o toque humano a cada ciclo solar (24h), garantindo que o cliente sinta-se assistido, nunca esquecido.</p>
     `
   },
   {
     id: 'script-atendimento',
     category: Category.COLETIVO,
-    question: 'Script de Atendimento ao Cliente',
-    answer: 'Guia prático e humanizado para novos colaboradores do suporte técnico. Aborda boas práticas e scripts telefônicos.',
-    tags: ['Atendimento', 'Script', 'Telefone'],
+    date: '20 Out 2024',
+    imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
+    question: 'Script e Etiqueta de Atendimento',
+    answer: 'Diretrizes para uma comunicação humanizada, refinada e focada na resolução imediata.',
+    tags: ['Etiqueta', 'Script', 'Acolhimento'],
     content: `
       <div class="welcome-banner">
-        <h1>Script de Atendimento</h1>
-        <p>Guia para acolher e orientar novos colaboradores com profissionalismo e empatia.</p>
+        <h1>Humanidade na Voz</h1>
+        <p>Diretrizes para um diálogo que transcende o técnico e alcança o empático.</p>
       </div>
-
-      <section>
-        <h2>Princípios Fundamentais</h2>
-        <ul class="blue-bullets">
-          <li>Atenda até o 3º toque.</li>
-          <li>Evite "quem fala?". Prefira: “Por gentileza, qual o seu nome?”.</li>
-          <li>Chame o cliente pelo nome.</li>
-          <li>Sorria com a voz!</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Scripts Telefônicos</h2>
-        <div class="grid-container">
-          <div class="shortcut-card">
-            <code>Ligação Externa</code>
-            <p>Wise System, Suporte, André. Bom dia!</p>
-          </div>
-          <div class="shortcut-card">
-            <code>Ligação Interna</code>
-            <p>Suporte, André. Boa tarde!</p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Passo a Passo</h2>
-        <div class="note-box">
-          Confirme nome/empresa > Solicite anotação do protocolo > Pergunte a dúvida > Registre tudo > Encerre cordialmente.
-        </div>
-      </section>
+      <h2>Etiqueta Fundamental</h2>
+      <p>Atender até o terceiro toque não é apenas agilidade, é prontidão. Sorrir com a voz não é técnica, é disposição para o outro.</p>
     `
-  },
-  {
-    id: 'contatos-internos',
-    category: Category.COLETIVO,
-    question: 'Contatos Internos - Wise System',
-    answer: 'Lista atualizada de ramais, e-mails e contatos dos setores internos.',
-    tags: ['Ramais', 'Contatos', 'Interno'],
-    content: `
-      <div class="welcome-banner">
-        <h1>Contatos Internos</h1>
-        <p>Consulte abaixo os ramais e e-mails dos setores.</p>
-      </div>
-
-      <section>
-        <h2>Ramais</h2>
-        <div class="grid-container">
-          <div class="contact-card">
-            <h3>Comercial</h3>
-            <p>Ramal: 218</p>
-          </div>
-          <div class="contact-card">
-            <h3>Financeiro</h3>
-            <p>Ramal: 222</p>
-          </div>
-          <div class="contact-card">
-            <h3>Suporte</h3>
-            <p>Ramal: 200</p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>WhatsApp</h2>
-        <div class="grid-container">
-          <div class="contact-card">
-             <h3>Financeiro</h3>
-             <p>11 91721-1256</p>
-          </div>
-          <div class="contact-card">
-             <h3>Suporte</h3>
-             <p>11 2609-1029</p>
-          </div>
-        </div>
-      </section>
-    `
-  },
-  {
-    id: 'estrutura-suporte',
-    category: Category.COLETIVO,
-    question: 'Estrutura e Ocupações da Operação',
-    answer: 'Descrição detalhada dos níveis (N1, N2) e estágios da operação de suporte.',
-    tags: ['Estrutura', 'Hierarquia', 'Níveis'],
-    content: `
-      <div class="welcome-banner">
-        <h1>Estrutura da Operação</h1>
-        <p>Organização hierárquica e responsabilidades da equipe.</p>
-      </div>
-
-      <section>
-        <h2>Visão Geral</h2>
-        <ul class="blue-bullets">
-          <li><strong>Relacionamento:</strong> Gestão de processos e coordenação.</li>
-          <li><strong>Nível 1 (N1):</strong> Suporte direto ao cliente.</li>
-          <li><strong>Nível 2 (N2):</strong> Suporte técnico avançado e desenvolvimento.</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Nível 1 (N1)</h2>
-        <div class="grid-container">
-          <div class="stage-card">
-            <h3>Estágio 1</h3>
-            <p>Suporte direto, análise em até 1h, coleta de dados.</p>
-          </div>
-          <div class="stage-card">
-            <h3>Estágio 2</h3>
-            <p>Análise em até 2h, migrações, treinamentos, tratativa de e-mails.</p>
-          </div>
-        </div>
-      </section>
-    `
-  },
-  {
-    id: 'atalhos-sincro',
-    category: Category.COLETIVO,
-    question: 'Atalhos Sincro - Mensagens Rápidas',
-    answer: 'Manual de atalhos e mensagens padronizadas para agilizar o atendimento no Sincro. Clique para copiar.',
-    tags: ['Sincro', 'Atalhos', 'Produtividade'],
-    content: `
-      <div class="welcome-banner">
-        <h1>Atalhos Sincro</h1>
-        <p>Mensagens automáticas para agilizar o atendimento.</p>
-      </div>
-
-      <section>
-        <h2>Início da Conversa</h2>
-        <div class="grid-container">
-          <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/saudação</h3>
-              <button class="copy-btn" data-copy="Wise System, Suporte, Bom dia! Espero que esteja bem! Em que podemos ajudar?">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Wise System, Suporte, Bom dia! Espero que esteja bem! Em que podemos ajudar?</p>
-          </div>
-          
-          <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/farei</h3>
-              <button class="copy-btn" data-copy="Farei o possível para ajudar!">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Farei o possível para ajudar!</p>
-          </div>
-
-          <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/protocolo</h3>
-              <button class="copy-btn" data-copy="Verifiquei internamente e, por não haver atendimentos anteriores referentes a esta questão, este atendimento gerou o protocolo --.">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Verifiquei internamente e... este atendimento gerou o protocolo --.</p>
-          </div>
-
-           <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/ocupa</h3>
-              <button class="copy-btn" data-copy="Seu contato é muito importante para nós! No momento todos os nossos agentes estão em atendimento! Peço gentilmente que aguarde um momento, em breve iremos atendê-lo(a).">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Todos os agentes ocupados... aguarde um momento.</p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Meio da Conversa</h2>
-        <div class="grid-container">
-           <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/momento</h3>
-              <button class="copy-btn" data-copy="Um momento por gentileza, vou verificar internamente.">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Um momento por gentileza, vou verificar internamente.</p>
-          </div>
-           <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/desculpa</h3>
-              <button class="copy-btn" data-copy="Peço desculpas pela demora.">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Peço desculpas pela demora.</p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Encerramento</h2>
-        <div class="grid-container">
-           <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/ajudo</h3>
-              <button class="copy-btn" data-copy="No momento, ajudo em algo mais?">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>No momento, ajudo em algo mais?</p>
-          </div>
-          <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/pesquisa</h3>
-              <button class="copy-btn" data-copy="A sua satisfação é a nossa prioridade! Por isso, com a finalização do seu Protocolo de Atendimento, você receberá uma pesquisa em seu e-mail. Sua opinião é fundamental para que possamos avaliar nosso atendimento e melhorar continuamente nossos serviços. Se puder avaliar neste momento o atendimento que recebeu, ficaremos imensamente gratos! Agradecemos pela confiança e por escolher a Wise System como parceira em soluções tecnológicas.">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Mensagem de pesquisa de satisfação.</p>
-          </div>
-        </div>
-      </section>
-      
-       <section>
-        <h2>AnyDesk</h2>
-        <div class="grid-container">
-           <div class="shortcut-card">
-            <div class="shortcut-header">
-              <h3>/anydesk</h3>
-              <button class="copy-btn" data-copy="Por favor, poderia me enviar o acesso AnyDesk?">
-                <span class="copy-icon">📋</span> Copiar
-              </button>
-            </div>
-            <p>Por favor, poderia me enviar o acesso AnyDesk?</p>
-          </div>
-        </div>
-      </section>
-    `
-  },
-
-  // --- EXISTING DATA (Kept for compatibility) ---
-  {
-    id: '1',
-    category: Category.GERAL,
-    question: 'Qual é o horário de funcionamento?',
-    answer: 'O escritório está aberto oficialmente das 08:00 às 18:00.',
-    tags: ['horário'],
-    content: '<p>O escritório está aberto oficialmente das 08:00 às 18:00. No entanto, a equipe tem flexibilidade para entrar entre 08:00 e 10:00.</p>'
-  },
-  {
-    id: '3',
-    category: Category.RH,
-    question: 'Como solicito minhas férias?',
-    answer: 'As férias devem ser solicitadas com pelo menos 30 dias de antecedência via e-mail.',
-    tags: ['férias'],
-    content: '<p>Envie um e-mail para rh@empresa.com com as datas desejadas e aguarde a aprovação.</p>'
   }
 ];

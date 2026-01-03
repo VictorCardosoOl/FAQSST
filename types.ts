@@ -1,20 +1,21 @@
-
 export enum Category {
   COLETIVO = 'Coletivo',
   GERAL = 'Geral',
-  RH = 'Recursos Humanos',
+  RH = 'Capital Humano',
   TI = 'Tecnologia',
-  VENDAS = 'Vendas & Processos',
-  FINANCEIRO = 'Financeiro'
+  VENDAS = 'Estratégia & Vendas',
+  FINANCEIRO = 'Governança Financeira'
 }
 
 export interface FAQItem {
   id: string;
   question: string;
-  answer: string; // Used for the short description/card preview
+  answer: string;
   category: Category;
   tags: string[];
-  content?: string; // HTML Content for the full article view
+  content?: string;
+  imageUrl?: string; // Nova propriedade para estética visual
+  date?: string;     // Para listagem estilo K-News
 }
 
 export interface SearchResult {
