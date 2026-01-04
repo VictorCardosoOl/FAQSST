@@ -7,28 +7,26 @@ export const askGemini = async (userQuestion: string): Promise<string> => {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
-    // RAG Simplificado: Filtragem de contexto por relevância de palavras-chave
     const queryTerms = userQuestion.toLowerCase().split(' ').filter(t => t.length > 3);
     const relevantArticles = FAQ_DATA.filter(item => {
       const content = (item.question + ' ' + item.tags.join(' ')).toLowerCase();
       return queryTerms.some(term => content.includes(term));
     });
 
-    // Se não encontrar nada específico, envia os 3 mais importantes como base
     const finalContext = relevantArticles.length > 0 ? relevantArticles : FAQ_DATA.slice(0, 3);
-
     const contextString = finalContext.map((item: FAQItem) => 
-      `ARTIGO: ${item.question}\nRESUMO: ${item.answer}`
+      `TÍTULO: ${item.question}\nDOC: ${item.answer}\nDETALHES: ${item.content || ''}`
     ).join('\n---\n');
 
     const systemInstruction = `
-      Você é o Curador de Conhecimento da TeamWiki.
-      Sua personalidade é: Elegante, Precisa e Profissional.
+      Você é a Inteligência Editorial da TeamWiki. Sua voz é erudita, técnica e minimalista.
+      Responda SEMPRE em Português do Brasil de alto padrão.
       
-      INSTRUÇÕES:
-      1. Use APENAS o contexto fornecido abaixo para responder.
-      2. Se a resposta não estiver no contexto, peça gentilmente para o usuário contatar o gestor do módulo.
-      3. Mantenha as respostas curtas (máximo 3 parágrafos) e use um tom editorial.
+      PRINCÍPIOS DE RESPOSTA:
+      1. Siga o estilo de escrita da revista The Economist: direto, inteligente e sem jargões desnecessários.
+      2. Baseie-se ESTRITAMENTE no CONTEXTO abaixo.
+      3. Se a informação não existir, responda: "Esta diretriz ainda não foi catalogada em nossa biblioteca de governança."
+      4. Use formatação limpa (Markdown) se necessário.
       
       CONTEXTO:
       ${contextString}
@@ -39,13 +37,13 @@ export const askGemini = async (userQuestion: string): Promise<string> => {
       contents: userQuestion,
       config: {
         systemInstruction,
-        temperature: 0.3,
+        temperature: 0.2,
       }
     });
 
-    return response.text || "Lamento, não consegui processar essa informação no momento.";
+    return response.text || "Lamento, houve uma interrupção na transmissão do conhecimento.";
   } catch (error) {
-    console.error("Gemini Critical Error:", error);
-    return "Falha na conexão com o cérebro editorial.";
+    console.error("Gemini Error:", error);
+    return "O cérebro editorial está indisponível no momento.";
   }
 };

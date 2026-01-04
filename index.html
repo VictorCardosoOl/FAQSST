@@ -4,177 +4,102 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TeamWiki | Knowledge Archive</title>
-    <meta name="theme-color" content="#4f46e5">
+    <title>TeamWiki | Conhecimento Arquitetônico</title>
+    <meta name="theme-color" content="#000000">
     <link rel="manifest" href="metadata.json">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       :root {
-        --bg-main: #fcfcfc;
-        --bg-sidebar: rgba(255, 255, 255, 0.8);
-        --text-main: #18181b;
-        --text-muted: #71717a;
-        --accent: #4f46e5;
-        --border: #e4e4e7;
+        --bg-main: #ffffff;
+        --bg-island: rgba(255, 255, 255, 0.8);
+        --text-main: #000000;
+        --text-muted: #666666;
+        --accent: #000000;
+        --border: rgba(0, 0, 0, 0.08);
+        --selection: rgba(0, 0, 0, 0.05);
       }
 
       body.dark {
-        --bg-main: #09090b;
-        --bg-sidebar: rgba(18, 18, 18, 0.8);
-        --text-main: #fafafa;
-        --text-muted: #a1a1aa;
-        --border: #27272a;
+        --bg-main: #000000;
+        --bg-island: rgba(10, 10, 10, 0.8);
+        --text-main: #ffffff;
+        --text-muted: #888888;
+        --accent: #ffffff;
+        --border: rgba(255, 255, 255, 0.1);
+        --selection: rgba(255, 255, 255, 0.1);
       }
 
       * {
         cursor: none !important;
+        scrollbar-width: none;
+        -webkit-font-smoothing: antialiased;
       }
+      ::-webkit-scrollbar { display: none; }
 
       body {
         font-family: 'Inter', sans-serif;
         background-color: var(--bg-main);
         color: var(--text-main);
-        overflow-x: hidden;
-        transition: background-color 0.5s ease;
+        transition: background-color 0.8s ease;
       }
 
-      h1, h2, h3, h4 {
-        font-family: 'Playfair Display', serif;
+      ::selection {
+        background-color: var(--selection);
+        color: var(--text-main);
       }
 
       #custom-cursor {
-        width: 10px;
-        height: 10px;
-        background: var(--accent);
+        width: 4px;
+        height: 4px;
+        background: var(--text-main);
         border-radius: 50%;
         position: fixed;
         pointer-events: none;
         z-index: 9999;
-        mix-blend-mode: difference;
       }
 
       #custom-cursor-follower {
-        width: 40px;
-        height: 40px;
-        border: 1px solid var(--accent);
+        width: 24px;
+        height: 24px;
+        border: 0.5px solid var(--text-main);
         border-radius: 50%;
         position: fixed;
         pointer-events: none;
         z-index: 9998;
-        transition: transform 0.15s ease-out;
+        transition: transform 0.1s ease-out;
       }
 
       .glass {
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
       }
 
-      .article-content-render {
-        font-size: 1.125rem;
-        line-height: 1.8;
-      }
-      .article-content-render h2 {
-        font-size: 2.25rem;
-        margin-top: 3.5rem;
-        margin-bottom: 1.5rem;
-        font-weight: 700;
-        color: var(--text-main);
-      }
-      .article-content-render p {
-        margin-bottom: 1.5rem;
-        color: var(--text-muted);
-      }
-      .article-content-render blockquote {
-        position: relative;
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
-        font-size: 1.4rem;
-        border-left: 3px solid var(--accent);
-        padding: 1.5rem 2rem;
-        margin: 3rem 0;
-        background: rgba(79, 70, 229, 0.03);
-        border-radius: 0 1rem 1rem 0;
-        color: var(--text-main);
+      .reveal {
+        animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
-      .copy-btn {
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-      blockquote:hover .copy-btn {
-        opacity: 1;
+      @keyframes revealUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
-      @media print {
-        aside, #custom-cursor, #custom-cursor-follower, #progress-bar, 
-        button, nav, .no-print, .sidebar-trigger, footer, [cmdk-root] {
-          display: none !important;
-        }
-        body { background: white !important; color: black !important; }
-        main { margin: 0 !important; width: 100% !important; }
+      [cmdk-root] {
+        max-width: 600px;
+        width: 100%;
+        background: var(--bg-island);
+        border-radius: 12px;
+        border: 0.5px solid var(--border);
+        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.3);
       }
 
       #progress-bar {
         position: fixed;
         top: 0;
         left: 0;
-        height: 3px;
-        background: linear-gradient(to right, #4f46e5, #8b5cf6);
-        z-index: 1000;
-      }
-
-      /* CMDK Styles - Profissional Overlay */
-      [cmdk-root] {
-        max-width: 640px;
-        width: 100%;
-        background: var(--bg-sidebar);
-        border-radius: 16px;
-        padding: 8px;
-        border: 1px solid var(--border);
-        box-shadow: 0 24px 80px rgba(0,0,0,0.3);
-        backdrop-filter: blur(24px);
-      }
-      [cmdk-input] {
-        font-family: inherit;
-        border: none;
-        width: 100%;
-        font-size: 18px;
-        padding: 16px;
-        outline: none;
-        background: transparent;
-        color: var(--text-main);
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 8px;
-      }
-      [cmdk-item] {
-        content-visibility: auto;
-        cursor: pointer;
-        height: 52px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 0 16px;
-        color: var(--text-muted);
-        user-select: none;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        font-size: 14px;
-        font-weight: 500;
-      }
-      [cmdk-item][data-selected='true'] {
-        background: var(--accent);
-        color: white;
-        transform: scale(1.02);
-      }
-      [cmdk-group-heading] {
-        user-select: none;
-        font-size: 11px;
-        color: var(--text-muted);
-        padding: 12px 16px 4px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
+        height: 1px;
+        background: var(--text-main);
+        z-index: 1001;
       }
     </style>
     <script type="importmap">
@@ -188,8 +113,8 @@
     "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
     "marked": "https://esm.sh/marked@^15.0.0",
     "cmdk": "https://esm.sh/cmdk@1.0.0",
-    "@testing-library/react": "https://esm.sh/@testing-library/react@^16.3.1",
-    "vitest": "https://esm.sh/vitest@^4.0.16"
+    "vitest": "https://esm.sh/vitest@^4.0.16",
+    "@testing-library/react": "https://esm.sh/@testing-library/react@^16.3.1"
   }
 }
 </script>
@@ -203,22 +128,10 @@
       const cursor = document.getElementById('custom-cursor');
       const follower = document.getElementById('custom-cursor-follower');
       document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        follower.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
-      });
-
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW reg error:', err));
-        });
-      }
-
-      window.addEventListener('scroll', () => {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        document.getElementById("progress-bar").style.width = scrolled + "%";
+        const x = e.clientX;
+        const y = e.clientY;
+        cursor.style.transform = `translate(${x}px, ${y}px)`;
+        follower.style.transform = `translate(${x - 12}px, ${y - 12}px)`;
       });
     </script>
   </body>

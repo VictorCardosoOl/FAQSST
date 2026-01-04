@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Layers, Compass, Sun, Moon, X, Archive, Hash, Bookmark } from 'lucide-react';
+import React, { useState } from 'react';
+import { Archive, Hash, Bookmark, Sun, Moon, Circle, Pin, PinOff } from 'lucide-react';
 import { Category } from '../types';
 
 interface SidebarProps {
@@ -13,85 +13,116 @@ interface SidebarProps {
   isQueueView?: boolean;
   onSelectQueue?: () => void;
   queueCount?: number;
+  onLogoClick?: () => void;
+  isPinned: boolean;
+  onPinToggle: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
-  currentCat, onSelect, isDarkMode, toggleDark, isOpen, onClose, isQueueView, onSelectQueue, queueCount = 0
-}) => (
-  <>
-    <div 
-      className={`fixed inset-0 bg-black/20 backdrop-blur-md z-40 lg:hidden transition-opacity duration-700 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-      onClick={onClose}
-    />
-    
-    <aside className={`fixed left-4 top-4 bottom-4 w-60 glass bg-[var(--bg-sidebar)] border border-[var(--border)] rounded-[2rem] z-50 flex flex-col p-6 shadow-2xl transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-[calc(100%+2rem)]'}`}>
-      <div className="mb-10 flex items-center justify-between px-2">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[var(--text-main)] rounded-lg flex items-center justify-center text-[var(--bg-main)] shadow-lg">
-            <Layers size={16} />
-          </div>
-          <span className="text-lg font-serif font-bold tracking-tight">TeamWiki</span>
-        </div>
-        <button onClick={onClose} className="lg:hidden p-2 text-stone-400 hover:text-stone-900">
-          <X size={18} />
-        </button>
-      </div>
+  currentCat, onSelect, isDarkMode, toggleDark, isOpen, onClose, isQueueView, onSelectQueue, queueCount = 0, onLogoClick, isPinned, onPinToggle
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-      <nav className="flex-1 space-y-8 overflow-y-auto px-1">
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400 mb-4 px-3">Explorar</p>
-          <div className="space-y-1">
-            <button 
-              onClick={() => { onSelect(null); onClose(); }}
-              className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm transition-all group ${currentCat === null && !isQueueView ? 'bg-stone-100 dark:bg-white/10 text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)] hover:bg-stone-50 dark:hover:bg-white/5'}`}
-            >
-              <Archive size={16} className={currentCat === null && !isQueueView ? 'text-indigo-500' : 'group-hover:text-indigo-500'} />
-              <span className="font-medium">Acervo Geral</span>
-            </button>
-            
-            {onSelectQueue && (
+  // A sidebar expande se estiver fixa, se o mouse estiver sobre ela, ou se estiver aberta no mobile
+  const isExpanded = isPinned || isHovered || isOpen;
+
+  return (
+    <>
+      <div className={`fixed inset-0 bg-black/5 dark:bg-black/40 z-40 lg:hidden transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
+      
+      <aside 
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`fixed left-0 top-0 bottom-0 glass bg-[var(--bg-island)] border-r border-[var(--border)] z-50 flex flex-col py-16 transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${isOpen ? 'translate-x-0' : 'lg:translate-x-0'} ${isExpanded ? 'w-72 px-10' : 'w-20 px-6'}`}
+      >
+        <div className="mb-20 flex items-center justify-between">
+          <div 
+            onClick={onLogoClick}
+            className="flex items-center gap-4 cursor-pointer hover:opacity-70 transition-opacity overflow-hidden"
+          >
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--text-main)] shrink-0" />
+            <span className={`text-xs font-bold uppercase tracking-[0.5em] transition-all duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
+              TeamWiki
+            </span>
+          </div>
+          
+          <button 
+            onClick={onPinToggle}
+            className={`hidden lg:block text-stone-300 hover:text-[var(--text-main)] transition-all duration-500 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
+          >
+            {isPinned ? <Pin size={12} strokeWidth={1.5} /> : <PinOff size={12} strokeWidth={1.5} />}
+          </button>
+        </div>
+
+        <nav className="flex-1 space-y-16 overflow-hidden">
+          <div>
+            <p className={`text-[10px] uppercase tracking-[0.3em] text-stone-400 font-bold mb-8 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+              Navegação
+            </p>
+            <div className="space-y-4">
               <button 
-                onClick={() => { onSelectQueue(); onClose(); }}
-                className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm transition-all group ${isQueueView ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600' : 'text-stone-400 hover:text-indigo-500 hover:bg-stone-50 dark:hover:bg-white/5'}`}
+                onClick={() => { onSelect(null); onClose(); }}
+                className={`flex items-center justify-between w-full text-xs font-medium transition-colors ${currentCat === null && !isQueueView ? 'text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)]'}`}
               >
-                <Bookmark size={16} className={isQueueView ? 'text-indigo-600' : 'group-hover:text-indigo-500'} />
-                <span className="font-medium">Minha Fila</span>
-                {queueCount > 0 && (
-                  <span className="ml-auto bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                    {queueCount}
-                  </span>
-                )}
+                <div className="flex items-center gap-4">
+                  <Archive size={16} strokeWidth={1.5} className="shrink-0" />
+                  <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>Acervo Geral</span>
+                </div>
+                {isExpanded && currentCat === null && !isQueueView && <Circle size={4} fill="currentColor" />}
               </button>
-            )}
-          </div>
-        </div>
-        
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400 mb-4 px-3">Arquivos</p>
-          <div className="space-y-1">
-            {Object.values(Category).map(cat => (
-              <button
-                key={cat}
-                onClick={() => { onSelect(cat); onClose(); }}
-                className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-xs transition-all group ${currentCat === cat ? 'bg-stone-100 dark:bg-white/10 text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)] hover:bg-stone-50 dark:hover:bg-white/5'}`}
+              
+              <button 
+                onClick={() => { onSelectQueue?.(); onClose(); }}
+                className={`flex items-center justify-between w-full text-xs font-medium transition-colors ${isQueueView ? 'text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)]'}`}
               >
-                <Hash size={14} className={currentCat === cat ? 'text-indigo-500' : 'opacity-40 group-hover:opacity-100 transition-opacity'} />
-                <span className="font-medium">{cat}</span>
+                <div className="flex items-center gap-4">
+                  <Bookmark size={16} strokeWidth={1.5} className="shrink-0" />
+                  <div className={`flex items-center gap-2 transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+                    <span>Lista de Leitura</span>
+                    {queueCount > 0 && <span className="text-[9px] opacity-40">({queueCount})</span>}
+                  </div>
+                </div>
+                {isExpanded && isQueueView && <Circle size={4} fill="currentColor" />}
               </button>
-            ))}
+            </div>
           </div>
-        </div>
-      </nav>
 
-      <div className="pt-6 border-t border-[var(--border)] mt-4">
-        <button 
-          onClick={toggleDark}
-          className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest text-stone-400 hover:text-[var(--text-main)] hover:bg-stone-50 dark:hover:bg-white/5 transition-all"
-        >
-          {isDarkMode ? <Sun size={14} /> : <Moon size={14} />}
-          {isDarkMode ? 'Light' : 'Dark'}
-        </button>
-      </div>
-    </aside>
-  </>
-);
+          <div>
+            <p className={`text-[10px] uppercase tracking-[0.3em] text-stone-400 font-bold mb-8 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+              Módulos
+            </p>
+            <div className="space-y-6">
+              {Object.values(Category).map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => { onSelect(cat); onClose(); }}
+                  className={`flex items-center justify-between w-full text-[11px] font-light transition-all ${currentCat === cat ? 'text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)]'} ${isExpanded ? (currentCat === cat ? 'translate-x-2' : 'hover:translate-x-1') : ''}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <Hash size={16} strokeWidth={1} className="shrink-0" />
+                    <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>{cat}</span>
+                  </div>
+                  {isExpanded && currentCat === cat && <div className="w-4 h-[0.5px] bg-[var(--text-main)]" />}
+                </button>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        <div className="pt-10">
+          <button 
+            onClick={toggleDark}
+            className="w-full flex items-center justify-between text-[9px] font-bold uppercase tracking-widest text-stone-400 hover:text-[var(--text-main)] transition-colors"
+          >
+            <div className="flex items-center gap-4">
+              {isDarkMode ? <Sun size={16} strokeWidth={1.5} className="shrink-0" /> : <Moon size={16} strokeWidth={1.5} className="shrink-0" />}
+              <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+                {isDarkMode ? 'Claro' : 'Escuro'}
+              </span>
+            </div>
+          </button>
+        </div>
+      </aside>
+    </>
+  );
+};

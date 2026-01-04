@@ -10,29 +10,29 @@ interface SearchBarProps {
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({ onClick, onAskAi, loading, query = "" }) => (
-  <div className="relative group w-full max-w-2xl mx-auto cursor-pointer" onClick={onClick}>
-    <div className={`absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500`}></div>
-    <div className="relative bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl overflow-hidden flex items-center transition-all duration-500 group-hover:border-indigo-500/50 shadow-sm group-hover:shadow-xl">
-      <div className="pl-6 text-stone-400">
-        <Search size={20} />
+  <div 
+    className="relative w-full max-w-lg mx-auto cursor-pointer group" 
+    onClick={onClick}
+  >
+    <div className="flex items-center justify-between border-b border-[var(--border)] py-4 transition-all duration-500 group-hover:border-[var(--text-main)]">
+      <div className="flex items-center gap-6">
+        <Search size={16} strokeWidth={1} className="text-stone-300 group-hover:text-[var(--text-main)] transition-colors" />
+        <span className="text-sm font-light text-stone-400 tracking-tight">Acesse a inteligência global...</span>
       </div>
-      <div className="w-full py-5 px-4 text-lg font-light text-stone-300 flex items-center justify-between">
-        <span>Busque conhecimento ou comandos...</span>
-        <div className="flex items-center gap-2 pr-2">
-          <div className="flex items-center gap-1 px-2 py-1 rounded bg-stone-100 dark:bg-white/5 border border-stone-200 dark:border-white/10 text-[10px] font-bold text-stone-400">
-            <Command size={10} /> K
-          </div>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1.5 px-2 py-1 border border-[var(--border)] rounded text-[9px] font-medium text-stone-400">
+          <Command size={10} strokeWidth={1.5} /> K
         </div>
+        {query.length > 2 && (
+          <button 
+            onClick={(e) => { e.stopPropagation(); onAskAi(); }}
+            disabled={loading}
+            className="text-[10px] font-bold uppercase tracking-widest hover:text-indigo-500 disabled:opacity-30 transition-colors"
+          >
+            {loading ? 'Pensando...' : 'Busca Neural'}
+          </button>
+        )}
       </div>
-      {query.length > 2 && (
-        <button 
-          onClick={(e) => { e.stopPropagation(); onAskAi(); }}
-          disabled={loading}
-          className="mr-3 px-4 py-2 bg-[var(--text-main)] text-[var(--bg-main)] rounded-xl text-[10px] font-black uppercase tracking-tighter flex items-center gap-2 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
-        >
-          {loading ? '...' : <><Sparkles size={12} /> IA</>}
-        </button>
-      )}
     </div>
   </div>
 );

@@ -62,7 +62,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             </Command.Item>
             <Command.Item onSelect={() => { onSelectQueue(); onClose(); }}>
               <Bookmark size={16} />
-              <span>Minha Fila de Leitura</span>
+              <span>Minha Lista de Leitura</span>
             </Command.Item>
             {Object.values(Category).map((cat) => (
               <Command.Item key={cat} onSelect={() => { onSelectCategory(cat); onClose(); }}>
