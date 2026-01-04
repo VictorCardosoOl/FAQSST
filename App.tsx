@@ -1,273 +1,248 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
-  Search, 
-  Sparkles, 
-  ChevronRight, 
-  ArrowLeft, 
-  Moon, 
-  Sun, 
-  ArrowRight,
-  Plus,
-  Minus
+  Search, Sparkles, ArrowLeft, Moon, Sun, ArrowRight,
+  X, Tag as TagIcon, Layers, Compass, Menu
 } from 'lucide-react';
 import { FAQ_DATA } from './constants';
 import { Category, FAQItem } from './types';
 import { askGemini } from './services/geminiService';
 
+// --- Sub-componentes ---
+
+const Sidebar = ({ currentCat, onSelect, isDarkMode, toggleDark }: any) => (
+  <aside className="fixed left-8 top-8 bottom-8 w-64 bg-[var(--bg-sidebar)] border border-[var(--border)] rounded-3xl z-40 flex flex-col p-8 shadow-2xl shadow-black/5 hidden lg:flex">
+    <div className="mb-12 flex items-center gap-3">
+      <div className="w-9 h-9 bg-[var(--text-main)] rounded-full flex items-center justify-center text-[var(--bg-sidebar)]">
+        <Layers size={18} />
+      </div>
+      <span className="text-xl font-serif font-bold tracking-tighter">TeamWiki</span>
+    </div>
+
+    <nav className="flex-1 space-y-1">
+      <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-stone-400 mb-4 px-3">Arquivos</p>
+      <button 
+        onClick={() => onSelect(null)}
+        className={`sidebar-link flex items-center gap-3 w-full px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${currentCat === null ? 'active bg-stone-50 dark:bg-white/5' : 'text-stone-400 hover:text-[var(--text-main)]'}`}
+      >
+        <Compass size={16} /> Todos
+      </button>
+      
+      <div className="h-4" />
+      <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-stone-400 mb-4 px-3">Módulos</p>
+      {Object.values(Category).map(cat => (
+        <button
+          key={cat}
+          onClick={() => onSelect(cat)}
+          className={`sidebar-link w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${currentCat === cat ? 'active bg-stone-50 dark:bg-white/5' : 'text-stone-400 hover:text-[var(--text-main)]'}`}
+        >
+          {cat}
+        </button>
+      ))}
+    </nav>
+
+    <button 
+      onClick={toggleDark}
+      className="mt-auto flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-stone-400 hover:text-[var(--text-main)] transition-colors border-t border-[var(--border)] pt-6"
+    >
+      {isDarkMode ? <Sun size={14} /> : <Moon size={14} />}
+      {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
+    </button>
+  </aside>
+);
+
+const SearchBar = ({ query, setQuery, onAskAi }: any) => (
+  <div className="relative group max-w-2xl stagger-item" style={{animationDelay: '0.1s'}}>
+    <Search className="absolute left-0 top-1/2 -translate-y-1/2 text-stone-300 group-focus-within:text-indigo-500 transition-colors" size={24} />
+    <input 
+      type="text"
+      placeholder="Pesquise ou pergunte à IA..."
+      className="w-full bg-transparent border-b border-[var(--border)] py-6 pl-12 focus:border-[var(--text-main)] outline-none text-3xl font-serif italic placeholder:opacity-20"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      onKeyDown={(e) => e.key === 'Enter' && onAskAi()}
+    />
+    {query.length > 3 && (
+      <button 
+        onClick={onAskAi}
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-indigo-600 text-white px-4 py-2 rounded-full flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20"
+      >
+        Perguntar <Sparkles size={12} />
+      </button>
+    )}
+  </div>
+);
+
+const ArticleCard = ({ item, onClick, index }: any) => (
+  <article 
+    role="button"
+    tabIndex={0}
+    onClick={onClick}
+    onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
+    className="group flex flex-col lg:flex-row gap-12 items-center cursor-pointer stagger-item border-b border-[var(--border)] pb-20"
+    style={{animationDelay: `${0.2 + (index * 0.1)}s`}}
+  >
+    <div className="w-full lg:w-1/2 aspect-[16/10] overflow-hidden rounded-sm bg-stone-100 dark:bg-stone-900">
+      <img 
+        src={item.imageUrl} 
+        alt={item.question}
+        className="w-full h-full object-cover grayscale-[40%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out"
+      />
+    </div>
+    <div className="flex-1 space-y-6">
+      <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">
+        <span className="text-indigo-600">{item.category}</span>
+        <span className="w-1 h-1 bg-stone-300 rounded-full"></span>
+        <span>{item.date}</span>
+      </div>
+      <h3 className="text-5xl font-serif leading-tight group-hover:italic transition-all duration-500">{item.question}</h3>
+      <p className="text-stone-500 text-lg font-serif italic line-clamp-2 max-w-md">{item.answer}</p>
+      <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest group-hover:gap-6 transition-all">
+        Explorar Documento <ArrowRight size={14} />
+      </div>
+    </div>
+  </article>
+);
+
 export default function App() {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(Category.COLETIVO);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<FAQItem | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isAiLoading, setIsAiLoading] = useState(false);
   const [aiAnswer, setAiAnswer] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  // Toggle Dark Mode
   useEffect(() => {
     document.body.classList.toggle('dark', isDarkMode);
   }, [isDarkMode]);
 
-  // Derived Data: Available tags for current category
-  const tags = useMemo(() => {
-    const set = new Set<string>();
-    FAQ_DATA.filter(i => i.category === selectedCategory).forEach(i => i.tags.forEach(t => set.add(t)));
-    return Array.from(set);
-  }, [selectedCategory]);
-
-  // Filtered List
-  const articles = useMemo(() => {
+  const filteredArticles = useMemo(() => {
     return FAQ_DATA.filter(item => {
       const matchesCat = !selectedCategory || item.category === selectedCategory;
-      const matchesTag = !selectedTag || item.tags.includes(selectedTag);
       const query = searchQuery.toLowerCase();
-      const matchesSearch = !query || item.question.toLowerCase().includes(query);
-      return matchesCat && matchesTag && matchesSearch;
+      const matchesSearch = !query || item.question.toLowerCase().includes(query) || item.tags.some(t => t.toLowerCase().includes(query));
+      return matchesCat && matchesSearch;
     });
-  }, [selectedCategory, selectedTag, searchQuery]);
+  }, [selectedCategory, searchQuery]);
 
-  // Navigation: Prev/Next
+  const handleAskAi = async () => {
+    if (!searchQuery) return;
+    setLoading(true);
+    const answer = await askGemini(searchQuery);
+    setAiAnswer(answer);
+    setLoading(false);
+  };
+
   const nav = useMemo(() => {
     if (!selectedArticle) return { prev: null, next: null };
-    const idx = articles.findIndex(a => a.id === selectedArticle.id);
+    const idx = filteredArticles.findIndex(a => a.id === selectedArticle.id);
     return {
-      prev: idx > 0 ? articles[idx - 1] : null,
-      next: idx < articles.length - 1 ? articles[idx + 1] : null
+      prev: idx > 0 ? filteredArticles[idx - 1] : null,
+      next: idx < filteredArticles.length - 1 ? filteredArticles[idx + 1] : null
     };
-  }, [selectedArticle, articles]);
-
-  const handleAskAI = async () => {
-    if (!searchQuery) return;
-    setIsAiLoading(true);
-    try {
-      const resp = await askGemini(searchQuery);
-      setAiAnswer(resp);
-    } catch (e) {
-      setAiAnswer("Erro ao consultar assistente.");
-    } finally {
-      setIsAiLoading(false);
-    }
-  };
+  }, [selectedArticle, filteredArticles]);
 
   return (
     <div className="flex min-h-screen bg-[var(--bg-main)]">
-      
-      {/* Sidebar - Fixa e Minimalista */}
-      <aside className="fixed left-0 top-0 h-screen w-72 bg-[var(--bg-sidebar)] border-r border-[var(--border)] z-30 flex flex-col p-8">
-        <div className="mb-16">
-          <h1 className="text-2xl font-serif font-bold tracking-tighter">
-            Knowledge<span className="text-indigo-600">.</span>
-          </h1>
-          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 mt-2">Archive v1.0</p>
-        </div>
+      <Sidebar 
+        currentCat={selectedCategory} 
+        onSelect={(c: any) => { setSelectedCategory(c); setSelectedArticle(null); }}
+        isDarkMode={isDarkMode}
+        toggleDark={() => setIsDarkMode(!isDarkMode)}
+      />
 
-        <nav className="flex-1 space-y-6">
-          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-4">Módulos</div>
-          {Object.values(Category).map(cat => (
-            <button
-              key={cat}
-              onClick={() => { setSelectedCategory(cat); setSelectedArticle(null); setSelectedTag(null); }}
-              className={`sidebar-link block w-full text-left text-sm font-medium hover:text-indigo-600 ${selectedCategory === cat ? 'active' : 'text-[var(--text-muted)]'}`}
-            >
-              {cat}
-            </button>
-          ))}
-        </nav>
-
-        <div className="pt-8 border-t border-[var(--border)] space-y-4">
-          <button 
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
-          >
-            {isDarkMode ? <Sun size={14} /> : <Moon size={14} />}
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
-        </div>
-      </aside>
-
-      {/* Conteúdo Principal */}
-      <main className="flex-1 ml-72 p-12 md:p-20">
-        <div className="max-w-5xl mx-auto">
+      <main className="flex-1 lg:ml-80 p-8 lg:p-24 overflow-x-hidden">
+        <div className="max-w-6xl mx-auto">
           
-          {/* Top Bar: Busca e Filtros */}
-          {!selectedArticle && (
-            <div className="mb-20 animate-fadeIn">
-              <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-12">
-                <div className="flex-1 max-w-xl">
-                  <h2 className="text-5xl font-serif mb-6">{selectedCategory}</h2>
-                  <div className="relative group">
-                    <Search className="absolute left-0 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-indigo-500 transition-colors" size={20} />
-                    <input 
-                      type="text"
-                      placeholder="Pesquisar artigos ou perguntar à IA..."
-                      className="w-full bg-transparent border-b border-[var(--border)] py-4 pl-10 focus:border-[var(--text-main)] outline-none text-xl font-serif italic"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    {searchQuery && (
-                      <button onClick={handleAskAI} className="absolute right-0 top-1/2 -translate-y-1/2 text-indigo-600 hover:text-indigo-800 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest">
-                        Perguntar IA <Sparkles size={12} />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
+          {!selectedArticle ? (
+            <section className="animate-reveal">
+              <header className="mb-24 space-y-12">
+                <h2 className="text-8xl font-serif italic tracking-tighter stagger-item">
+                  {selectedCategory || "Knowledge Archive"}
+                </h2>
+                <SearchBar query={searchQuery} setQuery={setSearchQuery} onAskAi={handleAskAi} />
+              </header>
 
-              {/* Tag Filters */}
-              <div className="flex flex-wrap gap-3">
-                <button 
-                  onClick={() => setSelectedTag(null)}
-                  className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all ${!selectedTag ? 'bg-black text-white dark:bg-white dark:text-black' : 'border-[var(--border)] text-slate-400 hover:border-slate-400'}`}
-                >
-                  Todos
-                </button>
-                {tags.map(t => (
-                  <button 
-                    key={t}
-                    onClick={() => setSelectedTag(t)}
-                    className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all ${selectedTag === t ? 'bg-black text-white dark:bg-white dark:text-black' : 'border-[var(--border)] text-slate-400 hover:border-slate-400'}`}
-                  >
-                    {t}
-                  </button>
+              {aiAnswer && (
+                <div className="mb-24 p-12 bg-[var(--bg-sidebar)] border border-indigo-100 dark:border-white/5 rounded-[2.5rem] relative stagger-item shadow-2xl shadow-indigo-500/5">
+                  <div className="absolute top-0 left-12 w-1 h-full bg-indigo-600"></div>
+                  <button onClick={() => setAiAnswer(null)} className="absolute top-8 right-8 text-stone-300 hover:text-stone-500"><X size={20} /></button>
+                  <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-6 flex items-center gap-2">
+                    <Sparkles size={14} /> Resposta Inteligente
+                  </p>
+                  <p className="text-3xl font-serif italic leading-snug text-[var(--text-main)] max-w-4xl">"{aiAnswer}"</p>
+                </div>
+              )}
+
+              <div className="space-y-32">
+                {filteredArticles.map((item, i) => (
+                  <ArticleCard key={item.id} item={item} index={i} onClick={() => { setSelectedArticle(item); window.scrollTo({top: 0, behavior: 'smooth'}); }} />
                 ))}
               </div>
-            </div>
-          )}
-
-          {/* AI Answer Box */}
-          {aiAnswer && !selectedArticle && (
-            <div className="mb-12 p-8 bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900 rounded-lg animate-fadeIn relative">
-              <button onClick={() => setAiAnswer(null)} className="absolute top-4 right-4 text-slate-300 hover:text-slate-500"><X size={16} /></button>
-              <div className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <Sparkles size={14} /> Inteligência Artificial
-              </div>
-              <p className="text-lg font-serif italic leading-relaxed text-[var(--text-main)]">"{aiAnswer}"</p>
-            </div>
-          )}
-
-          {/* Listagem de Artigos (Estilo K-News/Editorial) */}
-          {!selectedArticle ? (
-            <div className="grid grid-cols-1 gap-12">
-              {articles.map((item, i) => (
-                <div 
-                  key={item.id}
-                  onClick={() => setSelectedArticle(item)}
-                  className="group cursor-pointer border-b border-[var(--border)] pb-12 flex flex-col md:flex-row gap-10 items-start hover:opacity-80 transition-opacity"
-                >
-                  <div className="w-full md:w-80 aspect-[4/3] image-reveal bg-slate-100 dark:bg-zinc-900">
-                    <img 
-                      src={item.imageUrl || 'https://images.unsplash.com/photo-1497366216548-37526070297c'} 
-                      className="w-full h-full object-cover" 
-                      alt={item.question}
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-4">
-                      <span>{item.date || 'Set 2024'}</span>
-                      <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
-                      <span>{item.category}</span>
-                    </div>
-                    <h3 className="text-3xl font-serif mb-4 group-hover:italic transition-all">{item.question}</h3>
-                    <p className="text-slate-500 line-clamp-2 max-w-xl text-sm leading-relaxed">{item.answer}</p>
-                    <div className="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-indigo-600">
-                      Explorar Artigo <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            </section>
           ) : (
-            /* Artigo Individual (Estilo Cosse/Editorial) */
-            <div className="animate-fadeIn pb-32">
+            <section className="animate-reveal pb-32">
               <button 
                 onClick={() => setSelectedArticle(null)}
-                className="mb-16 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-black dark:hover:text-white transition-colors"
+                className="mb-16 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-stone-400 hover:text-[var(--text-main)] group"
               >
-                <ArrowLeft size={14} /> Voltar para {selectedCategory}
+                <ArrowLeft size={14} className="group-hover:-translate-x-2 transition-transform" /> Voltar à Coleção
               </button>
 
-              <div className="max-w-3xl">
-                <div className="mb-12">
-                   <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600 mb-4">{selectedArticle.category}</div>
-                   <h1 className="text-6xl font-serif italic mb-8 leading-tight">{selectedArticle.question}</h1>
-                   <div className="flex gap-4">
-                      {selectedArticle.tags.map(t => (
-                        <span key={t} className="text-[10px] font-bold uppercase border border-[var(--border)] px-3 py-1 rounded-full text-slate-400">#{t}</span>
-                      ))}
-                   </div>
-                </div>
-
-                <div className="w-full aspect-video mb-16 bg-slate-100 overflow-hidden">
-                  <img src={selectedArticle.imageUrl} className="w-full h-full object-cover" />
-                </div>
-
-                <div 
-                  className="article-body serif-content"
-                  dangerouslySetInnerHTML={{ __html: selectedArticle.content || `<p>${selectedArticle.answer}</p>` }}
-                />
-
-                {/* Article Navigation */}
-                <div className="mt-24 pt-12 border-t border-[var(--border)] grid grid-cols-2 gap-8">
-                  <div className="group cursor-pointer" onClick={() => nav.prev && setSelectedArticle(nav.prev)}>
-                    {nav.prev && (
-                      <div className="text-left">
-                        <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 flex items-center gap-2">
-                          <ArrowLeft size={12} /> Anterior
-                        </div>
-                        <div className="font-serif text-xl group-hover:italic transition-all">{nav.prev.question}</div>
-                      </div>
-                    )}
+              <header className="relative mb-40">
+                <div className="grid grid-cols-12 items-end">
+                  <div className="col-span-12 lg:col-span-8 relative z-10 pb-12 lg:pb-32">
+                    <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-indigo-600 mb-8">{selectedArticle.category}</div>
+                    <h1 className="text-7xl lg:text-[8.5rem] font-serif italic leading-[0.85] tracking-tighter mb-12">{selectedArticle.question}</h1>
+                    <p className="text-2xl text-stone-500 font-serif italic max-w-lg leading-relaxed">{selectedArticle.answer}</p>
                   </div>
-                  <div className="group cursor-pointer text-right" onClick={() => nav.next && setSelectedArticle(nav.next)}>
-                    {nav.next && (
-                      <div className="text-right">
-                        <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 flex items-center justify-end gap-2">
-                          Próximo <ArrowRight size={12} />
-                        </div>
-                        <div className="font-serif text-xl group-hover:italic transition-all">{nav.next.question}</div>
-                      </div>
-                    )}
+                  <div className="col-span-12 lg:col-span-9 lg:col-start-4 absolute top-0 right-0 h-[85vh] w-full lg:w-3/4 -z-10 rounded-2xl overflow-hidden shadow-2xl">
+                    <img src={selectedArticle.imageUrl} className="w-full h-full object-cover contrast-[1.1]" alt="Hero" />
                   </div>
                 </div>
+                <div className="h-40 lg:h-[40vh]"></div>
+              </header>
+
+              <div className="max-w-3xl mx-auto space-y-12">
+                 <div className="flex flex-wrap gap-2 justify-center mb-16">
+                    {selectedArticle.tags.map(t => <span key={t} className="px-4 py-1.5 border border-[var(--border)] rounded-full text-[10px] font-bold uppercase text-stone-400"># {t}</span>)}
+                 </div>
+                 <div className="article-body serif-content" dangerouslySetInnerHTML={{ __html: selectedArticle.content || selectedArticle.answer }} />
+                 
+                 <footer className="mt-40 pt-20 border-t border-[var(--border)] grid grid-cols-2 gap-12">
+                    <div 
+                      onClick={() => nav.prev && setSelectedArticle(nav.prev)}
+                      className={`group cursor-pointer ${!nav.prev && 'opacity-0 pointer-events-none'}`}
+                    >
+                      <p className="text-[10px] font-bold uppercase text-stone-400 mb-4 flex items-center gap-2 group-hover:text-indigo-600 transition-colors">
+                        <ArrowLeft size={14} /> Anterior
+                      </p>
+                      <h4 className="text-3xl font-serif italic group-hover:translate-x-2 transition-transform">{nav.prev?.question}</h4>
+                    </div>
+                    <div 
+                      onClick={() => nav.next && setSelectedArticle(nav.next)}
+                      className={`group cursor-pointer text-right ${!nav.next && 'opacity-0 pointer-events-none'}`}
+                    >
+                      <p className="text-[10px] font-bold uppercase text-stone-400 mb-4 flex items-center justify-end gap-2 group-hover:text-indigo-600 transition-colors">
+                        Próximo <ArrowRight size={14} />
+                      </p>
+                      <h4 className="text-3xl font-serif italic group-hover:-translate-x-2 transition-transform">{nav.next?.question}</h4>
+                    </div>
+                 </footer>
               </div>
-            </div>
+            </section>
           )}
         </div>
       </main>
 
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
+        @keyframes reveal {
+          from { opacity: 0; transform: translateY(40px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fadeIn {
-          animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        .animate-reveal { animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .stagger-item { opacity: 0; animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       `}</style>
     </div>
   );
-}
-
-function X({ size }: { size: number }) {
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
 }
