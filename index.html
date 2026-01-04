@@ -30,9 +30,26 @@
         --selection: rgba(255, 255, 255, 0.1);
       }
 
-      scrollbar-width: none;
-      -webkit-font-smoothing: antialiased;
-      ::-webkit-scrollbar { display: none; }
+      /* Global Reset for Scrollbars */
+      * {
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+
+      *::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+      }
+
+      .no-scrollbar {
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none !important;
+      }
 
       body {
         font-family: 'Inter', sans-serif;
@@ -40,7 +57,7 @@
         color: var(--text-main);
         transition: background-color 0.8s ease;
         overflow-x: hidden;
-        /* Cursor nativo restaurado */
+        -webkit-font-smoothing: antialiased;
         cursor: auto;
       }
 
@@ -58,7 +75,6 @@
         to { opacity: 1; transform: translateY(0); }
       }
 
-      /* Garante que itens clicáveis sempre mostrem o ponteiro de mão */
       button, a, [role="button"] {
         cursor: pointer;
       }
