@@ -128,33 +128,33 @@ export default function App() {
       />
 
       {/* 
-          CALCULO DO LAYOUT:
-          - Se Sidebar Pinned: Padding fixo de 20rem (320px) para limpar os 288px da barra.
-          - Se Sidebar Unpinned: Padding de 8rem (128px) para respeitar os 80px da lâmina.
+          LAYOUT REFINADO:
+          - lg:pl-[24rem] (384px) mantém o texto afastado da sidebar (320px) com segurança.
+          - pt-20 (80px) em vez de pt-40 para evitar scroll desnecessário no início.
       */}
-      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] pr-12 lg:pr-24 pt-32 pb-64 ${isSidebarPinned ? 'lg:pl-80' : 'lg:pl-32'}`}>
-        <div className="max-w-5xl">
+      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] pr-12 lg:pr-32 pt-20 pb-40 ${isSidebarPinned ? 'lg:pl-[24rem]' : 'lg:pl-32'}`}>
+        <div className="max-w-5xl mx-auto">
           
-          <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden mb-16 p-2 border border-[var(--border)] rounded-full">
-            <Menu size={20} strokeWidth={1} />
+          <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden mb-12 p-3 border border-[var(--border)] rounded-full">
+            <Menu size={24} strokeWidth={1} />
           </button>
 
           {!selectedArticle ? (
-            <div className="space-y-40">
-              <header className="space-y-20">
-                <div className="space-y-10">
-                   <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-[0.8em] text-stone-400 reveal" style={{ animationDelay: '0ms' }}>
+            <div className="space-y-20">
+              <header className="space-y-12">
+                <div className="space-y-6">
+                   <div className="flex items-center gap-6 text-[12px] font-bold uppercase tracking-[0.5em] text-stone-400 reveal" style={{ animationDelay: '0ms' }}>
                      <div className="w-10 h-[0.5px] bg-stone-200" />
                      <span>Arquivos 2025</span>
                    </div>
                    
-                   <h1 className="text-6xl lg:text-[7rem] font-serif font-light leading-[0.9] tracking-tight reveal" style={{ animationDelay: '200ms' }}>
+                   <h1 className="text-5xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight reveal" style={{ animationDelay: '200ms' }}>
                      {viewMode === 'QUEUE' ? (
-                       <span className="italic">Lista de Leitura</span>
+                       <span className="italic">Minha Lista de Leitura</span>
                      ) : selectedCategory ? (
                        <span>{selectedCategory}</span>
                      ) : (
-                       <>Acervo de <span className="italic font-normal">Processos</span></>
+                       <>Gestão de <span className="italic font-normal">Processos</span></>
                      )}
                    </h1>
                 </div>
@@ -172,22 +172,22 @@ export default function App() {
               </header>
 
               {aiAnswer && (
-                <FadeInSection className="max-w-3xl">
-                  <div className="border-l-[2px] border-[var(--text-main)] pl-12 py-6 relative">
-                    <button onClick={() => setAiAnswer(null)} className="absolute top-0 right-0 text-stone-300 hover:text-[var(--text-main)]">
-                      <X size={18} strokeWidth={1} />
+                <FadeInSection className="max-w-4xl pt-8">
+                  <div className="border-l-[4px] border-[var(--text-main)] pl-12 py-8 relative bg-stone-50 dark:bg-white/5">
+                    <button onClick={() => setAiAnswer(null)} className="absolute top-4 right-4 text-stone-300 hover:text-[var(--text-main)]">
+                      <X size={20} strokeWidth={1} />
                     </button>
-                    <div className="flex items-center gap-3 text-stone-400 font-bold text-[9px] uppercase tracking-[0.4em] mb-6">
-                      <Sparkles size={10} strokeWidth={1} /> Neural Engine
+                    <div className="flex items-center gap-4 text-stone-400 font-bold text-[11px] uppercase tracking-[0.5em] mb-6">
+                      <Sparkles size={12} strokeWidth={1} /> Resposta Editorial
                     </div>
-                    <p className="text-2xl font-serif font-light italic leading-snug">
+                    <p className="text-3xl font-serif font-light italic leading-snug">
                       "{aiAnswer}"
                     </p>
                   </div>
                 </FadeInSection>
               )}
 
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-6 pt-12">
                 {displayedArticles.map((item, i) => (
                   <ArticleCard 
                     key={item.id}
@@ -202,7 +202,7 @@ export default function App() {
 
               {displayedArticles.length === 0 && (
                 <div className="py-20 border-t border-[var(--border)] reveal">
-                  <p className="text-stone-300 font-serif italic text-2xl font-light">Nenhum documento encontrado neste critério.</p>
+                  <p className="text-stone-300 font-serif italic text-2xl font-light">Documento não localizado no acervo.</p>
                 </div>
               )}
             </div>
