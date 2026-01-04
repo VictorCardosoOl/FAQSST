@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { Printer, Share2, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { marked } from 'marked';
 import { FAQItem } from '../types';
 import { FadeInSection } from './FadeInSection';
@@ -25,32 +25,15 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
         <span className="text-[var(--text-main)] truncate max-w-[150px]">{article.category}</span>
       </nav>
 
-      <header className="mb-16 space-y-8">
+      <header className="mb-16 space-y-12">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-tight tracking-tight">
           {article.question}
         </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-[var(--border)] pt-12">
-          <div className="lg:col-span-8">
-             <p className="text-2xl md:text-3xl text-stone-400 font-serif italic leading-relaxed">
-               {article.answer}
-             </p>
-          </div>
-          <div className="lg:col-span-4 no-print">
-             <div className="flex flex-col gap-6 text-xs font-bold uppercase tracking-widest bg-stone-50 dark:bg-white/5 p-6 border border-[var(--border)]">
-                <div className="flex justify-between border-b border-[var(--border)] pb-3">
-                  <span className="opacity-40">Publicação</span>
-                  <span>{article.date}</span>
-                </div>
-                <div className="flex gap-4">
-                   <button onClick={() => window.print()} className="flex-1 py-4 border border-[var(--border)] hover:bg-[var(--text-main)] hover:text-[var(--bg-main)] transition-all flex items-center justify-center gap-3">
-                     <Printer size={16} strokeWidth={1} /> PDF
-                   </button>
-                   <button className="p-4 border border-[var(--border)] hover:bg-[var(--text-main)] hover:text-[var(--bg-main)] transition-all">
-                     <Share2 size={16} strokeWidth={1} />
-                   </button>
-                </div>
-             </div>
-          </div>
+        
+        <div className="border-t border-[var(--border)] pt-12 max-w-4xl">
+           <p className="text-2xl md:text-3xl text-stone-400 font-serif italic leading-relaxed">
+             {article.answer}
+           </p>
         </div>
       </header>
 
