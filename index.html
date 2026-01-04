@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TeamWiki | Knowledge Archive</title>
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="manifest" href="metadata.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -27,9 +29,6 @@
 
       * {
         cursor: none !important;
-        transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                    border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                    color 0.3s ease;
       }
 
       body {
@@ -37,6 +36,7 @@
         background-color: var(--bg-main);
         color: var(--text-main);
         overflow-x: hidden;
+        transition: background-color 0.5s ease;
       }
 
       h1, h2, h3, h4 {
@@ -66,40 +66,55 @@
       }
 
       .glass {
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
       }
 
-      .serif-italic {
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
-      }
-
-      .article-body {
+      .article-content-render {
         font-size: 1.125rem;
-        line-height: 2;
-        max-width: 720px;
-        margin: 0 auto;
+        line-height: 1.8;
       }
-
-      .article-body blockquote {
+      .article-content-render h2 {
+        font-size: 2.25rem;
+        margin-top: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+      .article-content-render p {
+        margin-bottom: 1.5rem;
+        color: var(--text-muted);
+      }
+      .article-content-render blockquote {
+        position: relative;
         font-family: 'Playfair Display', serif;
         font-style: italic;
-        font-size: 2.25rem;
-        text-align: center;
-        margin: 4rem 0;
-        padding: 2rem;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        color: var(--accent);
+        font-size: 1.4rem;
+        border-left: 3px solid var(--accent);
+        padding: 1.5rem 2rem;
+        margin: 3rem 0;
+        background: rgba(79, 70, 229, 0.03);
+        border-radius: 0 1rem 1rem 0;
+        color: var(--text-main);
       }
 
-      .sidebar-link.active {
-        color: var(--accent);
-        font-weight: 600;
+      .copy-btn {
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      blockquote:hover .copy-btn {
+        opacity: 1;
       }
 
-      /* Personalização da barra de progresso */
+      @media print {
+        aside, #custom-cursor, #custom-cursor-follower, #progress-bar, 
+        button, nav, .no-print, .sidebar-trigger, footer, [cmdk-root] {
+          display: none !important;
+        }
+        body { background: white !important; color: black !important; }
+        main { margin: 0 !important; width: 100% !important; }
+      }
+
       #progress-bar {
         position: fixed;
         top: 0;
@@ -108,19 +123,76 @@
         background: linear-gradient(to right, #4f46e5, #8b5cf6);
         z-index: 1000;
       }
+
+      /* CMDK Styles - Profissional Overlay */
+      [cmdk-root] {
+        max-width: 640px;
+        width: 100%;
+        background: var(--bg-sidebar);
+        border-radius: 16px;
+        padding: 8px;
+        border: 1px solid var(--border);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+        backdrop-filter: blur(24px);
+      }
+      [cmdk-input] {
+        font-family: inherit;
+        border: none;
+        width: 100%;
+        font-size: 18px;
+        padding: 16px;
+        outline: none;
+        background: transparent;
+        color: var(--text-main);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 8px;
+      }
+      [cmdk-item] {
+        content-visibility: auto;
+        cursor: pointer;
+        height: 52px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 16px;
+        color: var(--text-muted);
+        user-select: none;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 14px;
+        font-weight: 500;
+      }
+      [cmdk-item][data-selected='true'] {
+        background: var(--accent);
+        color: white;
+        transform: scale(1.02);
+      }
+      [cmdk-group-heading] {
+        user-select: none;
+        font-size: 11px;
+        color: var(--text-muted);
+        padding: 12px 16px 4px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
     </style>
     <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@^19.2.3",
-          "react/": "https://esm.sh/react@^19.2.3/",
-          "react-dom": "https://esm.sh/react-dom@^19.2.3",
-          "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-          "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
-          "lucide-react": "https://esm.sh/lucide-react@^0.561.0"
-        }
-      }
-    </script>
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "marked": "https://esm.sh/marked@^15.0.0",
+    "cmdk": "https://esm.sh/cmdk@1.0.0",
+    "@testing-library/react": "https://esm.sh/@testing-library/react@^16.3.1",
+    "vitest": "https://esm.sh/vitest@^4.0.16"
+  }
+}
+</script>
   </head>
   <body>
     <div id="progress-bar" style="width: 0%"></div>
@@ -130,13 +202,17 @@
     <script>
       const cursor = document.getElementById('custom-cursor');
       const follower = document.getElementById('custom-cursor-follower');
-      
       document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
-        
         follower.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
       });
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW reg error:', err));
+        });
+      }
 
       window.addEventListener('scroll', () => {
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;

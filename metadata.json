@@ -1,5 +1,17 @@
 {
   "name": "TeamWiki FAQ",
-  "description": "Uma base de conhecimento simples e inteligente para pequenas equipes, com busca integrada via IA.",
-  "requestFramePermissions": []
+  "short_name": "TeamWiki",
+  "description": "Uma base de conhecimento inteligente para equipes de alta performance.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fcfcfc",
+  "theme_color": "#4f46e5",
+  "requestFramePermissions": [],
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2991/2991148.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Layers, Compass, Sun, Moon, X, Archive, Hash } from 'lucide-react';
+import { Layers, Compass, Sun, Moon, X, Archive, Hash, Bookmark } from 'lucide-react';
 import { Category } from '../types';
 
 interface SidebarProps {
@@ -10,10 +10,13 @@ interface SidebarProps {
   toggleDark: () => void;
   isOpen: boolean;
   onClose: () => void;
+  isQueueView?: boolean;
+  onSelectQueue?: () => void;
+  queueCount?: number;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
-  currentCat, onSelect, isDarkMode, toggleDark, isOpen, onClose 
+  currentCat, onSelect, isDarkMode, toggleDark, isOpen, onClose, isQueueView, onSelectQueue, queueCount = 0
 }) => (
   <>
     <div 
@@ -37,13 +40,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <nav className="flex-1 space-y-8 overflow-y-auto px-1">
         <div>
           <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400 mb-4 px-3">Explorar</p>
-          <button 
-            onClick={() => { onSelect(null); onClose(); }}
-            className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm transition-all group ${currentCat === null ? 'bg-stone-100 dark:bg-white/10 text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)] hover:bg-stone-50 dark:hover:bg-white/5'}`}
-          >
-            <Archive size={16} className={currentCat === null ? 'text-indigo-500' : 'group-hover:text-indigo-500'} />
-            <span className="font-medium">Acervo Geral</span>
-          </button>
+          <div className="space-y-1">
+            <button 
+              onClick={() => { onSelect(null); onClose(); }}
+              className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm transition-all group ${currentCat === null && !isQueueView ? 'bg-stone-100 dark:bg-white/10 text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)] hover:bg-stone-50 dark:hover:bg-white/5'}`}
+            >
+              <Archive size={16} className={currentCat === null && !isQueueView ? 'text-indigo-500' : 'group-hover:text-indigo-500'} />
+              <span className="font-medium">Acervo Geral</span>
+            </button>
+            
+            {onSelectQueue && (
+              <button 
+                onClick={() => { onSelectQueue(); onClose(); }}
+                className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm transition-all group ${isQueueView ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600' : 'text-stone-400 hover:text-indigo-500 hover:bg-stone-50 dark:hover:bg-white/5'}`}
+              >
+                <Bookmark size={16} className={isQueueView ? 'text-indigo-600' : 'group-hover:text-indigo-500'} />
+                <span className="font-medium">Minha Fila</span>
+                {queueCount > 0 && (
+                  <span className="ml-auto bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                    {queueCount}
+                  </span>
+                )}
+              </button>
+            )}
+          </div>
         </div>
         
         <div>
