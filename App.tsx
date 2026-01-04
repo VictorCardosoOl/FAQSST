@@ -33,6 +33,7 @@ export default function App() {
     setViewMode('HOME');
     setSearchQuery('');
     setAiAnswer(null);
+    setIsSidebarOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -91,7 +92,7 @@ export default function App() {
   }, [selectedArticle, selectedCategory, viewMode, displayedArticles]);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen selection:bg-stone-100 dark:selection:bg-white/10">
       <Sidebar 
         currentCat={selectedCategory} 
         onSelect={(c) => { 
@@ -99,6 +100,7 @@ export default function App() {
           setSelectedArticle(null); 
           setViewMode('HOME');
           setSearchQuery('');
+          setIsSidebarOpen(false);
         }}
         isDarkMode={isDarkMode}
         toggleDark={() => setIsDarkMode(!isDarkMode)}
@@ -110,6 +112,7 @@ export default function App() {
           setSelectedCategory(null);
           setSelectedArticle(null);
           setSearchQuery('');
+          setIsSidebarOpen(false);
         }}
         queueCount={queue.length}
         onLogoClick={handleReset}
@@ -127,30 +130,28 @@ export default function App() {
         onSelectQueue={() => { setViewMode('QUEUE'); setSelectedCategory(null); setSelectedArticle(null); }}
       />
 
-      {/* 
-          LAYOUT REFINADO:
-          - lg:pl-[24rem] (384px) mantém o texto afastado da sidebar (320px) com segurança.
-          - pt-20 (80px) em vez de pt-40 para evitar scroll desnecessário no início.
-      */}
-      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] pr-12 lg:pr-32 pt-20 pb-40 ${isSidebarPinned ? 'lg:pl-[24rem]' : 'lg:pl-32'}`}>
+      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-10 md:px-16 pt-16 pb-32 ${isSidebarPinned ? 'lg:pl-80' : 'lg:pl-32'} lg:pr-24`}>
         <div className="max-w-5xl mx-auto">
           
-          <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden mb-12 p-3 border border-[var(--border)] rounded-full">
-            <Menu size={24} strokeWidth={1} />
+          <button 
+            onClick={() => setIsSidebarOpen(true)} 
+            className="lg:hidden fixed top-6 right-6 z-40 p-3 glass bg-[var(--bg-island)] border border-[var(--border)] rounded-full shadow-lg"
+          >
+            <Menu size={22} strokeWidth={1.5} />
           </button>
 
           {!selectedArticle ? (
-            <div className="space-y-20">
-              <header className="space-y-12">
-                <div className="space-y-6">
-                   <div className="flex items-center gap-6 text-[12px] font-bold uppercase tracking-[0.5em] text-stone-400 reveal" style={{ animationDelay: '0ms' }}>
-                     <div className="w-10 h-[0.5px] bg-stone-200" />
+            <div className="space-y-16">
+              <header className="space-y-8">
+                <div className="space-y-4">
+                   <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.2em] text-stone-400 reveal">
+                     <div className="w-8 h-[0.5px] bg-stone-200" />
                      <span>Arquivos 2025</span>
                    </div>
                    
-                   <h1 className="text-5xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight reveal" style={{ animationDelay: '200ms' }}>
+                   <h1 className="text-5xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight reveal">
                      {viewMode === 'QUEUE' ? (
-                       <span className="italic">Minha Lista de Leitura</span>
+                       <span className="italic">Minha Lista</span>
                      ) : selectedCategory ? (
                        <span>{selectedCategory}</span>
                      ) : (
@@ -160,7 +161,7 @@ export default function App() {
                 </div>
                 
                 {viewMode === 'HOME' && (
-                  <div className="reveal" style={{ animationDelay: '400ms' }}>
+                  <div className="reveal" style={{ animationDelay: '200ms' }}>
                     <SearchBar 
                       onClick={() => setIsCommandPaletteOpen(true)}
                       query={searchQuery}
@@ -172,22 +173,22 @@ export default function App() {
               </header>
 
               {aiAnswer && (
-                <FadeInSection className="max-w-4xl pt-8">
-                  <div className="border-l-[4px] border-[var(--text-main)] pl-12 py-8 relative bg-stone-50 dark:bg-white/5">
-                    <button onClick={() => setAiAnswer(null)} className="absolute top-4 right-4 text-stone-300 hover:text-[var(--text-main)]">
-                      <X size={20} strokeWidth={1} />
+                <FadeInSection className="max-w-4xl pt-4">
+                  <div className="border-l-[4px] border-[var(--text-main)] pl-8 py-6 relative bg-stone-50 dark:bg-white/5">
+                    <button onClick={() => setAiAnswer(null)} className="absolute top-3 right-3 text-stone-300 hover:text-[var(--text-main)] transition-colors">
+                      <X size={18} />
                     </button>
-                    <div className="flex items-center gap-4 text-stone-400 font-bold text-[11px] uppercase tracking-[0.5em] mb-6">
-                      <Sparkles size={12} strokeWidth={1} /> Resposta Editorial
+                    <div className="flex items-center gap-3 text-stone-400 font-bold text-xs uppercase tracking-[0.3em] mb-4">
+                      <Sparkles size={12} strokeWidth={1} /> TeamWiki AI
                     </div>
-                    <p className="text-3xl font-serif font-light italic leading-snug">
+                    <p className="text-2xl font-serif font-light italic leading-snug">
                       "{aiAnswer}"
                     </p>
                   </div>
                 </FadeInSection>
               )}
 
-              <div className="grid grid-cols-1 gap-6 pt-12">
+              <div className="grid grid-cols-1 gap-4 pt-8">
                 {displayedArticles.map((item, i) => (
                   <ArticleCard 
                     key={item.id}
@@ -201,8 +202,8 @@ export default function App() {
               </div>
 
               {displayedArticles.length === 0 && (
-                <div className="py-20 border-t border-[var(--border)] reveal">
-                  <p className="text-stone-300 font-serif italic text-2xl font-light">Documento não localizado no acervo.</p>
+                <div className="py-16 border-t border-[var(--border)] reveal">
+                  <p className="text-stone-300 font-serif italic text-2xl font-light">Nenhum documento encontrado.</p>
                 </div>
               )}
             </div>

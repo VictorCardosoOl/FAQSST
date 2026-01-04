@@ -3,7 +3,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>TeamWiki | Conhecimento Arquitetônico</title>
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="metadata.json">
@@ -30,11 +30,19 @@
         --selection: rgba(255, 255, 255, 0.1);
       }
 
-      * {
-        cursor: none !important;
-        scrollbar-width: none;
-        -webkit-font-smoothing: antialiased;
+      /* Cursor apenas para dispositivos com mouse */
+      @media (hover: hover) and (pointer: fine) {
+        * { cursor: none !important; }
+        #custom-cursor, #custom-cursor-follower { display: block; }
       }
+
+      @media (hover: none) {
+        #custom-cursor, #custom-cursor-follower { display: none; }
+        * { cursor: auto !important; }
+      }
+
+      scrollbar-width: none;
+      -webkit-font-smoothing: antialiased;
       ::-webkit-scrollbar { display: none; }
 
       body {
@@ -42,11 +50,7 @@
         background-color: var(--bg-main);
         color: var(--text-main);
         transition: background-color 0.8s ease;
-      }
-
-      ::selection {
-        background-color: var(--selection);
-        color: var(--text-main);
+        overflow-x: hidden;
       }
 
       #custom-cursor {
@@ -57,6 +61,7 @@
         position: fixed;
         pointer-events: none;
         z-index: 9999;
+        display: none;
       }
 
       #custom-cursor-follower {
@@ -68,6 +73,7 @@
         pointer-events: none;
         z-index: 9998;
         transition: transform 0.1s ease-out;
+        display: none;
       }
 
       .glass {
@@ -76,30 +82,12 @@
       }
 
       .reveal {
-        animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
       @keyframes revealUp {
-        from { opacity: 0; transform: translateY(30px); }
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
-      }
-
-      [cmdk-root] {
-        max-width: 600px;
-        width: 100%;
-        background: var(--bg-island);
-        border-radius: 12px;
-        border: 0.5px solid var(--border);
-        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.3);
-      }
-
-      #progress-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 1px;
-        background: var(--text-main);
-        z-index: 1001;
       }
     </style>
     <script type="importmap">
@@ -120,7 +108,6 @@
 </script>
   </head>
   <body>
-    <div id="progress-bar" style="width: 0%"></div>
     <div id="custom-cursor"></div>
     <div id="custom-cursor-follower"></div>
     <div id="root"></div>
@@ -128,10 +115,8 @@
       const cursor = document.getElementById('custom-cursor');
       const follower = document.getElementById('custom-cursor-follower');
       document.addEventListener('mousemove', (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
-        cursor.style.transform = `translate(${x}px, ${y}px)`;
-        follower.style.transform = `translate(${x - 12}px, ${y - 12}px)`;
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        follower.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
       });
     </script>
   </body>
