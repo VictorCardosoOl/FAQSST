@@ -30,17 +30,6 @@
         --selection: rgba(255, 255, 255, 0.1);
       }
 
-      /* Cursor apenas para dispositivos com mouse */
-      @media (hover: hover) and (pointer: fine) {
-        * { cursor: none !important; }
-        #custom-cursor, #custom-cursor-follower { display: block; }
-      }
-
-      @media (hover: none) {
-        #custom-cursor, #custom-cursor-follower { display: none; }
-        * { cursor: auto !important; }
-      }
-
       scrollbar-width: none;
       -webkit-font-smoothing: antialiased;
       ::-webkit-scrollbar { display: none; }
@@ -51,29 +40,8 @@
         color: var(--text-main);
         transition: background-color 0.8s ease;
         overflow-x: hidden;
-      }
-
-      #custom-cursor {
-        width: 4px;
-        height: 4px;
-        background: var(--text-main);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        display: none;
-      }
-
-      #custom-cursor-follower {
-        width: 24px;
-        height: 24px;
-        border: 0.5px solid var(--text-main);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9998;
-        transition: transform 0.1s ease-out;
-        display: none;
+        /* Cursor nativo restaurado */
+        cursor: auto;
       }
 
       .glass {
@@ -89,6 +57,11 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
+
+      /* Garante que itens clicáveis sempre mostrem o ponteiro de mão */
+      button, a, [role="button"] {
+        cursor: pointer;
+      }
     </style>
     <script type="importmap">
 {
@@ -102,22 +75,13 @@
     "marked": "https://esm.sh/marked@^15.0.0",
     "cmdk": "https://esm.sh/cmdk@1.0.0",
     "vitest": "https://esm.sh/vitest@^4.0.16",
-    "@testing-library/react": "https://esm.sh/@testing-library/react@^16.3.1"
+    "@testing-library/react": "https://esm.sh/@testing-library/react@^16.3.1",
+    "vitest/": "https://esm.sh/vitest@^4.0.16/"
   }
 }
 </script>
   </head>
   <body>
-    <div id="custom-cursor"></div>
-    <div id="custom-cursor-follower"></div>
     <div id="root"></div>
-    <script>
-      const cursor = document.getElementById('custom-cursor');
-      const follower = document.getElementById('custom-cursor-follower');
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        follower.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
-      });
-    </script>
   </body>
 </html>

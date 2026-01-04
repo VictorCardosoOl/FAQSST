@@ -1,6 +1,11 @@
 
+import { FAQ_DATA } from '../constants';
+import { FAQItem } from '../types';
+
 /**
- * O carregamento dinâmico via glob foi desativado para garantir compatibilidade 
- * com o ambiente de execução que não suporta funcionalidades específicas de bundlers (como Vite).
+ * Retorna a coleção completa de artigos da base de conhecimento.
+ * No futuro, esta função pode ser estendida para suportar fetch assíncrono.
  */
-export const loadArticles = () => [];
+export const loadArticles = (): FAQItem[] => {
+  return FAQ_DATA;
+};
