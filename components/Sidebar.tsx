@@ -26,8 +26,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const getBtnClass = (isActive: boolean) => `
     flex items-center justify-between w-full text-sm py-2.5 px-3 rounded-lg transition-all duration-300
     ${isActive 
-      ? 'bg-stone-900/5 dark:bg-white/10 text-[var(--text-main)] font-bold' 
-      : 'text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-stone-900/5 dark:hover:bg-white/5 font-medium'}
+      ? 'bg-stone-900/10 dark:bg-white/15 text-[var(--text-main)] font-black' 
+      : 'text-[var(--text-muted)] dark:text-stone-300 hover:text-[var(--text-main)] hover:bg-stone-900/5 dark:hover:bg-white/5 font-semibold'}
   `;
 
   const getHeadingClass = (isVisible: boolean) => `
@@ -39,7 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <>
       {/* Overlay Mobile */}
       <div 
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] lg:hidden transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
         onClick={onClose} 
       />
       
@@ -65,7 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={onPinToggle}
             className={`hidden lg:block text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all duration-500 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
           >
-            {isPinned ? <Pin size={16} strokeWidth={1.5} /> : <PinOff size={16} strokeWidth={1.5} />}
+            {isPinned ? <Pin size={16} strokeWidth={2.5} /> : <PinOff size={16} strokeWidth={2.5} />}
           </button>
         </div>
 
@@ -78,7 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={getBtnClass(currentCat === null && !isQueueView)}
               >
                 <div className="flex items-center gap-4">
-                  <Archive size={18} strokeWidth={currentCat === null && !isQueueView ? 2 : 1.5} />
+                  <Archive size={18} strokeWidth={currentCat === null && !isQueueView ? 2.5 : 2} />
                   <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>Acervo</span>
                 </div>
                 {isExpanded && currentCat === null && !isQueueView && <Circle size={5} fill="currentColor" />}
@@ -89,10 +89,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={getBtnClass(isQueueView === true)}
               >
                 <div className="flex items-center gap-4">
-                  <Bookmark size={18} strokeWidth={isQueueView ? 2 : 1.5} />
+                  <Bookmark size={18} strokeWidth={isQueueView ? 2.5 : 2} />
                   <div className={`flex items-center gap-2 transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
                     <span>Minha Lista</span>
-                    {queueCount > 0 && <span className="text-[10px] font-bold bg-[var(--text-main)] text-[var(--bg-main)] px-1.5 py-0.5 rounded-full ml-1">{queueCount}</span>}
+                    {queueCount > 0 && (
+                      <span className="text-[10px] font-black bg-[var(--text-main)] text-[var(--bg-main)] px-2 py-0.5 rounded-full ml-1">
+                        {queueCount}
+                      </span>
+                    )}
                   </div>
                 </div>
                 {isExpanded && isQueueView && <Circle size={5} fill="currentColor" />}
@@ -110,10 +114,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className={getBtnClass(currentCat === cat)}
                 >
                   <div className="flex items-center gap-4">
-                    <Hash size={18} strokeWidth={currentCat === cat ? 2 : 1.5} />
+                    <Hash size={18} strokeWidth={currentCat === cat ? 2.5 : 2} />
                     <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>{cat}</span>
                   </div>
-                  {isExpanded && currentCat === cat && <div className="w-4 h-[1.5px] bg-[var(--text-main)] rounded-full" />}
+                  {isExpanded && currentCat === cat && <div className="w-4 h-[3px] bg-[var(--text-main)] rounded-full" />}
                 </button>
               ))}
             </div>
@@ -123,10 +127,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="pt-6 border-t border-[var(--border)] px-3">
           <button 
             onClick={toggleDark}
-            className="w-full flex items-center justify-between py-2 text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            className="w-full flex items-center justify-between py-2 text-xs font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
           >
             <div className="flex items-center gap-4">
-              {isDarkMode ? <Sun size={20} strokeWidth={1.5} /> : <Moon size={20} strokeWidth={1.5} />}
+              {isDarkMode ? <Sun size={20} strokeWidth={2} /> : <Moon size={20} strokeWidth={2} />}
               <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
                 {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
               </span>

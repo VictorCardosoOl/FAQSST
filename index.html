@@ -11,23 +11,23 @@
     <style>
       :root {
         --bg-main: #ffffff;
-        --bg-island: rgba(255, 255, 255, 0.95);
-        --text-main: #0c0a09; /* Stone 950 */
-        --text-body: #1c1917; /* Stone 900 */
-        --text-muted: #292524; /* Stone 800 - Escurecido para melhor legibilidade */
+        --bg-island: rgba(255, 255, 255, 0.98);
+        --text-main: #000000; /* Preto absoluto para títulos e ênfase */
+        --text-body: #0a0a0a; /* Stone 950 para o corpo - Máximo contraste legível */
+        --text-muted: #262626; /* Stone 800 para itens secundários - Anteriormente muito claro */
         --accent: #000000;
-        --border: rgba(0, 0, 0, 0.12);
-        --selection: rgba(0, 0, 0, 0.08);
+        --border: rgba(0, 0, 0, 0.18); /* Borda levemente mais visível */
+        --selection: rgba(0, 0, 0, 0.1);
       }
 
       body.dark {
         --bg-main: #000000;
-        --bg-island: rgba(12, 12, 12, 0.95);
+        --bg-island: rgba(12, 12, 12, 0.98);
         --text-main: #ffffff;
-        --text-body: #f5f5f4; /* Stone 100 */
-        --text-muted: #a8a29e; /* Stone 400 */
+        --text-body: #fafafa; /* Neutral 50 para brilho confortável no escuro */
+        --text-muted: #a3a3a3; /* Stone 400 para manter contraste no dark mode */
         --accent: #ffffff;
-        --border: rgba(255, 255, 255, 0.15);
+        --border: rgba(255, 255, 255, 0.25);
         --selection: rgba(255, 255, 255, 0.2);
       }
 
@@ -49,8 +49,8 @@
       }
 
       .glass {
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
       }
 
       .reveal {
@@ -79,9 +79,14 @@
         font-family: 'Playfair Display', serif;
       }
       .prose blockquote {
-        border-left-color: var(--text-main) !important;
+        border-left: 4px solid var(--text-main) !important;
         color: var(--text-muted) !important;
         font-style: italic;
+        padding-left: 1.5rem;
+        background: rgba(0,0,0,0.02);
+      }
+      body.dark .prose blockquote {
+        background: rgba(255,255,255,0.03);
       }
     </style>
     <script type="importmap">
