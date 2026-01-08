@@ -130,7 +130,7 @@ export default function App() {
         onSelectQueue={() => { setViewMode('QUEUE'); setSelectedCategory(null); setSelectedArticle(null); }}
       />
 
-      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-10 md:px-16 pt-16 pb-32 ${isSidebarPinned ? 'lg:pl-80' : 'lg:pl-32'} lg:pr-24`}>
+      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-10 md:px-16 pt-10 pb-20 ${isSidebarPinned ? 'lg:pl-80' : 'lg:pl-32'} lg:pr-24`}>
         <div className="max-w-5xl mx-auto">
           
           <button 
@@ -141,15 +141,15 @@ export default function App() {
           </button>
 
           {!selectedArticle ? (
-            <div className="space-y-16">
-              <header className="space-y-8">
-                <div className="space-y-4">
+            <div className="space-y-10">
+              <header className="space-y-6">
+                <div className="space-y-3">
                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.2em] text-stone-400 reveal">
                      <div className="w-8 h-[0.5px] bg-stone-200" />
                      <span>Arquivos 2025</span>
                    </div>
                    
-                   <h1 className="text-5xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight reveal">
+                   <h1 className="text-4xl lg:text-6xl font-serif font-light leading-[1.1] tracking-tight reveal">
                      {viewMode === 'QUEUE' ? (
                        <span className="italic">Minha Lista</span>
                      ) : selectedCategory ? (
@@ -173,7 +173,7 @@ export default function App() {
               </header>
 
               {aiAnswer && (
-                <FadeInSection className="max-w-4xl pt-4">
+                <FadeInSection className="max-w-4xl pt-2">
                   <div className="border-l-[4px] border-[var(--text-main)] pl-8 py-6 relative bg-stone-50 dark:bg-white/5">
                     <button onClick={() => setAiAnswer(null)} className="absolute top-3 right-3 text-stone-300 hover:text-[var(--text-main)] transition-colors">
                       <X size={18} />
@@ -181,14 +181,14 @@ export default function App() {
                     <div className="flex items-center gap-3 text-stone-400 font-bold text-xs uppercase tracking-[0.3em] mb-4">
                       <Sparkles size={12} strokeWidth={1} /> TeamWiki AI
                     </div>
-                    <p className="text-2xl font-serif font-light italic leading-snug">
+                    <p className="text-xl md:text-2xl font-serif font-light italic leading-snug">
                       "{aiAnswer}"
                     </p>
                   </div>
                 </FadeInSection>
               )}
 
-              <div className="grid grid-cols-1 gap-4 pt-8">
+              <div className="grid grid-cols-1 gap-2 pt-4">
                 {displayedArticles.map((item, i) => (
                   <ArticleCard 
                     key={item.id}
@@ -202,7 +202,7 @@ export default function App() {
               </div>
 
               {displayedArticles.length === 0 && (
-                <div className="py-16 border-t border-[var(--border)] reveal">
+                <div className="py-12 border-t border-[var(--border)] reveal">
                   <p className="text-stone-300 font-serif italic text-2xl font-light">Nenhum documento encontrado.</p>
                 </div>
               )}

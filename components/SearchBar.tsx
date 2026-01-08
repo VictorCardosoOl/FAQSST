@@ -14,7 +14,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onClick, onAskAi, loading,
     className="relative w-full max-w-xl mx-auto cursor-pointer group px-1" 
     onClick={onClick}
   >
-    <div className="flex items-center justify-between border-b border-[var(--border)] py-3 md:py-4 transition-all duration-500 group-hover:border-[var(--text-main)]">
+    <div className="flex items-center justify-between border-b border-[var(--border)] py-2 md:py-3 transition-all duration-500 group-hover:border-[var(--text-main)]">
       <div className="flex items-center gap-4 md:gap-6 flex-1 overflow-hidden">
         <Search size={18} md:size={20} strokeWidth={1} className="text-stone-300 group-hover:text-[var(--text-main)] transition-colors shrink-0" />
         <span className="text-base md:text-lg font-light text-stone-400 tracking-tight truncate">

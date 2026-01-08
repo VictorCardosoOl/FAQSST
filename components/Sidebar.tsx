@@ -43,14 +43,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className="flex items-center gap-4 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
           >
             <div className="w-4 h-4 rounded-full bg-[var(--text-main)] shrink-0" />
-            <span className={`text-sm font-bold uppercase tracking-[0.4em] transition-all duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
+            <span className={`text-sm font-bold uppercase tracking-[0.4em] text-[var(--text-main)] transition-all duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
               TeamWiki
             </span>
           </div>
           
           <button 
             onClick={onPinToggle}
-            className={`hidden lg:block text-stone-300 hover:text-[var(--text-main)] transition-all duration-500 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
+            className={`hidden lg:block text-stone-400 hover:text-[var(--text-main)] transition-all duration-500 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
           >
             {isPinned ? <Pin size={16} strokeWidth={1} /> : <PinOff size={16} strokeWidth={1} />}
           </button>
@@ -58,13 +58,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         <nav className="flex-1 space-y-8 overflow-y-auto no-scrollbar">
           <div>
-            <p className={`text-xs uppercase tracking-[0.2em] text-stone-400 font-bold mb-4 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+            <p className={`text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400 font-bold mb-4 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
               Navegação
             </p>
             <div className="space-y-2">
               <button 
                 onClick={() => { onSelect(null); }}
-                className={`flex items-center justify-between w-full text-sm font-medium py-2 transition-colors ${currentCat === null && !isQueueView ? 'text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)]'}`}
+                className={`flex items-center justify-between w-full text-sm font-medium py-2 transition-colors ${currentCat === null && !isQueueView ? 'text-[var(--text-main)]' : 'text-stone-500 dark:text-stone-400 hover:text-[var(--text-main)]'}`}
               >
                 <div className="flex items-center gap-4">
                   <Archive size={18} strokeWidth={1.2} />
@@ -75,13 +75,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
               
               <button 
                 onClick={() => { onSelectQueue?.(); }}
-                className={`flex items-center justify-between w-full text-sm font-medium py-2 transition-colors ${isQueueView ? 'text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)]'}`}
+                className={`flex items-center justify-between w-full text-sm font-medium py-2 transition-colors ${isQueueView ? 'text-[var(--text-main)]' : 'text-stone-500 dark:text-stone-400 hover:text-[var(--text-main)]'}`}
               >
                 <div className="flex items-center gap-4">
                   <Bookmark size={18} strokeWidth={1.2} />
                   <div className={`flex items-center gap-2 transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
                     <span>Minha Lista</span>
-                    {queueCount > 0 && <span className="text-[10px] opacity-40">({queueCount})</span>}
+                    {queueCount > 0 && <span className="text-[10px] opacity-60">({queueCount})</span>}
                   </div>
                 </div>
                 {isExpanded && isQueueView && <Circle size={4} fill="currentColor" />}
@@ -90,7 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           <div className="pt-4">
-            <p className={`text-xs uppercase tracking-[0.2em] text-stone-400 font-bold mb-4 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+            <p className={`text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400 font-bold mb-4 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
               Módulos
             </p>
             <div className="space-y-1">
@@ -98,7 +98,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={cat}
                   onClick={() => { onSelect(cat); }}
-                  className={`flex items-center justify-between w-full text-sm font-light py-2 transition-all ${currentCat === cat ? 'text-[var(--text-main)]' : 'text-stone-400 hover:text-[var(--text-main)]'} ${isExpanded && currentCat === cat ? 'translate-x-2' : ''}`}
+                  className={`flex items-center justify-between w-full text-sm font-light py-2 transition-all ${currentCat === cat ? 'text-[var(--text-main)] font-medium' : 'text-stone-500 dark:text-stone-400 hover:text-[var(--text-main)]'} ${isExpanded && currentCat === cat ? 'translate-x-2' : ''}`}
                 >
                   <div className="flex items-center gap-4">
                     <Hash size={18} strokeWidth={1} />
@@ -114,7 +114,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="pt-6 border-t border-[var(--border)]">
           <button 
             onClick={toggleDark}
-            className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-[var(--text-main)] transition-colors"
+            className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[var(--text-main)] transition-colors"
           >
             <div className="flex items-center gap-4">
               {isDarkMode ? <Sun size={18} strokeWidth={1.2} /> : <Moon size={18} strokeWidth={1.2} />}
