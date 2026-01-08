@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Archive, Hash, Bookmark, Sun, Moon, Circle, Pin, PinOff } from 'lucide-react';
 import { Category } from '../types';
@@ -24,25 +23,39 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const isExpanded = isPinned || isHovered || isOpen;
 
+  const getBtnClass = (isActive: boolean) => `
+    flex items-center justify-between w-full text-sm py-2.5 px-3 rounded-lg transition-all duration-300
+    ${isActive 
+      ? 'bg-stone-900/5 dark:bg-white/10 text-[var(--text-main)] font-bold' 
+      : 'text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-stone-900/5 dark:hover:bg-white/5 font-medium'}
+  `;
+
+  const getHeadingClass = (isVisible: boolean) => `
+    text-[10px] uppercase tracking-[0.25em] text-[var(--text-main)] font-black mb-4 px-3 transition-opacity duration-500
+    ${isVisible ? 'opacity-100' : 'opacity-0'}
+  `;
+
   return (
     <>
       {/* Overlay Mobile */}
       <div 
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] lg:hidden transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] lg:hidden transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
         onClick={onClose} 
       />
       
       <aside 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed left-0 top-0 bottom-0 glass bg-[var(--bg-island)] border-r border-[var(--border)] z-[70] flex flex-col py-8 transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${isExpanded ? 'w-80 px-8' : 'w-24 px-6'}`}
+        className={`fixed left-0 top-0 bottom-0 glass bg-[var(--bg-island)] border-r border-[var(--border)] z-[70] flex flex-col py-8 transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${isExpanded ? 'w-80 px-5' : 'w-24 px-4'}`}
       >
-        <div className="mb-10 flex items-center justify-between overflow-hidden">
+        <div className="mb-10 flex items-center justify-between px-3 overflow-hidden">
           <div 
             onClick={onLogoClick}
             className="flex items-center gap-4 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
           >
-            <div className="w-4 h-4 rounded-full bg-[var(--text-main)] shrink-0" />
+            <div className="w-5 h-5 rounded-full bg-[var(--text-main)] shrink-0 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 bg-[var(--bg-main)] rounded-full" />
+            </div>
             <span className={`text-sm font-bold uppercase tracking-[0.4em] text-[var(--text-main)] transition-all duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
               TeamWiki
             </span>
@@ -50,74 +63,70 @@ export const Sidebar: React.FC<SidebarProps> = ({
           
           <button 
             onClick={onPinToggle}
-            className={`hidden lg:block text-stone-500 hover:text-[var(--text-main)] transition-all duration-500 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
+            className={`hidden lg:block text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all duration-500 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
           >
-            {isPinned ? <Pin size={16} strokeWidth={1} /> : <PinOff size={16} strokeWidth={1} />}
+            {isPinned ? <Pin size={16} strokeWidth={1.5} /> : <PinOff size={16} strokeWidth={1.5} />}
           </button>
         </div>
 
-        <nav className="flex-1 space-y-8 overflow-y-auto no-scrollbar">
-          <div>
-            <p className={`text-[10px] uppercase tracking-[0.2em] text-stone-700 dark:text-stone-200 font-black mb-4 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
-              Navegação
-            </p>
-            <div className="space-y-2">
+        <nav className="flex-1 space-y-10 overflow-y-auto no-scrollbar">
+          <div className="space-y-1">
+            <p className={getHeadingClass(isExpanded)}>Navegação</p>
+            <div className="space-y-1">
               <button 
                 onClick={() => { onSelect(null); }}
-                className={`flex items-center justify-between w-full text-sm font-medium py-2 transition-colors ${currentCat === null && !isQueueView ? 'text-[var(--text-main)]' : 'text-stone-600 dark:text-stone-300 hover:text-[var(--text-main)]'}`}
+                className={getBtnClass(currentCat === null && !isQueueView)}
               >
                 <div className="flex items-center gap-4">
-                  <Archive size={18} strokeWidth={1.2} />
+                  <Archive size={18} strokeWidth={currentCat === null && !isQueueView ? 2 : 1.5} />
                   <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>Acervo</span>
                 </div>
-                {isExpanded && currentCat === null && !isQueueView && <Circle size={4} fill="currentColor" />}
+                {isExpanded && currentCat === null && !isQueueView && <Circle size={5} fill="currentColor" />}
               </button>
               
               <button 
                 onClick={() => { onSelectQueue?.(); }}
-                className={`flex items-center justify-between w-full text-sm font-medium py-2 transition-colors ${isQueueView ? 'text-[var(--text-main)]' : 'text-stone-600 dark:text-stone-300 hover:text-[var(--text-main)]'}`}
+                className={getBtnClass(isQueueView === true)}
               >
                 <div className="flex items-center gap-4">
-                  <Bookmark size={18} strokeWidth={1.2} />
+                  <Bookmark size={18} strokeWidth={isQueueView ? 2 : 1.5} />
                   <div className={`flex items-center gap-2 transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
                     <span>Minha Lista</span>
-                    {queueCount > 0 && <span className="text-[10px] opacity-70">({queueCount})</span>}
+                    {queueCount > 0 && <span className="text-[10px] font-bold bg-[var(--text-main)] text-[var(--bg-main)] px-1.5 py-0.5 rounded-full ml-1">{queueCount}</span>}
                   </div>
                 </div>
-                {isExpanded && isQueueView && <Circle size={4} fill="currentColor" />}
+                {isExpanded && isQueueView && <Circle size={5} fill="currentColor" />}
               </button>
             </div>
           </div>
 
-          <div className="pt-4">
-            <p className={`text-[10px] uppercase tracking-[0.2em] text-stone-700 dark:text-stone-200 font-black mb-4 transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
-              Módulos
-            </p>
+          <div className="space-y-1">
+            <p className={getHeadingClass(isExpanded)}>Módulos</p>
             <div className="space-y-1">
               {Object.values(Category).map(cat => (
                 <button
                   key={cat}
                   onClick={() => { onSelect(cat); }}
-                  className={`flex items-center justify-between w-full text-sm font-light py-2 transition-all ${currentCat === cat ? 'text-[var(--text-main)] font-medium' : 'text-stone-600 dark:text-stone-300 hover:text-[var(--text-main)]'} ${isExpanded && currentCat === cat ? 'translate-x-2' : ''}`}
+                  className={getBtnClass(currentCat === cat)}
                 >
                   <div className="flex items-center gap-4">
-                    <Hash size={18} strokeWidth={1} />
+                    <Hash size={18} strokeWidth={currentCat === cat ? 2 : 1.5} />
                     <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>{cat}</span>
                   </div>
-                  {isExpanded && currentCat === cat && <div className="w-4 h-[0.5px] bg-[var(--text-main)]" />}
+                  {isExpanded && currentCat === cat && <div className="w-4 h-[1.5px] bg-[var(--text-main)] rounded-full" />}
                 </button>
               ))}
             </div>
           </div>
         </nav>
 
-        <div className="pt-6 border-t border-[var(--border)]">
+        <div className="pt-6 border-t border-[var(--border)] px-3">
           <button 
             onClick={toggleDark}
-            className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-widest text-stone-600 dark:text-stone-300 hover:text-[var(--text-main)] transition-colors"
+            className="w-full flex items-center justify-between py-2 text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
           >
             <div className="flex items-center gap-4">
-              {isDarkMode ? <Sun size={18} strokeWidth={1.2} /> : <Moon size={18} strokeWidth={1.2} />}
+              {isDarkMode ? <Sun size={20} strokeWidth={1.5} /> : <Moon size={20} strokeWidth={1.5} />}
               <span className={`transition-opacity duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
                 {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
               </span>
