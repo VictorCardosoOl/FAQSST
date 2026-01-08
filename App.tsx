@@ -92,7 +92,7 @@ export default function App() {
   }, [selectedArticle, selectedCategory, viewMode, displayedArticles]);
 
   return (
-    <div className="flex min-h-screen selection:bg-stone-100 dark:selection:bg-white/10">
+    <div className="flex min-h-screen selection:bg-[var(--selection)] transition-colors duration-500 bg-[var(--bg-main)]">
       <Sidebar 
         currentCat={selectedCategory} 
         onSelect={(c) => { 
@@ -130,26 +130,26 @@ export default function App() {
         onSelectQueue={() => { setViewMode('QUEUE'); setSelectedCategory(null); setSelectedArticle(null); }}
       />
 
-      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-10 md:px-16 pt-10 pb-20 ${isSidebarPinned ? 'lg:pl-80' : 'lg:pl-32'} lg:pr-24`}>
+      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-8 md:px-12 pt-8 pb-12 ${isSidebarPinned ? 'lg:pl-80' : 'lg:pl-28'} lg:pr-16`}>
         <div className="max-w-5xl mx-auto">
           
           <button 
             onClick={() => setIsSidebarOpen(true)} 
-            className="lg:hidden fixed top-6 right-6 z-40 p-3 glass bg-[var(--bg-island)] border border-[var(--border)] rounded-full shadow-lg"
+            className="lg:hidden fixed top-4 right-4 z-40 p-2.5 glass bg-[var(--bg-island)] border border-[var(--border)] rounded-full shadow-lg text-[var(--text-main)]"
           >
-            <Menu size={22} strokeWidth={1.5} />
+            <Menu size={20} strokeWidth={1.5} />
           </button>
 
           {!selectedArticle ? (
-            <div className="space-y-10">
-              <header className="space-y-6">
-                <div className="space-y-3">
-                   <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.2em] text-stone-400 reveal">
-                     <div className="w-8 h-[0.5px] bg-stone-200" />
+            <div className="space-y-6">
+              <header className="space-y-4">
+                <div className="space-y-1">
+                   <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-700 dark:text-stone-300 reveal">
+                     <div className="w-6 h-[0.5px] bg-stone-400" />
                      <span>Arquivos 2025</span>
                    </div>
                    
-                   <h1 className="text-4xl lg:text-6xl font-serif font-light leading-[1.1] tracking-tight reveal">
+                   <h1 className="text-3xl lg:text-5xl font-serif font-light leading-tight tracking-tight text-[var(--text-main)] reveal">
                      {viewMode === 'QUEUE' ? (
                        <span className="italic">Minha Lista</span>
                      ) : selectedCategory ? (
@@ -161,7 +161,7 @@ export default function App() {
                 </div>
                 
                 {viewMode === 'HOME' && (
-                  <div className="reveal" style={{ animationDelay: '200ms' }}>
+                  <div className="reveal" style={{ animationDelay: '100ms' }}>
                     <SearchBar 
                       onClick={() => setIsCommandPaletteOpen(true)}
                       query={searchQuery}
@@ -173,22 +173,22 @@ export default function App() {
               </header>
 
               {aiAnswer && (
-                <FadeInSection className="max-w-4xl pt-2">
-                  <div className="border-l-[4px] border-[var(--text-main)] pl-8 py-6 relative bg-stone-50 dark:bg-white/5">
-                    <button onClick={() => setAiAnswer(null)} className="absolute top-3 right-3 text-stone-300 hover:text-[var(--text-main)] transition-colors">
-                      <X size={18} />
+                <FadeInSection className="max-w-4xl">
+                  <div className="border-l-[3px] border-[var(--text-main)] pl-6 py-4 relative bg-stone-50 dark:bg-white/5 rounded-r-sm shadow-sm transition-all duration-500">
+                    <button onClick={() => setAiAnswer(null)} className="absolute top-2 right-2 text-stone-400 hover:text-[var(--text-main)] transition-colors">
+                      <X size={16} />
                     </button>
-                    <div className="flex items-center gap-3 text-stone-400 font-bold text-xs uppercase tracking-[0.3em] mb-4">
-                      <Sparkles size={12} strokeWidth={1} /> TeamWiki AI
+                    <div className="flex items-center gap-2 text-stone-700 dark:text-stone-300 font-bold text-[9px] uppercase tracking-[0.2em] mb-2">
+                      <Sparkles size={10} strokeWidth={1} /> TeamWiki AI
                     </div>
-                    <p className="text-xl md:text-2xl font-serif font-light italic leading-snug">
+                    <p className="text-lg md:text-xl font-serif font-light italic leading-snug text-[var(--text-body)]">
                       "{aiAnswer}"
                     </p>
                   </div>
                 </FadeInSection>
               )}
 
-              <div className="grid grid-cols-1 gap-2 pt-4">
+              <div className="grid grid-cols-1 gap-1 pt-4">
                 {displayedArticles.map((item, i) => (
                   <ArticleCard 
                     key={item.id}
@@ -203,7 +203,9 @@ export default function App() {
 
               {displayedArticles.length === 0 && (
                 <div className="py-12 border-t border-[var(--border)] reveal">
-                  <p className="text-stone-300 font-serif italic text-2xl font-light">Nenhum documento encontrado.</p>
+                  <p className="text-stone-600 dark:text-stone-400 font-serif italic text-xl font-light">
+                    Nenhum documento encontrado em nossa biblioteca.
+                  </p>
                 </div>
               )}
             </div>

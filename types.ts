@@ -1,3 +1,4 @@
+
 export enum Category {
   COLETIVO = 'Coletivo',
   GERAL = 'Geral',
@@ -14,8 +15,7 @@ export interface FAQItem {
   category: Category;
   tags: string[];
   content?: string;
-  imageUrl?: string; // Nova propriedade para estética visual
-  date?: string;     // Para listagem estilo K-News
+  date?: string;
 }
 
 export interface SearchResult {
