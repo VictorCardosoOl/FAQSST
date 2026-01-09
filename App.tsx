@@ -10,7 +10,7 @@ import { Sidebar } from './components/Sidebar';
 import { SearchBar } from './components/SearchBar';
 import { ArticleCard } from './components/ArticleCard';
 import { ArticleView } from './components/ArticleView';
-import { FadeInSection } from './components/FadeInSection';
+
 import { CommandPalette } from './components/CommandPalette';
 
 export default function App() {
@@ -118,7 +118,7 @@ export default function App() {
         onSelectQueue={() => { setViewMode('QUEUE'); setSelectedCategory(null); setSelectedArticle(null); }}
       />
 
-      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-8 md:px-12 pt-8 pb-12 ${isSidebarPinned ? 'lg:pl-80' : 'lg:pl-28'} lg:pr-16`}>
+      <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-8 md:px-12 pt-8 pb-12 ${isSidebarPinned ? 'lg:pl-64' : 'lg:pl-28'} lg:pr-16`}>
         <div className="max-w-5xl mx-auto">
 
           <button

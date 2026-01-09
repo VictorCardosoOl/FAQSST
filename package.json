@@ -13,6 +13,7 @@
     "@types/dompurify": "^3.2.0",
     "cmdk": "^1.1.1",
     "dompurify": "^3.3.1",
+    "framer-motion": "^12.25.0",
     "lucide-react": "^0.561.0",
     "marked": "^15.0.0",
     "react": "^19.2.3",

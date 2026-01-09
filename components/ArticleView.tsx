@@ -2,8 +2,8 @@ import React, { useMemo, useEffect } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FAQItem } from '../types';
-import { FadeInSection } from './FadeInSection';
 
 interface ArticleViewProps {
   article: FAQItem;
@@ -23,54 +23,93 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   }, [article.id]);
 
   return (
-    <div className="reveal">
-      <nav className="flex items-center gap-6 mb-8 text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] no-print">
-        <button onClick={onBack} className="hover:text-[var(--text-main)] transition-colors underline decoration-stone-400 underline-offset-4">Voltar</button>
-        <div className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-600" />
-        <span className="text-[var(--text-main)] truncate max-w-[200px]">{article.category}</span>
+    <div className="min-h-screen">
+      <nav className="flex items-center gap-6 mb-12 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] no-print">
+        <button
+          onClick={onBack}
+          className="hover:text-[var(--text-main)] transition-colors flex items-center gap-2 group"
+        >
+          <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
+          Voltar
+        </button>
+        <div className="w-1 h-1 rounded-full bg-stone-300 dark:bg-stone-700" />
+        <span className="text-[var(--text-main)] opacity-60 truncate max-w-[200px]">{article.category}</span>
       </nav>
 
-      <header className="mb-12 space-y-6">
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight text-[var(--text-main)]">
-          {article.question}
-        </h1>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={article.id}
+          initial={{ opacity: 0, y: 10, filter: 'blur(5px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -10, filter: 'blur(5px)' }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="max-w-4xl mx-auto"
+        >
+          <header className="mb-10 space-y-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05, duration: 0.4 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight text-[var(--text-main)]"
+            >
+              {article.question}
+            </motion.h1>
 
-        <div className="border-t border-[var(--border)] pt-8 max-w-4xl">
-          <p className="text-xl md:text-3xl text-[var(--text-muted)] font-serif italic leading-relaxed">
-            {article.answer}
-          </p>
-        </div>
-      </header>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
+              className="border-l-2 border-[var(--text-main)] pl-6 py-1"
+            >
+              <p className="text-xl md:text-2xl text-[var(--text-muted)] font-serif italic leading-relaxed">
+                {article.answer}
+              </p>
+            </motion.div>
+          </header>
 
-      <FadeInSection className="max-w-4xl pb-24">
-        <div
-          className="article-content-render text-lg md:text-[1.35rem] font-normal leading-relaxed text-[var(--text-body)] space-y-8 prose dark:prose-invert prose-stone max-w-none prose-p:mb-8"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
+          <div className="pb-16">
+            <div
+              className="article-content-render text-lg md:text-xl font-normal leading-loose text-[var(--text-body)] space-y-6 prose prose-lg dark:prose-invert prose-stone max-w-none prose-headings:font-serif prose-headings:font-light prose-p:text-stone-600 dark:prose-p:text-stone-300 prose-a:text-[var(--text-main)] hover:prose-a:opacity-80 transition-opacity"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
 
-        <footer className="mt-20 pt-10 border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-2 gap-12 no-print">
-          {nav.prev && (
-            <button onClick={() => onNavigate(nav.prev)} className="group text-left space-y-3">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2.5">
-                <ArrowLeft size={14} /> Anterior
-              </span>
-              <h4 className="text-xl font-serif font-light group-hover:translate-x-2 transition-transform duration-700 text-[var(--text-main)] line-clamp-2">
-                {nav.prev.question}
-              </h4>
-            </button>
-          )}
-          {nav.next && (
-            <button onClick={() => onNavigate(nav.next)} className="group text-right sm:col-start-2 space-y-3">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2.5 justify-end">
-                Próximo <ArrowRight size={14} />
-              </span>
-              <h4 className="text-xl font-serif font-light group-hover:-translate-x-2 transition-transform duration-700 text-[var(--text-main)] line-clamp-2">
-                {nav.next.question}
-              </h4>
-            </button>
-          )}
-        </footer>
-      </FadeInSection>
+            <footer className="mt-16 pt-8 border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-2 gap-8 no-print">
+              {nav.prev && (
+                <button
+                  onClick={() => onNavigate(nav.prev)}
+                  className="group text-left space-y-2 hover:bg-stone-50 dark:hover:bg-white/5 p-4 -ml-4 rounded-xl transition-colors duration-200"
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
+                    <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
+                    Anterior
+                  </span>
+                  <div>
+                    <h4 className="text-lg font-serif font-light text-[var(--text-main)] line-clamp-2 leading-tight">
+                      {nav.prev.question}
+                    </h4>
+                  </div>
+                </button>
+              )}
+              {nav.next && (
+                <button
+                  onClick={() => onNavigate(nav.next)}
+                  className="group text-right sm:col-start-2 space-y-2 hover:bg-stone-50 dark:hover:bg-white/5 p-4 -mr-4 rounded-xl transition-colors duration-200"
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
+                    Próximo
+                    <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div>
+                    <h4 className="text-lg font-serif font-light text-[var(--text-main)] line-clamp-2 leading-tight">
+                      {nav.next.question}
+                    </h4>
+                  </div>
+                </button>
+              )}
+            </footer>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
