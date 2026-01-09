@@ -2,49 +2,321 @@
 import { FAQItem, Category } from './types';
 
 export const FAQ_DATA: FAQItem[] = [
+  // --- SIGO W3 ---
   {
-    id: 'tratativa-protocolo',
-    question: 'A Arte da Tratativa de Protocolos',
-    category: Category.COLETIVO,
-    date: '12 Out 2024',
-    tags: ['Protocolo', 'Processos', 'Operação'],
-    answer: 'Um manifesto sobre a excelência operacional na abertura e condução de atendimentos no sistema W-GSC.',
-    content: `## O Rigor Operacional\n\nO atendimento não se inicia na fala, mas no registro. Ao acolher um cliente, a materialização da sua necessidade no sistema **W-GSC** é o primeiro ato de respeito à sua jornada.\n\n> O protocolo não é um número; é a representação digital da confiança do cliente em nossa marca.\n\nNossa metodologia exige que cada interação seja documentada com precisão cirúrgica.\n\n### Exemplo de Tela de Registro\n![Interface GSC](https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&w=800&q=80)`
+    id: 'w3-mensageria-tutorial',
+    question: 'Tutorial de Mensageria - Sigo W3',
+    category: Category.SIGO_W3,
+    date: '01 Jan 2026',
+    tags: ['Mensageria', 'W3', 'Tutorial'],
+    answer: 'Guia completo para utilização do módulo de mensageria no Sigo W3.',
+    content: `## Mensageria Sigo W3
+
+Manual completo sobre o funcionamento da mensageria.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Mensageria%20Manual%20Tutorial.pdf)`
   },
   {
-    id: 'feedback-24h',
-    question: 'A Estética do Feedback Contínuo',
-    category: Category.COLETIVO,
-    date: '15 Out 2024',
-    tags: ['Comunicação', 'Feedback', 'Luxo'],
-    answer: 'Por que o silêncio é o maior inimigo da experiência do usuário.',
-    content: `## O Valor da Informação\n\nEm um mundo de incertezas, a atualização constante é o maior luxo que podemos oferecer.\n\n> Silêncio é ausência de cuidado. Informação é presença de valor.`
+    id: 'w3-mensageria-analise',
+    question: 'Análise de Erros Mensageria - Sigo W3',
+    category: Category.SIGO_W3,
+    date: '02 Jan 2026',
+    tags: ['Mensageria', 'W3', 'Erros', 'Troubleshooting'],
+    answer: 'Como identificar e corrigir erros comuns na mensageria.',
+    content: `## Solução de Problemas
+
+Guia para análise de erros no envio de mensagens.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Tutorial_Analise_de_erro_Mensageria.pdf)`
   },
   {
-    id: 'politica-ferias',
-    question: 'Manual de Concessão de Férias',
-    category: Category.RH,
-    date: '05 Jan 2025',
-    tags: ['RH', 'Benefícios', 'Legal'],
-    answer: 'Diretrizes para solicitação e aprovação de períodos de descanso remunerado.',
-    content: `## Ciclo de Descanso\n\nAcreditamos que o alto desempenho exige desconexão profunda. O processo de férias deve ser iniciado com 60 dias de antecedência.\n\n> Descanso não é ócio; é manutenção preventiva do talento.\n\n### Regras de Ouro\n1. Verifique o saldo no portal do colaborador.\n2. Alinhe com seu par direto para cobertura de tarefas.\n3. Registre a solicitação no sistema HR-Core.`
+    id: 'w3-esocial-ebook',
+    question: 'E-book eSocial Sigo v1.0',
+    category: Category.SIGO_W3,
+    date: '03 Jan 2026',
+    tags: ['eSocial', 'W3', 'E-book'],
+    answer: 'Livro digital completo sobre o eSocial no software Sigo.',
+    content: `## eSocial no Sigo
+
+Documentação abrangente sobre a integração com eSocial.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20eSocial/e-Book_eSocial_Software_Sigo_%20Versao_%20S_1_0_RC_Oficial%20(1).pdf)`
   },
   {
-    id: 'reembolso-despesas',
-    question: 'Governança de Reembolso de Despesas',
-    category: Category.FINANCEIRO,
-    date: '10 Jan 2025',
-    tags: ['Financeiro', 'Compliance', 'Custos'],
-    answer: 'Procedimento padrão para prestação de contas de viagens e despesas operacionais.',
-    content: `## Integridade Financeira\n\nCada real investido deve estar alinhado à estratégia de crescimento da companhia. O reembolso é processado quinzenalmente.\n\n> Compliance não é burocracia; é a proteção do patrimônio coletivo.\n\n### Fluxo de Aprovação\n![Fluxograma Financeiro](https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80)`
+    id: 'w3-upload-colunas',
+    question: 'Colunas para Upload de Dados',
+    category: Category.SIGO_W3,
+    date: '04 Jan 2026',
+    tags: ['Upload', 'Dados', 'Funcionários'],
+    answer: 'Especificação das colunas necessárias para importação de dados.',
+    content: `## Estrutura de Arquivos
+
+Definição das colunas para planilhas de upload.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Colunas%20-%20Upload%20de%20Dados.pdf)`
   },
   {
-    id: 'configuracao-vpn',
-    question: 'Configuração de VPN Corporativa',
-    category: Category.TI,
-    date: '22 Out 2024',
-    tags: ['Segurança', 'Remoto', 'VPN'],
-    answer: 'Guia passo a passo para estabelecer uma conexão segura.',
-    content: `## Segurança Distribuída\n\nA VPN é o túnel que protege nossos segredos comerciais.\n\n> Conexão sem segurança é convite para vulnerabilidade.`
+    id: 'w3-upload-tutorial',
+    question: 'Tutorial Sigo Upload',
+    category: Category.SIGO_W3,
+    date: '05 Jan 2026',
+    tags: ['Upload', 'Tutorial', 'Importação'],
+    answer: 'Passo a passo para realizar uploads no sistema.',
+    content: `## Importação de Dados
+
+Como utilizar a ferramenta de upload do Sigo.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Tutorial%20-%20Sigo®%20Upload.pdf)`
+  },
+  {
+    id: 'w3-comercial',
+    question: 'Manual Comercial Sigo W3',
+    category: Category.SIGO_W3,
+    date: '06 Jan 2026',
+    tags: ['Comercial', 'W3', 'Vendas'],
+    answer: 'Diretrizes do módulo comercial.',
+    content: `## Módulo Comercial
+
+Visão geral das funcionalidades comerciais.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20comercial/Comercial.pdf)`
+  },
+  {
+    id: 'w3-cores',
+    question: 'Padrão de Cores W3',
+    category: Category.SIGO_W3,
+    date: '07 Jan 2026',
+    tags: ['Cores', 'Design', 'Interface'],
+    answer: 'Guia de cores e legendas do sistema Sigo W3.',
+    content: `## Identidade Visual
+
+Entenda o significado das cores no sistema.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Cores/Cores.pdf)`
+  },
+
+  // --- SIGO WEB ---
+  {
+    id: 'web-agendamento',
+    question: 'Agendamentos - Sigo Web',
+    category: Category.SIGO_WEB,
+    date: '08 Jan 2026',
+    tags: ['Agendamento', 'Web', 'Atendimento'],
+    answer: 'Procedimento para realizar agendamentos no Sigo Web.',
+    content: `## Agendamentos
+
+Como agendar atendimentos e exames.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Agendamentos/Agendamento.pdf)`
+  },
+  {
+    id: 'web-toxicologico',
+    question: 'Exame Toxicológico',
+    category: Category.SIGO_WEB,
+    date: '09 Jan 2026',
+    tags: ['Exames', 'Toxicológico', 'Saúde'],
+    answer: 'Gestão de exames toxicológicos no sistema.',
+    content: `## Exames Toxicológicos
+
+Procedimentos para lançamento e controle.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Atendimentos/Exame_Toxicologico.pdf)`
+  },
+  {
+    id: 'web-aso-digital',
+    question: 'Assinatura de ASO Digitalmente',
+    category: Category.SIGO_WEB,
+    date: '10 Jan 2026',
+    tags: ['ASO', 'Assinatura Digital', 'Médico'],
+    answer: 'Como assinar ASOs digitalmente na plataforma.',
+    content: `## ASO Digital
+
+Guia para assinatura eletrônica de Atestados de Saúde Ocupacional.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Assinatura%20de%20ASO%20Digitalmente/Assinatura%20de%20ASO%20Digitalmente.pdf)`
+  },
+  {
+    id: 'web-orcamento',
+    question: 'Orçamento para Novos Clientes',
+    category: Category.SIGO_WEB,
+    date: '11 Jan 2026',
+    tags: ['Comercial', 'Orçamento', 'Clientes'],
+    answer: 'Geração de orçamentos para novos contratos.',
+    content: `## Propostas Comerciais
+
+Como criar e enviar orçamentos.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Comercial/Sigo%20Web%20-%20Empresa%20-%20Comercial/Orcamento_para_novos_clientes.pdf)`
+  },
+  {
+    id: 'web-esocial-intro',
+    question: 'Introdução SST eSocial',
+    category: Category.SIGO_WEB,
+    date: '12 Jan 2026',
+    tags: ['eSocial', 'SST', 'Introdução'],
+    answer: 'Conceitos básicos de SST no eSocial.',
+    content: `## Fundamentos SST
+
+Introdução ao módulo SST para eSocial.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Introdução%20SST/Treinamento_Introducao.pdf)`
+  },
+  {
+    id: 'web-esocial-portal',
+    question: 'Manual do Usuário eSocial Web',
+    category: Category.SIGO_WEB,
+    date: '13 Jan 2026',
+    tags: ['eSocial', 'Portal', 'Web'],
+    answer: 'Guia geral de uso do portal eSocial Web.',
+    content: `## Portal eSocial
+
+Navegação e funcionalidades do portal.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Portal%20-%20eSocial%20Web/manual%20do%20usuario%20esocial%20web%20geral.pdf)`
+  },
+  {
+    id: 'web-faturamento',
+    question: 'Faturamento Sigo Web',
+    category: Category.SIGO_WEB,
+    date: '14 Jan 2026',
+    tags: ['Financeiro', 'Faturamento', 'Cobrança'],
+    answer: 'Processo completo de faturamento no Sigo Web.',
+    content: `## Gestão Financeira
+
+Como processar o faturamento mensal.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento.pdf)`
+  },
+  {
+    id: 'web-faturamento-sem-valor',
+    question: 'Faturamento Sem Valores Cobrados',
+    category: Category.SIGO_WEB,
+    date: '15 Jan 2026',
+    tags: ['Financeiro', 'Faturamento', 'Exceções'],
+    answer: 'Tratativa de faturamentos zerados ou sem cobrança.',
+    content: `## Exceções de Faturamento
+
+Como lidar com itens não cobrados.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento_Sem_Valores_Cobrados.pdf)`
+  },
+  {
+    id: 'web-financeiro-param',
+    question: 'Parametrizar Cobrança',
+    category: Category.SIGO_WEB,
+    date: '16 Jan 2026',
+    tags: ['Financeiro', 'Configuração', 'Parâmetros'],
+    answer: 'Configuração de parâmetros para cobrança automática.',
+    content: `## Configuração Financeira
+
+Definindo regras de cobrança.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Contrato%20Comercial%20-%20Parametrizar%20Cobrança/Financeiro.pdf)`
+  },
+  {
+    id: 'web-plugin-biometria',
+    question: 'Instalação Plugin de Biometria',
+    category: Category.SIGO_WEB,
+    date: '17 Jan 2026',
+    tags: ['Plugin', 'Biometria', 'Instalação'],
+    answer: 'Como instalar e configurar o plugin de leitura biométrica.',
+    content: `## Biometria
+
+Instalação do componente de hardware.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Instalação%20do%20Plugin%20(Biometria)/Plugin%20Sigo%20Web.pdf)`
+  },
+  {
+    id: 'web-cores',
+    question: 'Sigo Web Cores',
+    category: Category.SIGO_WEB,
+    date: '18 Jan 2026',
+    tags: ['Cores', 'Web', 'Legenda'],
+    answer: 'Legenda de cores e status no Sigo Web.',
+    content: `## Status Visual
+
+Entendendo a codificação de cores na web.
+
+[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Cores/Cores.pdf)`
+  },
+
+  // --- PROCESSOS ---
+  {
+    id: 'proc-fluxograma',
+    question: 'Fluxograma de Atendimento',
+    category: Category.PROCESSOS,
+    date: '20 Jan 2026',
+    tags: ['Fluxograma', 'Processos', 'Atendimento'],
+    answer: 'Mapa visual do fluxo de atendimento ao cliente.',
+    content: `## Fluxo de Trabalho
+
+![Fluxograma](/manuais/Processos/Fluxograma%20de%20atendimento.pdf)
+
+[Visualizar PDF Completo](/manuais/Processos/Fluxograma%20de%20atendimento.pdf)`
+  },
+  {
+    id: 'proc-abertura-protocolo',
+    question: 'Abertura e Tratativa de Protocolo',
+    category: Category.PROCESSOS,
+    date: '21 Jan 2026',
+    tags: ['Protocolo', 'Suporte', 'Procedimento'],
+    answer: 'Processo padrão para abertura de chamados.',
+    content: `## Protocolos
+
+Diretrizes para abertura de chamados.
+
+[Visualizar Manual Completo (PDF)](/manuais/Processos/Processo%20de%20abertura%20e%20tratativa%20de%20protocolo.pdf)`
+  },
+  {
+    id: 'proc-bd',
+    question: 'Solicitações via Banco de Dados',
+    category: Category.PROCESSOS,
+    date: '22 Jan 2026',
+    tags: ['Banco de Dados', 'SQL', 'Solicitação'],
+    answer: 'Como solicitar intervenções via banco de dados.',
+    content: `## Intervenção Técnica
+
+Processo para solicitações de nível de banco de dados.
+
+[Visualizar Manual Completo (PDF)](/manuais/Processos/Processo%20Solicitações%20via%20Banco%20de%20dados.pdf)`
+  },
+
+  // --- ESCALA / PONTO ---
+  {
+    id: 'ponto-escala',
+    question: 'Escala de Colaboradores',
+    category: Category.ESCALA,
+    date: '25 Jan 2026',
+    tags: ['RH', 'Escala', 'Horários'],
+    answer: 'Visualização da escala de trabalho atual.',
+    content: `## Escala de Trabalho
+
+![Escala](/assets/Escala.jpg)
+
+[Ver imagem original](/assets/Escala.jpg)`
+  },
+
+  // --- INSTITUCIONAL ---
+  {
+    id: 'inst-equipe',
+    question: 'Equipe Técnica',
+    category: Category.INSTITUCIONAL,
+    date: '30 Jan 2026',
+    tags: ['Equipe', 'Contato', 'Time'],
+    answer: 'Contatos da supervisão e desenvolvimento.',
+    content: `## Nossa Equipe
+
+**Supervisão Geral**
+- Rodrigo Cardoso
+
+**Supervisão de Projeto**
+- Guilherme Villa
+
+**Desenvolvedores**
+- Guilherme Villa
+- Pedro Bittencourt
+
+**Colaboradores**
+- Victor Cunha`
   }
 ];

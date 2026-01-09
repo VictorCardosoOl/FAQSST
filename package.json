@@ -9,14 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "@google/genai": "^1.33.0",
+    "@testing-library/react": "^16.3.1",
+    "@types/dompurify": "^3.2.0",
+    "cmdk": "^1.1.1",
+    "dompurify": "^3.3.1",
     "lucide-react": "^0.561.0",
     "marked": "^15.0.0",
-    "cmdk": "^1.1.1",
-    "vitest": "^4.0.16",
-    "@testing-library/react": "^16.3.1"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "vitest": "^4.0.16"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

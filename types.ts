@@ -1,11 +1,9 @@
-
 export enum Category {
-  COLETIVO = 'Coletivo',
-  GERAL = 'Geral',
-  RH = 'Capital Humano',
-  TI = 'Tecnologia',
-  VENDAS = 'Estratégia & Vendas',
-  FINANCEIRO = 'Governança Financeira'
+  SIGO_W3 = 'Sigo W3',
+  SIGO_WEB = 'Sigo Web',
+  PROCESSOS = 'Processos',
+  ESCALA = 'Ponto',
+  INSTITUCIONAL = 'Institucional'
 }
 
 export interface FAQItem {
@@ -18,7 +16,3 @@ export interface FAQItem {
   date?: string;
 }
 
-export interface SearchResult {
-  answer: string;
-  isAiGenerated: boolean;
-}

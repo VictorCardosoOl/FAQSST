@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import { FAQItem } from '../types';
 import { FadeInSection } from './FadeInSection';
 
@@ -13,7 +14,8 @@ interface ArticleViewProps {
 
 export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNavigate, nav }) => {
   const htmlContent = useMemo(() => {
-    return marked.parse(article.content || article.answer);
+    const rawHtml = marked.parse(article.content || article.answer) as string;
+    return DOMPurify.sanitize(rawHtml);
   }, [article.content, article.answer]);
 
   return (
@@ -28,20 +30,20 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
         <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight text-[var(--text-main)]">
           {article.question}
         </h1>
-        
+
         <div className="border-t border-[var(--border)] pt-8 max-w-4xl">
-           <p className="text-xl md:text-3xl text-[var(--text-muted)] font-serif italic leading-relaxed">
-             {article.answer}
-           </p>
+          <p className="text-xl md:text-3xl text-[var(--text-muted)] font-serif italic leading-relaxed">
+            {article.answer}
+          </p>
         </div>
       </header>
 
       <FadeInSection className="max-w-4xl pb-24">
-        <div 
-          className="article-content-render text-lg md:text-[1.35rem] font-normal leading-relaxed text-[var(--text-body)] space-y-8 prose dark:prose-invert prose-stone max-w-none prose-p:mb-8" 
-          dangerouslySetInnerHTML={{ __html: htmlContent }} 
+        <div
+          className="article-content-render text-lg md:text-[1.35rem] font-normal leading-relaxed text-[var(--text-body)] space-y-8 prose dark:prose-invert prose-stone max-w-none prose-p:mb-8"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
         />
-        
+
         <footer className="mt-20 pt-10 border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-2 gap-12 no-print">
           {nav.prev && (
             <button onClick={() => onNavigate(nav.prev)} className="group text-left space-y-3">

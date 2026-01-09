@@ -15,15 +15,15 @@ interface CommandPaletteProps {
   onSelectQueue: () => void;
 }
 
-export const CommandPalette: React.FC<CommandPaletteProps> = ({ 
-  isOpen, onClose, onSelectArticle, onToggleTheme, isDarkMode, onSelectCategory, onSelectQueue 
+export const CommandPalette: React.FC<CommandPaletteProps> = ({
+  isOpen, onClose, onSelectArticle, onToggleTheme, isDarkMode, onSelectCategory, onSelectQueue
 }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4">
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      
+
       <Command className="relative w-full max-w-2xl animate-in fade-in zoom-in duration-200">
         <div className="flex items-center justify-between px-4">
           <Command.Input placeholder="O que você deseja buscar ou fazer?" />
@@ -85,9 +85,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             <span>↑↓ Navegar</span>
             <span>↵ Selecionar</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Sparkles size={10} /> TeamWiki Pro Engine
-          </div>
+
         </div>
       </Command>
     </div>
