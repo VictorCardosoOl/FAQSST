@@ -1,9 +1,7 @@
 export enum Category {
-  SIGO_W3 = 'Sigo W3',
-  SIGO_WEB = 'Sigo Web',
-  PROCESSOS = 'Processos',
-  ESCALA = 'Ponto',
-  INSTITUCIONAL = 'Institucional'
+  SST = 'Saúde e Segurança',
+  PREVIDENCIARIO = 'Previdenciário',
+  ESOCIAL = 'eSocial e Governo'
 }
 
 export interface FAQItem {
