@@ -15,7 +15,10 @@ interface ArticleViewProps {
 export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNavigate, nav }) => {
   const htmlContent = useMemo(() => {
     const rawHtml = marked.parse(article.content || article.answer) as string;
-    return DOMPurify.sanitize(rawHtml);
+    return DOMPurify.sanitize(rawHtml, {
+      ADD_TAGS: ['iframe'],
+      ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling']
+    });
   }, [article.content, article.answer]);
 
   return (

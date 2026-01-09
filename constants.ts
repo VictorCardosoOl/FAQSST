@@ -12,9 +12,11 @@ export const FAQ_DATA: FAQItem[] = [
     answer: 'Guia completo para utilização do módulo de mensageria no Sigo W3.',
     content: `## Mensageria Sigo W3
 
-Manual completo sobre o funcionamento da mensageria.
+Confira abaixo o manual completo sobre o funcionamento da mensageria no sistema Sigo W3. Utilize os controles do visualizador para dar zoom ou navegar entre as páginas.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Mensageria%20Manual%20Tutorial.pdf)`
+<iframe src="/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Mensageria%20Manual%20Tutorial.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Mensageria%20Manual%20Tutorial.pdf)`
   },
   {
     id: 'w3-mensageria-analise',
@@ -25,9 +27,11 @@ Manual completo sobre o funcionamento da mensageria.
     answer: 'Como identificar e corrigir erros comuns na mensageria.',
     content: `## Solução de Problemas
 
-Guia para análise de erros no envio de mensagens.
+Guia prático para análise e correção de erros no envio de mensagens.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Tutorial_Analise_de_erro_Mensageria.pdf)`
+<iframe src="/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Tutorial_Analise_de_erro_Mensageria.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Mensageria/Tutorial_Analise_de_erro_Mensageria.pdf)`
   },
   {
     id: 'w3-esocial-ebook',
@@ -38,9 +42,11 @@ Guia para análise de erros no envio de mensagens.
     answer: 'Livro digital completo sobre o eSocial no software Sigo.',
     content: `## eSocial no Sigo
 
-Documentação abrangente sobre a integração com eSocial.
+Documentação abrangente sobre a integração com eSocial. Este material cobre os versão S-1.0 RC Oficial.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20eSocial/e-Book_eSocial_Software_Sigo_%20Versao_%20S_1_0_RC_Oficial%20(1).pdf)`
+<iframe src="/manuais/Manual%20sigoW3/Sigo%20w3%20-%20eSocial/e-Book_eSocial_Software_Sigo_%20Versao_%20S_1_0_RC_Oficial%20(1).pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20eSocial/e-Book_eSocial_Software_Sigo_%20Versao_%20S_1_0_RC_Oficial%20(1).pdf)`
   },
   {
     id: 'w3-upload-colunas',
@@ -51,9 +57,11 @@ Documentação abrangente sobre a integração com eSocial.
     answer: 'Especificação das colunas necessárias para importação de dados.',
     content: `## Estrutura de Arquivos
 
-Definição das colunas para planilhas de upload.
+Definição técnica das colunas e formatos exigidos para as planilhas de upload de dados de funcionários.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Colunas%20-%20Upload%20de%20Dados.pdf)`
+<iframe src="/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Colunas%20-%20Upload%20de%20Dados.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Colunas%20-%20Upload%20de%20Dados.pdf)`
   },
   {
     id: 'w3-upload-tutorial',
@@ -64,9 +72,11 @@ Definição das colunas para planilhas de upload.
     answer: 'Passo a passo para realizar uploads no sistema.',
     content: `## Importação de Dados
 
-Como utilizar a ferramenta de upload do Sigo.
+Este tutorial demonstra o processo passo a passo para utilizar a ferramenta Sigo Upload.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Tutorial%20-%20Sigo®%20Upload.pdf)`
+<iframe src="/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Tutorial%20-%20Sigo®%20Upload.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Upload%20de%20Funcionários/Tutorial%20-%20Sigo®%20Upload.pdf)`
   },
   {
     id: 'w3-comercial',
@@ -77,9 +87,11 @@ Como utilizar a ferramenta de upload do Sigo.
     answer: 'Diretrizes do módulo comercial.',
     content: `## Módulo Comercial
 
-Visão geral das funcionalidades comerciais.
+Visão geral das funcionalidades comerciais disponíveis no Sigo W3.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20comercial/Comercial.pdf)`
+<iframe src="/manuais/Manual%20sigoW3/Sigo%20w3%20-%20comercial/Comercial.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20comercial/Comercial.pdf)`
   },
   {
     id: 'w3-cores',
@@ -90,9 +102,11 @@ Visão geral das funcionalidades comerciais.
     answer: 'Guia de cores e legendas do sistema Sigo W3.',
     content: `## Identidade Visual
 
-Entenda o significado das cores no sistema.
+Entenda o significado das cores utilizadas na interface do usuário do Sigo W3.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Cores/Cores.pdf)`
+<iframe src="/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Cores/Cores.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoW3/Sigo%20w3%20-%20Cores/Cores.pdf)`
   },
 
   // --- SIGO WEB ---
@@ -105,9 +119,11 @@ Entenda o significado das cores no sistema.
     answer: 'Procedimento para realizar agendamentos no Sigo Web.',
     content: `## Agendamentos
 
-Como agendar atendimentos e exames.
+Documentação detalhada sobre como realizar e gerenciar agendamentos no portal Sigo Web.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Agendamentos/Agendamento.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Agendamentos/Agendamento.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Agendamentos/Agendamento.pdf)`
   },
   {
     id: 'web-toxicologico',
@@ -118,9 +134,11 @@ Como agendar atendimentos e exames.
     answer: 'Gestão de exames toxicológicos no sistema.',
     content: `## Exames Toxicológicos
 
-Procedimentos para lançamento e controle.
+Procedimentos e normas para o lançamento e controle de exames toxicológicos.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Atendimentos/Exame_Toxicologico.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Atendimentos/Exame_Toxicologico.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Atendimentos/Exame_Toxicologico.pdf)`
   },
   {
     id: 'web-aso-digital',
@@ -131,9 +149,11 @@ Procedimentos para lançamento e controle.
     answer: 'Como assinar ASOs digitalmente na plataforma.',
     content: `## ASO Digital
 
-Guia para assinatura eletrônica de Atestados de Saúde Ocupacional.
+Manual para médicos e administrativos sobre como utilizar a assinatura digital para ASOs de forma segura e válida.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Assinatura%20de%20ASO%20Digitalmente/Assinatura%20de%20ASO%20Digitalmente.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Assinatura%20de%20ASO%20Digitalmente/Assinatura%20de%20ASO%20Digitalmente.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Atendimento/Sigo%20Web%20-%20Assinatura%20de%20ASO%20Digitalmente/Assinatura%20de%20ASO%20Digitalmente.pdf)`
   },
   {
     id: 'web-orcamento',
@@ -144,9 +164,11 @@ Guia para assinatura eletrônica de Atestados de Saúde Ocupacional.
     answer: 'Geração de orçamentos para novos contratos.',
     content: `## Propostas Comerciais
 
-Como criar e enviar orçamentos.
+Fluxo completo para criação, edição e envio de orçamentos para novos clientes no módulo web.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Comercial/Sigo%20Web%20-%20Empresa%20-%20Comercial/Orcamento_para_novos_clientes.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Comercial/Sigo%20Web%20-%20Empresa%20-%20Comercial/Orcamento_para_novos_clientes.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Comercial/Sigo%20Web%20-%20Empresa%20-%20Comercial/Orcamento_para_novos_clientes.pdf)`
   },
   {
     id: 'web-esocial-intro',
@@ -157,9 +179,11 @@ Como criar e enviar orçamentos.
     answer: 'Conceitos básicos de SST no eSocial.',
     content: `## Fundamentos SST
 
-Introdução ao módulo SST para eSocial.
+Treinamento introdutório sobre os eventos de Saúde e Segurança do Trabalho (SST) no eSocial.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Introdução%20SST/Treinamento_Introducao.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Introdução%20SST/Treinamento_Introducao.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Introdução%20SST/Treinamento_Introducao.pdf)`
   },
   {
     id: 'web-esocial-portal',
@@ -170,9 +194,11 @@ Introdução ao módulo SST para eSocial.
     answer: 'Guia geral de uso do portal eSocial Web.',
     content: `## Portal eSocial
 
-Navegação e funcionalidades do portal.
+Manual geral para navegação e utilização dos recursos disponíveis no Portal eSocial Web.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Portal%20-%20eSocial%20Web/manual%20do%20usuario%20esocial%20web%20geral.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Portal%20-%20eSocial%20Web/manual%20do%20usuario%20esocial%20web%20geral.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/E-social/Sigo%20Web%20-%20Portal%20-%20eSocial%20Web/manual%20do%20usuario%20esocial%20web%20geral.pdf)`
   },
   {
     id: 'web-faturamento',
@@ -181,11 +207,13 @@ Navegação e funcionalidades do portal.
     date: '14 Jan 2026',
     tags: ['Financeiro', 'Faturamento', 'Cobrança'],
     answer: 'Processo completo de faturamento no Sigo Web.',
-    content: `## Gestão Financeira
+    content: `## Gestão Financeira detalhes
 
-Como processar o faturamento mensal.
+Como processar e validar o faturamento mensal dos serviços prestados.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento.pdf)`
   },
   {
     id: 'web-faturamento-sem-valor',
@@ -196,9 +224,11 @@ Como processar o faturamento mensal.
     answer: 'Tratativa de faturamentos zerados ou sem cobrança.',
     content: `## Exceções de Faturamento
 
-Como lidar com itens não cobrados.
+Instruções para manusear itens de faturamento que não geram cobrança mas precisam ser registrados.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento_Sem_Valores_Cobrados.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento_Sem_Valores_Cobrados.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Faturamento/Faturamento_Sem_Valores_Cobrados.pdf)`
   },
   {
     id: 'web-financeiro-param',
@@ -207,11 +237,13 @@ Como lidar com itens não cobrados.
     date: '16 Jan 2026',
     tags: ['Financeiro', 'Configuração', 'Parâmetros'],
     answer: 'Configuração de parâmetros para cobrança automática.',
-    content: `## Configuração Financeira
+    content: `## Configuração Financeira - Parametrização
 
-Definindo regras de cobrança.
+Aprenda a configurar as regras e parâmetros que definem o cálculo de cobranças automáticas.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Contrato%20Comercial%20-%20Parametrizar%20Cobrança/Financeiro.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Contrato%20Comercial%20-%20Parametrizar%20Cobrança/Financeiro.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Faturamento/Fincanceiro/Sigo%20Web%20-%20Contrato%20Comercial%20-%20Parametrizar%20Cobrança/Financeiro.pdf)`
   },
   {
     id: 'web-plugin-biometria',
@@ -220,11 +252,13 @@ Definindo regras de cobrança.
     date: '17 Jan 2026',
     tags: ['Plugin', 'Biometria', 'Instalação'],
     answer: 'Como instalar e configurar o plugin de leitura biométrica.',
-    content: `## Biometria
+    content: `## Biometria - Instalação de Plugin
 
-Instalação do componente de hardware.
+Manual técnico para instalação e configuração do componente de comunicação com leitores biométricos.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Instalação%20do%20Plugin%20(Biometria)/Plugin%20Sigo%20Web.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Instalação%20do%20Plugin%20(Biometria)/Plugin%20Sigo%20Web.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Instalação%20do%20Plugin%20(Biometria)/Plugin%20Sigo%20Web.pdf)`
   },
   {
     id: 'web-cores',
@@ -235,9 +269,11 @@ Instalação do componente de hardware.
     answer: 'Legenda de cores e status no Sigo Web.',
     content: `## Status Visual
 
-Entendendo a codificação de cores na web.
+Referências visuais das cores e legendas utilizadas na interface do Sigo Web.
 
-[Visualizar Manual Completo (PDF)](/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Cores/Cores.pdf)`
+<iframe src="/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Cores/Cores.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
+
+[Abrir PDF em nova aba](/manuais/Manual%20sigoWEB/Plug-ins/Sigo%20Web%20-%20Cores/Cores.pdf)`
   },
 
   // --- PROCESSOS ---
@@ -250,7 +286,9 @@ Entendendo a codificação de cores na web.
     answer: 'Mapa visual do fluxo de atendimento ao cliente.',
     content: `## Fluxo de Trabalho
 
-![Fluxograma](/manuais/Processos/Fluxograma%20de%20atendimento.pdf)
+Visualização completa do fluxo de atendimento.
+
+<iframe src="/manuais/Processos/Fluxograma%20de%20atendimento.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
 
 [Visualizar PDF Completo](/manuais/Processos/Fluxograma%20de%20atendimento.pdf)`
   },
@@ -263,7 +301,9 @@ Entendendo a codificação de cores na web.
     answer: 'Processo padrão para abertura de chamados.',
     content: `## Protocolos
 
-Diretrizes para abertura de chamados.
+Diretrizes detalhadas para a correta abertura e tratativa de protocolos de suporte e atendimento.
+
+<iframe src="/manuais/Processos/Processo%20de%20abertura%20e%20tratativa%20de%20protocolo.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
 
 [Visualizar Manual Completo (PDF)](/manuais/Processos/Processo%20de%20abertura%20e%20tratativa%20de%20protocolo.pdf)`
   },
@@ -276,7 +316,9 @@ Diretrizes para abertura de chamados.
     answer: 'Como solicitar intervenções via banco de dados.',
     content: `## Intervenção Técnica
 
-Processo para solicitações de nível de banco de dados.
+Processo padronizado para requisições que envolvem intervenções diretas no banco de dados.
+
+<iframe src="/manuais/Processos/Processo%20Solicitações%20via%20Banco%20de%20dados.pdf" width="100%" height="800px" style="border: none; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></iframe>
 
 [Visualizar Manual Completo (PDF)](/manuais/Processos/Processo%20Solicitações%20via%20Banco%20de%20dados.pdf)`
   },
@@ -290,6 +332,8 @@ Processo para solicitações de nível de banco de dados.
     tags: ['RH', 'Escala', 'Horários'],
     answer: 'Visualização da escala de trabalho atual.',
     content: `## Escala de Trabalho
+
+Confira abaixo a escala atualizada de colaboradores.
 
 ![Escala](/assets/Escala.jpg)
 
