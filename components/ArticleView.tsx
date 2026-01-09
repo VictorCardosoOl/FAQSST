@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
@@ -17,6 +17,10 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
     const rawHtml = marked.parse(article.content || article.answer) as string;
     return DOMPurify.sanitize(rawHtml);
   }, [article.content, article.answer]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [article.id]);
 
   return (
     <div className="reveal">

@@ -134,7 +134,7 @@ export default function App() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-700 dark:text-stone-300 reveal">
                     <div className="w-6 h-[0.5px] bg-stone-400" />
-                    <span>Arquivos 2025</span>
+                    <span>Arquivos 2026</span>
                   </div>
 
                   <h1 className="text-3xl lg:text-5xl font-serif font-light leading-tight tracking-tight text-[var(--text-main)] reveal">
@@ -143,7 +143,7 @@ export default function App() {
                     ) : selectedCategory ? (
                       <span>{selectedCategory}</span>
                     ) : (
-                      <>Gestão de <span className="italic font-normal">Processos</span></>
+                      <>Base de <span className="italic font-normal">Conhecimento SST</span></>
                     )}
                   </h1>
                 </div>

@@ -17,7 +17,7 @@ interface SidebarProps {
   onPinToggle: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ 
+export const Sidebar: React.FC<SidebarProps> = ({
   currentCat, onSelect, isDarkMode, toggleDark, isOpen, onClose, isQueueView, onSelectQueue, queueCount = 0, onLogoClick, isPinned, onPinToggle
 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -25,8 +25,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const getBtnClass = (isActive: boolean) => `
     flex items-center justify-between w-full text-sm py-2.5 px-3 rounded-lg transition-all duration-300
-    ${isActive 
-      ? 'bg-stone-900/10 dark:bg-white/15 text-[var(--text-main)] font-black' 
+    ${isActive
+      ? 'bg-stone-900/10 dark:bg-white/15 text-[var(--text-main)] font-black'
       : 'text-[var(--text-muted)] dark:text-stone-300 hover:text-[var(--text-main)] hover:bg-stone-900/5 dark:hover:bg-white/5 font-semibold'}
   `;
 
@@ -38,18 +38,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {/* Overlay Mobile */}
-      <div 
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
-        onClick={onClose} 
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={onClose}
       />
-      
-      <aside 
+
+      <aside
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={`fixed left-0 top-0 bottom-0 glass bg-[var(--bg-island)] border-r border-[var(--border)] z-[70] flex flex-col py-8 transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${isExpanded ? 'w-80 px-5' : 'w-24 px-4'}`}
       >
         <div className="mb-10 flex items-center justify-between px-3 overflow-hidden">
-          <div 
+          <div
             onClick={onLogoClick}
             className="flex items-center gap-4 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
           >
@@ -57,11 +57,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <div className="w-1.5 h-1.5 bg-[var(--bg-main)] rounded-full" />
             </div>
             <span className={`text-sm font-bold uppercase tracking-[0.4em] text-[var(--text-main)] transition-all duration-500 whitespace-nowrap ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
-              TeamWiki
+              SST Wiki
             </span>
           </div>
-          
-          <button 
+
+          <button
             onClick={onPinToggle}
             className={`hidden lg:block text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all duration-500 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
           >
@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="space-y-1">
             <p className={getHeadingClass(isExpanded)}>Navegação</p>
             <div className="space-y-1">
-              <button 
+              <button
                 onClick={() => { onSelect(null); }}
                 className={getBtnClass(currentCat === null && !isQueueView)}
               >
@@ -83,8 +83,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
                 {isExpanded && currentCat === null && !isQueueView && <Circle size={5} fill="currentColor" />}
               </button>
-              
-              <button 
+
+              <button
                 onClick={() => { onSelectQueue?.(); }}
                 className={getBtnClass(isQueueView === true)}
               >
@@ -125,7 +125,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </nav>
 
         <div className="pt-6 border-t border-[var(--border)] px-3">
-          <button 
+          <button
             onClick={toggleDark}
             className="w-full flex items-center justify-between py-2 text-xs font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
           >
