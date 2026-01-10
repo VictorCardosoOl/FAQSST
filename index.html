@@ -1,98 +1,125 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>TeamWiki | Conhecimento Arquitetônico</title>
-    <meta name="theme-color" content="#000000">
-    <link rel="manifest" href="metadata.json">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        --bg-main: #ffffff;
-        --bg-island: rgba(255, 255, 255, 0.98);
-        --text-main: #000000; /* Preto absoluto para títulos e ênfase */
-        --text-body: #0a0a0a; /* Stone 950 para o corpo - Máximo contraste legível */
-        --text-muted: #262626; /* Stone 800 para itens secundários - Anteriormente muito claro */
-        --accent: #000000;
-        --border: rgba(0, 0, 0, 0.18); /* Borda levemente mais visível */
-        --selection: rgba(0, 0, 0, 0.1);
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>TeamWiki | Conhecimento Arquitetônico</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="manifest" href="metadata.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-island: rgba(255, 255, 255, 0.98);
+      --text-main: #000000;
+      /* Preto absoluto para títulos e ênfase */
+      --text-body: #0a0a0a;
+      /* Stone 950 para o corpo - Máximo contraste legível */
+      --text-muted: #262626;
+      /* Stone 800 para itens secundários - Anteriormente muito claro */
+      --accent: #000000;
+      --border: rgba(0, 0, 0, 0.18);
+      /* Borda levemente mais visível */
+      --selection: rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      --bg-main: #000000;
+      --bg-island: rgba(12, 12, 12, 0.98);
+      --text-main: #ffffff;
+      --text-body: #fafafa;
+      /* Neutral 50 para brilho confortável no escuro */
+      --text-muted: #a3a3a3;
+      /* Stone 400 para manter contraste no dark mode */
+      --accent: #ffffff;
+      --border: rgba(255, 255, 255, 0.25);
+      --selection: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+
+    *::-webkit-scrollbar {
+      display: none !important;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-body);
+      transition: background-color 0.5s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .glass {
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+    }
+
+    .reveal {
+      animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes revealUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
       }
 
-      body.dark {
-        --bg-main: #000000;
-        --bg-island: rgba(12, 12, 12, 0.98);
-        --text-main: #ffffff;
-        --text-body: #fafafa; /* Neutral 50 para brilho confortável no escuro */
-        --text-muted: #a3a3a3; /* Stone 400 para manter contraste no dark mode */
-        --accent: #ffffff;
-        --border: rgba(255, 255, 255, 0.25);
-        --selection: rgba(255, 255, 255, 0.2);
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      * {
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
-      }
+    .prose {
+      max-width: none !important;
+      color: var(--text-body) !important;
+    }
 
-      *::-webkit-scrollbar {
-        display: none !important;
-      }
+    .prose p,
+    .prose li {
+      color: var(--text-body) !important;
+      line-height: 1.8;
+    }
 
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--bg-main);
-        color: var(--text-body);
-        transition: background-color 0.5s ease;
-        -webkit-font-smoothing: antialiased;
-      }
+    .prose strong {
+      color: var(--text-main) !important;
+      font-weight: 700;
+    }
 
-      .glass {
-        backdrop-filter: blur(40px);
-        -webkit-backdrop-filter: blur(40px);
-      }
+    .prose h1,
+    .prose h2,
+    .prose h3,
+    .prose h4 {
+      color: var(--text-main) !important;
+      font-family: 'Playfair Display', serif;
+    }
 
-      .reveal {
-        animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
+    .prose blockquote {
+      border-left: 4px solid var(--text-main) !important;
+      color: var(--text-muted) !important;
+      font-style: italic;
+      padding-left: 1.5rem;
+      background: rgba(0, 0, 0, 0.02);
+    }
 
-      @keyframes revealUp {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
+    body.dark .prose blockquote {
+      background: rgba(255, 255, 255, 0.03);
+    }
+  </style>
 
-      .prose {
-        max-width: none !important;
-        color: var(--text-body) !important;
-      }
-      .prose p, .prose li {
-        color: var(--text-body) !important;
-        line-height: 1.8;
-      }
-      .prose strong {
-        color: var(--text-main) !important;
-        font-weight: 700;
-      }
-      .prose h1, .prose h2, .prose h3, .prose h4 {
-        color: var(--text-main) !important;
-        font-family: 'Playfair Display', serif;
-      }
-      .prose blockquote {
-        border-left: 4px solid var(--text-main) !important;
-        color: var(--text-muted) !important;
-        font-style: italic;
-        padding-left: 1.5rem;
-        background: rgba(0,0,0,0.02);
-      }
-      body.dark .prose blockquote {
-        background: rgba(255,255,255,0.03);
-      }
-    </style>
+</head>
 
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>

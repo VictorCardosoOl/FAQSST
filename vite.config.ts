@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => {
           name: 'FAQ SST - Base de Conhecimento',
           short_name: 'FAQ SST',
           description: 'Base de conhecimento sobre Saúde e Segurança do Trabalho',
-          theme_color: '#000000',
-          background_color: '#000000',
+          theme_color: '#ffffff',
+          background_color: '#ffffff',
           display: 'standalone',
           icons: [
             {
