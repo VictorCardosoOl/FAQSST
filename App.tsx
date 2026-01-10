@@ -126,7 +126,7 @@ export default function App() {
           onSelectQueue={() => { setViewMode('QUEUE'); setSelectedCategory(null); setSelectedArticle(null); }}
         />
 
-        <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-8 md:px-12 pt-8 pb-12 ${isSidebarPinned ? 'lg:pl-[max(13rem,min(20vw,18rem))]' : 'lg:pl-28'} lg:pr-16 pt-[max(2rem,env(safe-area-inset-top))]`}>
+        <main className={`flex-1 transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] px-5 sm:px-8 md:px-12 pt-8 pb-12 ${isSidebarPinned ? 'lg:pl-64' : 'lg:pl-28'} lg:pr-16 pt-[max(2rem,env(safe-area-inset-top))]`}>
           <div className="max-w-5xl mx-auto">
 
             <button
