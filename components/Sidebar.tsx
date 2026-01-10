@@ -46,7 +46,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <aside
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed left-0 top-0 bottom-0 glass bg-[var(--bg-island)] border-r border-[var(--border)] z-[70] flex flex-col py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${isExpanded ? 'w-[85vw] max-w-[300px] lg:w-[20vw] lg:max-w-[18rem] lg:min-w-[13rem] px-4' : 'w-20 px-3'}`}
+        className={`fixed left-0 top-0 bottom-0 glass bg-[var(--bg-island)] border-r border-[var(--border)] z-[70] flex flex-col py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${isExpanded ? 'w-[85vw] max-w-[300px] lg:w-64 px-4' : 'w-20 px-3'}`}
       >
         <div className="mb-8 flex items-center justify-between px-2 overflow-hidden">
           <div
