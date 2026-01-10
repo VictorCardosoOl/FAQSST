@@ -25,6 +25,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     if (isOpen) setInputValue('');
   }, [isOpen]);
 
+  // Lock Body Scroll & Handle ESC
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+      };
+      window.addEventListener('keydown', handleEsc);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleEsc);
+      };
+    }
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -35,7 +50,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 bg-stone-900/20 dark:bg-black/40 backdrop-blur-md"
+            className="fixed inset-0 bg-stone-900/60 dark:bg-black/80 backdrop-blur-md"
             onClick={onClose}
           />
 
@@ -45,21 +60,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-2xl relative shadow-2xl shadow-stone-900/10 dark:shadow-black/50 rounded-2xl overflow-hidden"
+            className="w-full max-w-2xl relative shadow-2xl shadow-stone-500/20 dark:shadow-black/50 rounded-2xl overflow-hidden"
           >
             <Command
-              className="w-full bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl overflow-hidden"
+              className="w-full bg-gradient-to-b from-white/90 via-white/80 to-white/60 dark:from-[#1a1a1a]/95 dark:to-black/95 backdrop-blur-3xl border-[1px] border-white/50 dark:border-white/10 rounded-2xl overflow-hidden"
               loop
             >
-              <div className="flex items-center border-b border-stone-200/50 dark:border-white/10 px-5 relative">
-                <Search className="w-5 h-5 text-stone-400 dark:text-stone-500 mr-3 shrink-0" strokeWidth={2.5} />
+              <div className="flex items-center border-b border-white/50 dark:border-white/10 px-5 relative">
+                <Search className="w-5 h-5 text-stone-600 dark:text-stone-500 mr-3 shrink-0" strokeWidth={2.5} />
                 <Command.Input
                   value={inputValue}
                   onValueChange={setInputValue}
                   placeholder="O que você procura?"
-                  className="flex-1 h-16 bg-transparent outline-none text-lg text-[var(--text-main)] placeholder:text-stone-400 font-medium"
+                  className="flex-1 h-16 bg-transparent outline-none text-lg text-black dark:text-[var(--text-main)] placeholder:text-stone-500 font-medium font-serif"
                 />
-                <div className="hidden sm:flex items-center gap-2 text-[10px] font-bold text-stone-400 uppercase tracking-widest bg-stone-100 dark:bg-white/5 px-2 py-1 rounded-md border border-stone-200 dark:border-white/5">
+                <div className="hidden sm:flex items-center gap-2 text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest bg-stone-100 dark:bg-white/5 px-2 py-1 rounded-md border border-stone-200 dark:border-white/5">
                   <span className="text-xs">ESC</span> para fechar
                 </div>
                 <button onClick={onClose} className="sm:hidden p-2 text-stone-400">
@@ -67,7 +82,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 </button>
               </div>
 
-              <Command.List className="max-h-[60vh] overflow-y-auto p-3 scroll-py-3">
+              <Command.List
+                className="max-h-[60vh] overflow-y-auto p-3 scroll-py-3"
+                data-lenis-prevent // Impede que o Lenis sequestre o scroll desta área
+              >
                 <Command.Empty className="py-12 text-center text-stone-500 dark:text-stone-400">
                   <p className="font-serif italic text-lg">Nenhum resultado encontrado.</p>
                 </Command.Empty>
