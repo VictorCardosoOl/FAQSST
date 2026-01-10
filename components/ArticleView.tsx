@@ -42,14 +42,14 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
           initial={{ opacity: 0, y: 10, filter: 'blur(5px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           exit={{ opacity: 0, y: -10, filter: 'blur(5px)' }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl mx-auto"
         >
           <header className="mb-10 space-y-6">
             <motion.h1
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05, duration: 0.4 }}
+              transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight text-[var(--text-main)]"
             >
               {article.question}
@@ -58,7 +58,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="border-l-2 border-[var(--text-main)] pl-6 py-1"
             >
               <p className="text-xl md:text-2xl text-[var(--text-muted)] font-serif italic leading-relaxed">
