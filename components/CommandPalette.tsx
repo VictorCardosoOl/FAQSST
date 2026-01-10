@@ -60,21 +60,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-2xl relative shadow-2xl shadow-stone-500/20 dark:shadow-black/50 rounded-2xl overflow-hidden"
+            className="w-full max-w-2xl relative shadow-2xl shadow-stone-900/40 dark:shadow-black/50 rounded-2xl overflow-hidden"
           >
             <Command
-              className="w-full bg-gradient-to-b from-white/90 via-white/80 to-white/60 dark:from-[#1a1a1a]/95 dark:to-black/95 backdrop-blur-3xl border-[1px] border-white/50 dark:border-white/10 rounded-2xl overflow-hidden"
+              className="w-full bg-gradient-to-b from-stone-900/95 via-stone-900/90 to-stone-900/80 backdrop-blur-3xl border-[1px] border-white/10 rounded-2xl overflow-hidden"
               loop
             >
-              <div className="flex items-center border-b border-white/50 dark:border-white/10 px-5 relative">
-                <Search className="w-5 h-5 text-stone-600 dark:text-stone-500 mr-3 shrink-0" strokeWidth={2.5} />
+              <div className="flex items-center border-b border-white/10 px-5 relative">
+                <Search className="w-5 h-5 text-white/50 mr-3 shrink-0" strokeWidth={2.5} />
                 <Command.Input
                   value={inputValue}
                   onValueChange={setInputValue}
                   placeholder="O que você procura?"
-                  className="flex-1 h-16 bg-transparent outline-none text-lg text-black dark:text-[var(--text-main)] placeholder:text-stone-500 font-medium font-serif"
+                  className="flex-1 h-16 bg-transparent outline-none text-lg text-white placeholder:text-white/30 font-medium font-serif"
                 />
-                <div className="hidden sm:flex items-center gap-2 text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest bg-stone-100 dark:bg-white/5 px-2 py-1 rounded-md border border-stone-200 dark:border-white/5">
+                <div className="hidden sm:flex items-center gap-2 text-[10px] font-bold text-white/40 uppercase tracking-widest bg-white/5 px-2 py-1 rounded-md border border-white/10">
                   <span className="text-xs">ESC</span> para fechar
                 </div>
                 <button onClick={onClose} className="sm:hidden p-2 text-stone-400">
@@ -99,27 +99,27 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 <Command.Group heading="Navegação">
                   <Command.Item
                     onSelect={() => { onSelectCategory(null); onClose(); }}
-                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-stone-100 dark:hover:bg-white/5 cursor-pointer text-[var(--text-main)] transition-colors group aria-selected:bg-stone-100 dark:aria-selected:bg-white/10"
+                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white/90 transition-colors group aria-selected:bg-white/15"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-300 group-hover:scale-110 transition-transform duration-300">
                       <Archive size={20} strokeWidth={2} />
                     </div>
                     <div className="flex flex-col">
                       <span className="font-bold text-sm">Biblioteca Completa</span>
-                      <span className="text-xs opacity-60">Visualizar todos os documentos</span>
+                      <span className="text-xs text-white/50">Visualizar todos os documentos</span>
                     </div>
                   </Command.Item>
 
                   <Command.Item
                     onSelect={() => { onSelectQueue(); onClose(); }}
-                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-stone-100 dark:hover:bg-white/5 cursor-pointer text-[var(--text-main)] transition-colors group aria-selected:bg-stone-100 dark:aria-selected:bg-white/10"
+                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white/90 transition-colors group aria-selected:bg-white/15"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-300 group-hover:scale-110 transition-transform duration-300">
                       <Bookmark size={20} strokeWidth={2} />
                     </div>
                     <div className="flex flex-col">
                       <span className="font-bold text-sm">Minha Lista de Leitura</span>
-                      <span className="text-xs opacity-60">Acessar seus artigos salvos</span>
+                      <span className="text-xs text-white/50">Acessar seus artigos salvos</span>
                     </div>
                   </Command.Item>
                 </Command.Group>
@@ -132,29 +132,29 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         onSelectArticle(item);
                         onClose();
                       }}
-                      className="flex items-start gap-4 p-3 rounded-xl hover:bg-stone-100 dark:hover:bg-white/5 cursor-pointer text-[var(--text-main)] transition-colors group aria-selected:bg-stone-100 dark:aria-selected:bg-white/10"
+                      className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white/90 transition-colors group aria-selected:bg-white/15"
                     >
-                      <div className="mt-1 w-8 h-8 rounded-full border border-stone-200 dark:border-stone-700 flex items-center justify-center text-[var(--text-muted)] group-hover:border-[var(--text-main)] group-hover:text-[var(--text-main)] transition-colors shrink-0">
+                      <div className="mt-1 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/40 group-hover:border-white/60 group-hover:text-white transition-colors shrink-0">
                         <Hash size={14} />
                       </div>
                       <div className="flex flex-col gap-0.5">
-                        <span className="font-serif text-lg leading-tight group-hover:underline decoration-stone-300 underline-offset-4 decoration-1">{item.question}</span>
+                        <span className="font-serif text-lg leading-tight group-hover:underline decoration-white/30 underline-offset-4 decoration-1">{item.question}</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-[9px] uppercase tracking-wider font-bold opacity-50 bg-stone-100 dark:bg-white/10 px-1.5 py-0.5 rounded">{item.category}</span>
+                          <span className="text-[9px] uppercase tracking-wider font-bold opacity-50 bg-white/10 px-1.5 py-0.5 rounded">{item.category}</span>
                           <span className="text-[10px] opacity-40 truncate max-w-[200px]">{item.answer.substring(0, 60)}...</span>
                         </div>
                       </div>
                       <div className="ml-auto opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 self-center">
-                        <ArrowRight size={16} className="text-[var(--text-muted)]" />
+                        <ArrowRight size={16} className="text-white/60" />
                       </div>
                     </Command.Item>
                   ))}
                 </Command.Group>
 
-                <Command.Group heading="Sistema" className="mt-4 border-t border-stone-100 dark:border-white/5 pt-2">
+                <Command.Group heading="Sistema" className="mt-4 border-t border-white/10 pt-2">
                   <Command.Item
                     onSelect={() => { onToggleTheme(); onClose(); }}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-white/5 cursor-pointer text-[var(--text-muted)] hover:text-[var(--text-main)] aria-selected:bg-stone-100 dark:aria-selected:bg-white/10"
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 cursor-pointer text-white/60 hover:text-white aria-selected:bg-white/15"
                   >
                     {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
                     <span className="text-xs font-bold uppercase tracking-widest">Alternar para Modo {isDarkMode ? 'Claro' : 'Escuro'}</span>
