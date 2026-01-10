@@ -12,32 +12,26 @@ interface ArticleViewProps {
   nav: { prev: FAQItem | null; next: FAQItem | null };
 }
 
+import { SEOHead } from './SEOHead';
+
+// ... interface
+
 export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNavigate, nav }) => {
   const htmlContent = useMemo(() => {
+    // ... logic
     const rawHtml = marked.parse(article.content || article.answer) as string;
     return DOMPurify.sanitize(rawHtml);
   }, [article.content, article.answer]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [article.id]);
-
-  // Keyboard Navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft' && nav.prev) {
-        onNavigate(nav.prev);
-      } else if (e.key === 'ArrowRight' && nav.next) {
-        onNavigate(nav.next);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nav, onNavigate]);
+  // ... effects
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title={`${article.question} | FAQ SST`}
+        description={article.answer.substring(0, 150)}
+      />
+
       <nav className="flex items-center gap-6 mb-12 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] no-print">
         <button
           onClick={onBack}
