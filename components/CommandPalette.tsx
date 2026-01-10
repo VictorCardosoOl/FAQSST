@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Command } from 'cmdk';
 import { Search, Hash, Sun, Moon, Archive, Bookmark, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,9 +20,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState('');
 
-  // Reset input when opening
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Reset input and focus when opening
   useEffect(() => {
-    if (isOpen) setInputValue('');
+    if (isOpen) {
+      setInputValue('');
+      // Small delay to ensure animation validation and DOM presence
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
   }, [isOpen]);
 
   // Lock Body Scroll & Handle ESC
@@ -69,6 +75,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               <div className="flex items-center border-b border-white/10 px-5 relative">
                 <Search className="w-5 h-5 text-white/50 mr-3 shrink-0" strokeWidth={2.5} />
                 <Command.Input
+                  ref={inputRef}
                   value={inputValue}
                   onValueChange={setInputValue}
                   placeholder="O que você procura?"

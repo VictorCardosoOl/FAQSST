@@ -22,6 +22,20 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [article.id]);
 
+  // Keyboard Navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' && nav.prev) {
+        onNavigate(nav.prev);
+      } else if (e.key === 'ArrowRight' && nav.next) {
+        onNavigate(nav.next);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nav, onNavigate]);
+
   return (
     <div className="min-h-screen">
       <nav className="flex items-center gap-6 mb-12 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] no-print">
