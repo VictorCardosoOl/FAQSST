@@ -1,17 +1,6 @@
 import { FAQItem, Category } from './types';
 
-// Imports de conteúdo Markdown (Vite ?raw import)
-import introSST from './content/articles/intro-sst.md?raw';
-import pgr from './content/articles/pgr.md?raw';
-import pgrtr from './content/articles/pgrtr.md?raw';
-import pcmso from './content/articles/pcmso.md?raw';
-import ltcat from './content/articles/ltcat.md?raw';
-import ppp from './content/articles/ppp.md?raw';
-import cat from './content/articles/cat.md?raw';
-import aposentadoriaEspecial from './content/articles/aposentadoria-especial.md?raw';
-import aposentadoriaInvalidez from './content/articles/aposentadoria-invalidez.md?raw';
-import esocialSST from './content/articles/esocial-sst.md?raw';
-import ecacGuia from './content/articles/ecac-guia.md?raw';
+// Imports de conteúdo Markdown (Dynamic imports for Lazy Loading)
 
 export const FAQ_DATA: FAQItem[] = [
   // --- SST (Segurança e Saúde do Trabalho) ---
@@ -22,7 +11,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '01 Jan 2026',
     tags: ['Medicina Ocupacional', 'Segurança do Trabalho', 'Conceitos'],
     answer: 'Entenda as diferenças e a complementariedade entre Medicina e Segurança do Trabalho.',
-    content: introSST
+    content: () => import('./content/articles/intro-sst.md?raw')
   },
   {
     id: 'pgr',
@@ -31,7 +20,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '02 Jan 2026',
     tags: ['PGR', 'GRO', 'NR-01', 'Riscos Ocupacionais'],
     answer: 'Tudo sobre o novo programa de gestão de riscos que substituiu o PPRA.',
-    content: pgr
+    content: () => import('./content/articles/pgr.md?raw')
   },
   {
     id: 'pgrtr',
@@ -40,7 +29,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '03 Jan 2026',
     tags: ['PGRTR', 'NR-31', 'Rural', 'Agro'],
     answer: 'Especificidades da gestão de riscos no trabalho rural.',
-    content: pgrtr
+    content: () => import('./content/articles/pgrtr.md?raw')
   },
   {
     id: 'pcmso',
@@ -49,7 +38,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '04 Jan 2026',
     tags: ['PCMSO', 'NR-07', 'Exames', 'ASO'],
     answer: 'Diretrizes para o monitoramento da saúde dos trabalhadores.',
-    content: pcmso
+    content: () => import('./content/articles/pcmso.md?raw')
   },
 
   // --- PREVIDENCIÁRIO ---
@@ -60,7 +49,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '05 Jan 2026',
     tags: ['LTCAT', 'Laudo', 'Insalubridade', 'Aposentadoria'],
     answer: 'O laudo técnico essencial para comprovação de aposentadoria especial.',
-    content: ltcat
+    content: () => import('./content/articles/ltcat.md?raw')
   },
   {
     id: 'ppp',
@@ -69,7 +58,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '06 Jan 2026',
     tags: ['PPP', 'Histórico Laboral', 'INSS'],
     answer: 'O documento histórico do trabalhador exigido pelo INSS.',
-    content: ppp
+    content: () => import('./content/articles/ppp.md?raw')
   },
   {
     id: 'cat',
@@ -78,7 +67,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '07 Jan 2026',
     tags: ['CAT', 'Acidente', 'S-2210'],
     answer: 'Prazos, tipos e obrigatoriedade da emissão da CAT.',
-    content: cat
+    content: () => import('./content/articles/cat.md?raw')
   },
   {
     id: 'aposentadoria-especial',
@@ -87,7 +76,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '08 Jan 2026',
     tags: ['Aposentadoria Especial', 'INSS', 'Reforma'],
     answer: 'Requisitos e novas regras para aposentadoria especial em 2026.',
-    content: aposentadoriaEspecial
+    content: () => import('./content/articles/aposentadoria-especial.md?raw')
   },
   {
     id: 'aposentadoria-invalidez',
@@ -96,7 +85,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '09 Jan 2026',
     tags: ['Invalidez', 'Incapacidade', 'Auxílio Doença'],
     answer: 'A antiga aposentadoria por invalidez: critérios e cálculo pós-reforma.',
-    content: aposentadoriaInvalidez
+    content: () => import('./content/articles/aposentadoria-invalidez.md?raw')
   },
 
   // --- ESOCIAL E GOVERNO ---
@@ -107,7 +96,7 @@ export const FAQ_DATA: FAQItem[] = [
     date: '10 Jan 2026',
     tags: ['eSocial', 'S-2210', 'S-2220', 'S-2240', 'Obrigações'],
     answer: 'Resumo dos eventos de SST que devem ser enviados ao eSocial.',
-    content: esocialSST
+    content: () => import('./content/articles/esocial-sst.md?raw')
   },
   {
     id: 'ecac-guia',
@@ -116,6 +105,6 @@ export const FAQ_DATA: FAQItem[] = [
     date: '11 Jan 2026',
     tags: ['e-CAC', 'Receita Federal', 'DCTFWeb'],
     answer: 'Como acessar e utilizar o portal e-CAC para verificar pendências.',
-    content: ecacGuia
+    content: () => import('./content/articles/ecac-guia.md?raw')
   }
 ];

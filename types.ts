@@ -10,7 +10,7 @@ export interface FAQItem {
   answer: string;
   category: Category;
   tags: string[];
-  content?: string;
+  content?: () => Promise<{ default: string }>;
   date?: string;
 }
 
