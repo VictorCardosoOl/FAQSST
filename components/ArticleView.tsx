@@ -28,7 +28,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   return (
     <div className="min-h-screen">
       <SEOHead
-        title={`${article.question} | FAQ SST`}
+        title={`${article.question} | SST FAQ`}
         description={article.answer.substring(0, 150)}
       />
 

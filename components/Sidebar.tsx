@@ -57,7 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <div className="w-1.5 h-1.5 bg-[var(--bg-main)] rounded-full" />
             </div>
             <span className={`text-sm font-bold uppercase tracking-[0.4em] text-[var(--text-main)] transition-all duration-300 whitespace-nowrap ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
-              FAQ SST
+              SST FAQ
             </span>
           </div>
 

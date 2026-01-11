@@ -8,7 +8,7 @@ interface SEOHeadProps {
 }
 
 export const SEOHead: React.FC<SEOHeadProps> = ({
-    title = "FAQ SST | Base de Conhecimento",
+    title = "SST FAQ | Base de Conhecimento",
     description = "Base de conhecimento sobre Saúde e Segurança do Trabalho, eSocial e Previdência."
 }) => {
     return (

@@ -12,7 +12,7 @@ answer: Diretrizes para uma comunicação humanizada, refinada e focada na resol
 
 Atender até o terceiro toque não é apenas agilidade, é prontidão. Sorrir com a voz não é técnica, é disposição genuína para o outro.
 
-O script TeamWiki serve como bússola, não como gesso. A elegância reside em adaptar o protocolo à necessidade específica do interlocutor sem perder a autoridade técnica.
+O script SST FAQ serve como bússola, não como gesso. A elegância reside em adaptar o protocolo à necessidade específica do interlocutor sem perder a autoridade técnica.
 
 ### Glossário de Ouro
 * **Evite:** "Vou estar verificando".

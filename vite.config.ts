@@ -16,8 +16,8 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
         manifest: {
-          name: 'FAQ SST - Base de Conhecimento',
-          short_name: 'FAQ SST',
+          name: 'SST FAQ - Base de Conhecimento',
+          short_name: 'SST FAQ',
           description: 'Base de conhecimento sobre Saúde e Segurança do Trabalho',
           theme_color: '#ffffff',
           background_color: '#ffffff',
