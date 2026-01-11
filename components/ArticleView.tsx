@@ -105,7 +105,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
 
             <div className="pb-16">
               <div
-                className="article-content-render text-lg md:text-xl font-normal leading-loose text-[var(--text-body)] space-y-6 prose prose-lg dark:prose-invert prose-stone max-w-none prose-headings:font-serif prose-headings:font-light prose-p:text-stone-600 dark:prose-p:text-stone-300 prose-a:text-[var(--text-main)] hover:prose-a:opacity-80 transition-opacity"
+                className="article-content-render"
                 dangerouslySetInnerHTML={{ __html: htmlContent }}
               />
 
