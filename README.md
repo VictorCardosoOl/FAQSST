@@ -1,63 +1,112 @@
 <div align="center">
-  <img src="public/pwa-512x512.png" alt="SST FAQ Logo" width="120" height="120" />
+  <img src="public/pwa-512x512.png" alt="SST FAQ Logo" width="120" />
+
   <h1>SST FAQ</h1>
-  <p><strong>Base de Conhecimento de Alta Performance para Saúde e Segurança do Trabalho</strong></p>
+
+  <p>
+    <strong>Base de Conhecimento de Alta Performance para Saúde e Segurança do Trabalho</strong>
+  </p>
+
+  <p>
+    <a href="https://github.com/VictorCardosoOl/FAQSST/blob/main/LICENSE">
+      <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License" />
+    </a>
+    <a href="https://react.dev/">
+      <img src="https://img.shields.io/badge/react-19.0.0-blue" alt="React 19" />
+    </a>
+    <a href="https://www.typescriptlang.org/">
+      <img src="https://img.shields.io/badge/typescript-5.0-blue" alt="TypeScript" />
+    </a>
+    <a href="https://vitejs.dev/">
+      <img src="https://img.shields.io/badge/vite-6.0-purple" alt="Vite" />
+    </a>
+     <a href="">
+      <img src="https://img.shields.io/badge/status-active-success" alt="Status" />
+    </a>
+  </p>
+  
+   <p>
+    <em>Acesso instantâneo, offline e inteligente a normas e procedimentos vitais.</em>
+  </p>
 </div>
 
 <br />
 
-> **Acesso instantâneo, offline e inteligente às normas e procedimentos vitais.**
+<div align="center">
+  <img src="public/assets/Screenshot_5.jpg" alt="Demonstração do App" width="100%" style="border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+  <p><em>Interface do usuário mostrando a busca instantânea e leitura de artigos.</em></p>
+</div>
 
-O **SST FAQ** é uma aplicação web progressiva (PWA) de última geração, desenvolvida para resolver o problema de acesso rápido à informação crítica em campo. Diferente de wikis lentas ou documentos em PDF estáticos, esta plataforma oferece uma experiência fluida, pesquisável e sempre disponível.
+<br />
 
-## 🚀 Diferenciais e Habilidades do Projeto
+## 📖 Sobre o Projeto
 
-*   **⚡ Performance Extrema:** Carregamento instantâneo e navegação sem delays, impulsionada pelo **Vite** e **React 19**.
-*   **📱 Primeiro Mobile & PWA:** Totalmente responsivo e instalável. Funciona como um aplicativo nativo no seu celular, tablet ou desktop.
-*   **📡 Modo Offline Real:** Graças à tecnologia **Service Workers**, todo o conteúdo é acessível mesmo sem conexão com a internet. Ideal para operações em campo ou áreas remotas.
-*   **🔍 Busca "Spotlight" Inteligente:** Sistema de pesquisa difusa (Fuzzy Search) que entende o que você quis dizer, tolerando erros de digitação e encontrando resultados em milissegundos.
-*   **✨ UX Premium:** Interface limpa, moderna e animada com **Framer Motion**, focada na legibilidade e facilidade de uso.
+O **SST FAQ** nasceu para resolver um problema crítico na área de Segurança do Trabalho: o **acesso à informação em campo**.
 
-## 🛠️ Stack Tecnológico
+Técnicos e engenheiros frequentemente operam em ambientes com conectividade limitada (subsolos, áreas rurais, plantas industriais isoladas). A solução tradicional — pastas com PDFs ou wikis lentas — é ineficiente e frustrante.
 
-Este projeto foi construído utilizando o que há de mais moderno no ecossistema web, garantindo longevidade, manutenibilidade e escalabilidade.
+Este projeto é uma **PWA (Progressive Web App)** "Offline-First". Isso significa que ela foi desenhada para funcionar **sem internet** desde o primeiro acesso subsequente. Com uma busca "Spotlight" difusa (fuzzy search), o usuário encontra o procedimento de emergência, a norma regulamentadora ou o guia técnico em milissegundos, mesmo que digite errado.
 
-*   **Core:** [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-*   **Build Tool:** [Vite](https://vitejs.dev/) (Builds ultra-rápidos e HMR instantâneo)
-*   **Estilização:** [Tailwind CSS v4](https://tailwindcss.com/) (Design System utilitário)
-*   **Animações:** [Framer Motion](https://www.framer.com/motion/) (Interações fluidas)
-*   **Busca:** [Fuse.js](https://www.fusejs.io/) + [CMDK](https://cmdk.paco.me/) (Command Palette acessível)
-*   **Conteúdo:** [Marked](https://marked.js.org/) (Renderização robusta de Markdown)
-*   **PWA:** [Vite Plugin PWA](https://vite-pwa-org.netlify.app/) (Capacidades offline e instalação)
-*   **SEO:** [React Helmet Async](https://github.com/staylor/react-helmet-async)
+## ✨ Diferenciais e Features
 
-## 💡 Princípios de Design
+*   **⚡ Performance Extrema:** Construído com React 19 e Vite para carregamento instantâneo.
+*   **📡 100% Offline (Service Workers):** Todo o conteúdo é cacheado automaticamente. O app funciona no modo avião.
+*   **🔍 Busca Spotlight Inteligente:** Pesquisa difusa (Fuzzy Search) com tolerancia a erros de digitação (ex: encontrar "incêndio" digitando "incendio" ou "fogo").
+*   **📱 DX Mobile & Desktop:** Layout responsivo que se adapta de celulares a monitores ultrawide.
+*   **🎨 UX/UI Premium:** Animações fluídas com Framer Motion e design system limpo com Tailwind CSS v4.
+*   **🛠️ Comando de Voz (CMDK):** Navegação rápida via teclado (Command+K) para power users.
 
-1.  **Velocidade é Funcionalidade:** Ninguém quer esperar para saber como proceder em uma situação de segurança. O app deve responder imediatamente.
-2.  **Conteúdo Primeiro:** A interface deve desaparecer para que o conteúdo brilhe. Tipografia e espaçamento são cuidadosamente ajustados para leitura prolongada.
-3.  **Resiliência:** O sistema deve funcionar nas piores condições de rede possíveis.
+## 🚀 Tecnologias Utilizadas
 
-## 🏁 Como Rodar o Projeto
+O projeto utiliza uma stack moderna focada em performance e experiência do desenvolvedor:
 
-Este projeto é 100% frontend e independente de APIs externas complexas para funcionamento básico.
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <img src="https://img.shields.io/badge/React%2019-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
+  <img src="https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+</div>
+
+## 🏁 Getting Started
+
+Para rodar o projeto localmente, siga os passos abaixo.
 
 ### Pré-requisitos
-- Node.js instalado (versão 18+ recomendada)
 
-### Passo a Passo
+*   [Node.js](https://nodejs.org/) (Versão 18 ou superior)
 
-1. **Clone e Instale:**
-   ```bash
-   npm install
-   ```
+### Instalação
 
-2. **Rode Localmente:**
-   ```bash
-   npm run dev
-   ```
-   O app estará disponível em `http://localhost:5173`.
+1.  **Clone o repositório**
+    ```bash
+    git clone https://github.com/VictorCardosoOl/FAQSST.git
+    ```
+2.  **Instale as dependências**
+    ```bash
+    npm install
+    ```
+3.  **Rode o servidor de desenvolvimento**
+    ```bash
+    npm run dev
+    ```
+    O projeto estará rodando em `http://localhost:5173`.
 
-3. **Gere para Produção:**
-   ```bash
-   npm run build
-   ```
+### Build para Produção
+
+Para gerar a versão otimizada para produção:
+
+```bash
+npm run build
+```
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+<div align="center">
+  <p>Feito com 💜 para a segurança de todos.</p>
+</div>
