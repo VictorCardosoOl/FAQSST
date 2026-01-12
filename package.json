@@ -1,5 +1,6 @@
 {
-  "name": "teamwiki-faq",
+  "name": "sst-faq",
+  "description": "Base de Conhecimento de Alta Performance para Saúde e Segurança do Trabalho (PWA)",
   "private": true,
   "version": "0.0.0",
   "type": "module",
