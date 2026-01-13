@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Loader2, Share2, Clock } from 'lucide-react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -48,102 +48,134 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
     return DOMPurify.sanitize(rawHtml);
   }, [content]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    },
+    exit: { opacity: 0 }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20">
       <SEOHead
         title={`${article.question} | SST FAQ`}
         description={article.answer.substring(0, 150)}
       />
 
-      <nav className="flex items-center gap-6 mb-12 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] no-print">
-        <button
-          onClick={onBack}
-          className="hover:text-[var(--text-main)] transition-colors flex items-center gap-2 group"
-        >
-          <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
-          Voltar
-        </button>
-        <div className="w-1 h-1 rounded-full bg-stone-300 dark:bg-stone-700" />
-        <span className="text-[var(--text-main)] opacity-60 truncate max-w-[200px]">{article.category}</span>
+      {/* Navigation Top */}
+      <nav className="sticky top-0 z-10 w-full bg-[var(--bg-island)]/80 backdrop-blur-md border-b border-[var(--border)] mb-12 no-print transition-all duration-300">
+        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+          >
+            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+            <span>Voltar</span>
+          </button>
+
+          <div className="flex items-center gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] opacity-60 hidden sm:block">
+              {article.category}
+            </span>
+          </div>
+        </div>
       </nav>
 
       {isLoading ? (
-        <div className="flex justify-center py-20">
+        <div className="flex justify-center py-32">
           <Loader2 className="animate-spin text-[var(--text-muted)]" size={32} />
         </div>
       ) : (
         <AnimatePresence mode="wait">
           <motion.div
             key={article.id}
-            initial={{ opacity: 0, y: 10, filter: 'blur(5px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -10, filter: 'blur(5px)' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-4xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="max-w-4xl mx-auto px-6"
           >
-            <header className="mb-10 space-y-6">
+            {/* Editorial Header */}
+            <header className="mb-16 md:mb-24 text-center max-w-3xl mx-auto">
+              <motion.div variants={itemVariants} className="flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--accent)] mb-6">
+                <span>{article.category}</span>
+                <span className="w-1 h-1 rounded-full bg-current opacity-40" />
+                <span>Leitura Rápida</span>
+              </motion.div>
+
               <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight text-[var(--text-main)]"
+                variants={itemVariants}
+                className="text-4xl md:text-6xl lg:text-7xl font-serif font-medium leading-[1.1] tracking-tight text-[var(--text-main)] mb-8"
               >
                 {article.question}
               </motion.h1>
 
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="border-l-2 border-[var(--text-main)] pl-6 py-1"
+                variants={itemVariants}
+                className="relative inline-block"
               >
-                <p className="text-xl md:text-2xl text-[var(--text-muted)] font-serif italic leading-relaxed">
+                <p className="text-xl md:text-2xl text-[var(--text-muted)] font-serif italic leading-relaxed max-w-2xl mx-auto">
                   {article.answer}
                 </p>
+                <div className="absolute -top-4 -left-8 text-6xl text-[var(--text-muted)] opacity-10 font-serif">“</div>
               </motion.div>
             </header>
 
-            <div className="pb-16">
-              <div
-                className="article-content-render"
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
-              />
+            {/* Main Content */}
+            <motion.div
+              variants={itemVariants}
+              className="article-content-render"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
 
-              <footer className="mt-16 pt-8 border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-2 gap-8 no-print">
-                {nav.prev && (
-                  <button
-                    onClick={() => onNavigate(nav.prev)}
-                    className="group text-left space-y-2 hover:bg-stone-50 dark:hover:bg-white/5 p-4 -ml-4 rounded-xl transition-colors duration-200"
-                  >
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
-                      <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
-                      Anterior
-                    </span>
-                    <div>
-                      <h4 className="text-lg font-serif font-light text-[var(--text-main)] line-clamp-2 leading-tight">
-                        {nav.prev.question}
-                      </h4>
-                    </div>
-                  </button>
-                )}
-                {nav.next && (
-                  <button
-                    onClick={() => onNavigate(nav.next)}
-                    className="group text-right sm:col-start-2 space-y-2 hover:bg-stone-50 dark:hover:bg-white/5 p-4 -mr-4 rounded-xl transition-colors duration-200"
-                  >
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
-                      Próximo
-                      <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                    </span>
-                    <div>
-                      <h4 className="text-lg font-serif font-light text-[var(--text-main)] line-clamp-2 leading-tight">
-                        {nav.next.question}
-                      </h4>
-                    </div>
-                  </button>
-                )}
-              </footer>
-            </div>
+            {/* Footer Navigation */}
+            <motion.footer
+              variants={itemVariants}
+              className="mt-24 pt-12 border-t border-[var(--border)] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 no-print"
+            >
+              {nav.prev ? (
+                <button
+                  onClick={() => onNavigate(nav.prev)}
+                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300"
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
+                    <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                    Anterior
+                  </span>
+                  <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
+                    {nav.prev.question}
+                  </h4>
+                </button>
+              ) : <div />}
+
+              {nav.next && (
+                <button
+                  onClick={() => onNavigate(nav.next)}
+                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300"
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
+                    Próximo
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
+                    {nav.next.question}
+                  </h4>
+                </button>
+              )}
+            </motion.footer>
           </motion.div>
         </AnimatePresence>
       )}

@@ -125,11 +125,12 @@
     font-family: var(--font-serif);
     font-size: 4.8em;
     float: left;
-    line-height: 0.85;
-    margin-right: 0.15em;
-    margin-top: 0.05em;
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.12em;
+    margin-top: -0.02em;
     color: var(--text-main);
-    font-weight: 400;
+    font-weight: 700;
   }
 
   /* Headings */
@@ -144,8 +145,14 @@
     letter-spacing: -0.02em;
   }
 
+  /* Hiding duplicate title from markdown content */
+  .article-content-render>h1:first-child {
+    display: none;
+  }
+
   .article-content-render h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    /* Reduced slightly as main title is in header */
     margin-top: 1.5em;
     /* Local adjustment */
   }
