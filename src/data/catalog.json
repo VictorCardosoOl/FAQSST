@@ -1,0 +1,151 @@
+[
+  {
+    "id": "aposentadoria-especial",
+    "question": "Aposentadoria Especial (Regras Atuais)",
+    "category": "Previdenciário",
+    "date": "08 Jan 2026",
+    "tags": [
+      "Aposentadoria Especial",
+      "INSS",
+      "Reforma"
+    ],
+    "answer": "Requisitos e novas regras para aposentadoria especial em 2026.",
+    "fileName": "aposentadoria-especial.md"
+  },
+  {
+    "id": "aposentadoria-invalidez",
+    "question": "Aposentadoria por Incapacidade Permanente",
+    "category": "Previdenciário",
+    "date": "09 Jan 2026",
+    "tags": [
+      "Invalidez",
+      "Incapacidade",
+      "Auxílio Doença"
+    ],
+    "answer": "A antiga aposentadoria por invalidez: critérios e cálculo pós-reforma.",
+    "fileName": "aposentadoria-invalidez.md"
+  },
+  {
+    "id": "cat",
+    "question": "CAT - Comunicação de Acidente de Trabalho",
+    "category": "Previdenciário",
+    "date": "07 Jan 2026",
+    "tags": [
+      "CAT",
+      "Acidente",
+      "S-2210"
+    ],
+    "answer": "Prazos, tipos e obrigatoriedade da emissão da CAT.",
+    "fileName": "cat.md"
+  },
+  {
+    "id": "ecac-guia",
+    "question": "Guia de Acesso ao e-CAC",
+    "category": "eSocial e Governo",
+    "date": "11 Jan 2026",
+    "tags": [
+      "e-CAC",
+      "Receita Federal",
+      "DCTFWeb"
+    ],
+    "answer": "Como acessar e utilizar o portal e-CAC para verificar pendências.",
+    "fileName": "ecac-guia.md"
+  },
+  {
+    "id": "esocial-sst",
+    "question": "Eventos de SST no eSocial (S-2210, S-2220, S-2240)",
+    "category": "eSocial e Governo",
+    "date": "10 Jan 2026",
+    "tags": [
+      "eSocial",
+      "S-2210",
+      "S-2220",
+      "S-2240",
+      "Obrigações"
+    ],
+    "answer": "Resumo dos eventos de SST que devem ser enviados ao eSocial.",
+    "fileName": "esocial-sst.md"
+  },
+  {
+    "id": "intro-sst",
+    "question": "Medicina Ocupacional e Segurança do Trabalho",
+    "category": "Saúde e Segurança",
+    "date": "01 Jan 2026",
+    "tags": [
+      "Medicina Ocupacional",
+      "Segurança do Trabalho",
+      "Conceitos"
+    ],
+    "answer": "Entenda as diferenças e a complementariedade entre Medicina e Segurança do Trabalho.",
+    "fileName": "intro-sst.md"
+  },
+  {
+    "id": "ltcat",
+    "question": "LTCAT - Laudo Técnico das Condições Ambientais",
+    "category": "Previdenciário",
+    "date": "05 Jan 2026",
+    "tags": [
+      "LTCAT",
+      "Laudo",
+      "Insalubridade",
+      "Aposentadoria"
+    ],
+    "answer": "O laudo técnico essencial para comprovação de aposentadoria especial.",
+    "fileName": "ltcat.md"
+  },
+  {
+    "id": "pcmso",
+    "question": "PCMSO - Controle Médico de Saúde Ocupacional (NR-07)",
+    "category": "Saúde e Segurança",
+    "date": "04 Jan 2026",
+    "tags": [
+      "PCMSO",
+      "NR-07",
+      "Exames",
+      "ASO"
+    ],
+    "answer": "Diretrizes para o monitoramento da saúde dos trabalhadores.",
+    "fileName": "pcmso.md"
+  },
+  {
+    "id": "pgr",
+    "question": "PGR - Programa de Gerenciamento de Riscos (NR-01)",
+    "category": "Saúde e Segurança",
+    "date": "02 Jan 2026",
+    "tags": [
+      "PGR",
+      "GRO",
+      "NR-01",
+      "Riscos Ocupacionais"
+    ],
+    "answer": "Tudo sobre o novo programa de gestão de riscos que substituiu o PPRA.",
+    "fileName": "pgr.md"
+  },
+  {
+    "id": "pgrtr",
+    "question": "PGRTR - Gerenciamento de Riscos Rurais (NR-31)",
+    "category": "Saúde e Segurança",
+    "date": "03 Jan 2026",
+    "tags": [
+      "PGRTR",
+      "NR-31",
+      "Rural",
+      "Agro"
+    ],
+    "answer": "Especificidades da gestão de riscos no trabalho rural.",
+    "fileName": "pgrtr.md"
+  },
+  {
+    "id": "ppp",
+    "question": "PPP - Perfil Profissiográfico Previdenciário",
+    "category": "Previdenciário",
+    "date": "06 Jan 2026",
+    "tags": [
+      "PPP",
+      "Histórico Laboral",
+      "INSS"
+    ],
+    "answer": "O documento histórico do trabalhador exigido pelo INSS.",
+    "fileName": "ppp.md"
+  }
+]
