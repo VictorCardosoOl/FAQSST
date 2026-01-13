@@ -12,5 +12,6 @@ export interface FAQItem {
   tags: string[];
   content?: () => Promise<{ default: string }>;
   date?: string;
+  searchText?: string;
 }
 

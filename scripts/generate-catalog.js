@@ -40,7 +40,9 @@ files.forEach(file => {
     // Add filename to data for reference
     const item = {
         ...data,
-        fileName: file
+        fileName: file,
+        // Extract text content for search (filtering out frontmatter)
+        searchText: matter(fileContent).content.replace(/[#*`]/g, '') // Simple markdown strip
     };
 
     catalog.push(item);

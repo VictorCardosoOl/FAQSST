@@ -1,10 +1,12 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, Loader2, Share2, Clock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FAQItem } from '../types';
 import { SEOHead } from './SEOHead';
+import { ArticleSkeleton } from './ArticleSkeleton';
+import { FAQ_DATA } from '../constants';
 
 interface ArticleViewProps {
   article: FAQItem;
@@ -47,6 +49,21 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
     const rawHtml = marked.parse(content) as string;
     return DOMPurify.sanitize(rawHtml);
   }, [content]);
+
+  const relatedArticles = useMemo(() => {
+    if (!article.tags || article.tags.length === 0) return [];
+
+    return FAQ_DATA
+      .filter(item => item.id !== article.id)
+      .map(item => ({
+        item,
+        score: item.tags.filter(tag => article.tags.includes(tag)).length
+      }))
+      .filter(match => match.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .map(match => match.item);
+  }, [article]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -95,9 +112,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
       </nav>
 
       {isLoading ? (
-        <div className="flex justify-center py-32">
-          <Loader2 className="animate-spin text-[var(--text-muted)]" size={32} />
-        </div>
+        <ArticleSkeleton />
       ) : (
         <AnimatePresence mode="wait">
           <motion.div
@@ -141,10 +156,30 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
               dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
 
+            {/* Related Articles */}
+            {relatedArticles.length > 0 && (
+              <motion.div variants={itemVariants} className="mt-24 pt-12 border-t border-[var(--border)] no-print">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] mb-8">Conteúdo Relacionado</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {relatedArticles.map(related => (
+                    <button
+                      key={related.id}
+                      onClick={() => onNavigate(related)}
+                      className="group flex flex-col items-start text-left p-6 rounded-2xl bg-[var(--bg-island)] border border-[var(--border)]/50 hover:border-[var(--text-main)] transition-all duration-300"
+                    >
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--accent)] mb-3">{related.category}</span>
+                      <h4 className="font-serif text-lg leading-tight mb-2 group-hover:underline decoration-1 underline-offset-4">{related.question}</h4>
+                      <p className="text-sm text-[var(--text-muted)] line-clamp-2">{related.answer}</p>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
             {/* Footer Navigation */}
             <motion.footer
               variants={itemVariants}
-              className="mt-24 pt-12 border-t border-[var(--border)] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 no-print"
+              className="mt-16 pt-12 border-t border-[var(--border)] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 no-print"
             >
               {nav.prev ? (
                 <button

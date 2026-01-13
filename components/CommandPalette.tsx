@@ -25,7 +25,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   // Fuzzy Search for Articles
   const filteredArticles = useSearch(FAQ_DATA, inputValue, {
-    keys: ['question', 'tags', 'answer', 'category'],
+    keys: ['question', 'tags', 'answer', 'category', 'searchText'],
     threshold: 0.4
   });
 
