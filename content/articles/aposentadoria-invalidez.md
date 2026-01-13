@@ -1,3 +1,12 @@
+---
+id: "aposentadoria-invalidez"
+question: "Aposentadoria por Incapacidade Permanente"
+category: "Previdenciário"
+date: "09 Jan 2026"
+tags: ["Invalidez", "Incapacidade", "Auxílio Doença"]
+answer: "A antiga aposentadoria por invalidez: critérios e cálculo pós-reforma."
+---
+
 # Aposentadoria por Incapacidade Permanente (Antiga Invalidez)
 
 Renomeada pela Reforma da Previdência de 2019, a Aposentadoria por Incapacidade Permanente é o benefício devido ao segurado que for considerado permanentemente incapaz de exercer qualquer atividade laborativa e que também não possa ser reabilitado em outra profissão.

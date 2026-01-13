@@ -1,3 +1,12 @@
+---
+id: "aposentadoria-especial"
+question: "Aposentadoria Especial (Regras Atuais)"
+category: "Previdenciário"
+date: "08 Jan 2026"
+tags: ["Aposentadoria Especial", "INSS", "Reforma"]
+answer: "Requisitos e novas regras para aposentadoria especial em 2026."
+---
+
 # Aposentadoria Especial
 
 A **Aposentadoria Especial** é um benefício previdenciário destinado a trabalhadores que exercem atividades expostos a agentes nocivos à saúde (químicos, físicos ou biológicos) de forma contínua e ininterrupta, em níveis acima dos limites de tolerância.

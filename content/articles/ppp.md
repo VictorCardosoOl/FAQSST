@@ -1,3 +1,12 @@
+---
+id: "ppp"
+question: "PPP - Perfil Profissiográfico Previdenciário"
+category: "Previdenciário"
+date: "06 Jan 2026"
+tags: ["PPP", "Histórico Laboral", "INSS"]
+answer: "O documento histórico do trabalhador exigido pelo INSS."
+---
+
 # Perfil Profissiográfico Previdenciário (PPP)
 
 O **PPP** é o documento histórico-laboral do trabalhador que reúne dados administrativos, registros ambientais e resultados de monitoração biológica durante todo o período em que este exerceu suas atividades na empresa.

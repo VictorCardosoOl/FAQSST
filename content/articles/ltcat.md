@@ -1,3 +1,12 @@
+---
+id: "ltcat"
+question: "LTCAT - Laudo Técnico das Condições Ambientais"
+category: "Previdenciário"
+date: "05 Jan 2026"
+tags: ["LTCAT", "Laudo", "Insalubridade", "Aposentadoria"]
+answer: "O laudo técnico essencial para comprovação de aposentadoria especial."
+---
+
 # Laudo Técnico das Condições Ambientais do Trabalho (LTCAT)
 
 O **LTCAT** é um documento de natureza previdenciária, instituído pela Lei nº 8.213/91. Diferente do PGR (que é trabalhista/preventivo), a finalidade exclusiva do LTCAT é documentar a necessidade ou não de **Aposentadoria Especial** pelo INSS.

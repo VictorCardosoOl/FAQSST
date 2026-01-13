@@ -1,3 +1,12 @@
+---
+id: "esocial-sst"
+question: "Eventos de SST no eSocial (S-2210, S-2220, S-2240)"
+category: "eSocial e Governo"
+date: "10 Jan 2026"
+tags: ["eSocial", "S-2210", "S-2220", "S-2240", "Obrigações"]
+answer: "Resumo dos eventos de SST que devem ser enviados ao eSocial."
+---
+
 # eSocial e os Eventos de SST
 
 O eSocial (Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas) unificou o envio de informações ao governo. Para a área de Segurança e Saúde do Trabalho (SST), existem três eventos obrigatórios que substituíram formulários antigos (como o PPP físico e a CAT em papel/sistema antigo).

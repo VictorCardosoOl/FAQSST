@@ -1,3 +1,12 @@
+---
+id: "cat"
+question: "CAT - Comunicação de Acidente de Trabalho"
+category: "Previdenciário"
+date: "07 Jan 2026"
+tags: ["CAT", "Acidente", "S-2210"]
+answer: "Prazos, tipos e obrigatoriedade da emissão da CAT."
+---
+
 # Comunicação de Acidente de Trabalho (CAT)
 
 A **CAT** é o documento utilizado para comunicar ao INSS a ocorrência de acidente de trabalho, acidente de trajeto ou doença ocupacional. É fundamental para garantir a assistência acidentária ao trabalhador e para fins estatísticos e epidemiológicos da Previdência.

@@ -1,3 +1,12 @@
+---
+id: "ecac-guia"
+question: "Guia de Acesso ao e-CAC"
+category: "eSocial e Governo"
+date: "11 Jan 2026"
+tags: ["e-CAC", "Receita Federal", "DCTFWeb"]
+answer: "Como acessar e utilizar o portal e-CAC para verificar pendências."
+---
+
 # Guia Rápido: e-CAC (Centro Virtual de Atendimento)
 
 O **e-CAC (Centro Virtual de Atendimento ao Contribuinte)** é o portal da Receita Federal que permite a comunicação digital segura entre o contribuinte (físico ou jurídico) e o Fisco. Para empregadores e profissionais de SST, ele é vital para acompanhar pendências fiscais relativas à folha de pagamento e obrigações previdenciárias.
