@@ -6,7 +6,18 @@ export const useReadingQueue = () => {
 
   // Carrega a fila salva ao iniciar
   useEffect(() => {
-    const saved = localStorage.getItem('teamwiki_queue');
+    // Migration Logic: Check for old key
+    const oldSaved = localStorage.getItem('teamwiki_queue');
+    if (oldSaved) {
+      localStorage.setItem('sstfaq_queue', oldSaved);
+      localStorage.removeItem('teamwiki_queue');
+      try {
+        setQueue(JSON.parse(oldSaved));
+        return;
+      } catch (e) { }
+    }
+
+    const saved = localStorage.getItem('sstfaq_queue');
     if (saved) {
       try {
         setQueue(JSON.parse(saved));
@@ -19,7 +30,7 @@ export const useReadingQueue = () => {
   // Salva no localStorage sempre que mudar
   const saveQueue = (newQueue: string[]) => {
     setQueue(newQueue);
-    localStorage.setItem('teamwiki_queue', JSON.stringify(newQueue));
+    localStorage.setItem('sstfaq_queue', JSON.stringify(newQueue));
   };
 
   const addToQueue = (id: string) => {
