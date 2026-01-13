@@ -1,3 +1,12 @@
+---
+id: "pgr"
+question: "PGR - Programa de Gerenciamento de Riscos (NR-01)"
+category: "Saúde e Segurança"
+date: "02 Jan 2026"
+tags: ["PGR", "GRO", "NR-01", "Riscos Ocupacionais"]
+answer: "Tudo sobre o novo programa de gestão de riscos que substituiu o PPRA."
+---
+
 # Programa de Gerenciamento de Riscos (PGR) - NR-01
 
 O **PGR (Programa de Gerenciamento de Riscos)** é o documento base para a gestão de riscos ocupacionais no Brasil, regulamentado pela Norma Regulamentadora nº 01 (NR-01). Obrigatório desde janeiro de 2022, ele substituiu o antigo PPRA (NR-09), trazendo uma visão mais abrangente que não se limita apenas aos riscos ambientais (físicos, químicos e biológicos), mas engloba também riscos de acidentes e ergonômicos.

@@ -1,3 +1,12 @@
+---
+id: "pgrtr"
+question: "PGRTR - Gerenciamento de Riscos Rurais (NR-31)"
+category: "Saúde e Segurança"
+date: "03 Jan 2026"
+tags: ["PGRTR", "NR-31", "Rural", "Agro"]
+answer: "Especificidades da gestão de riscos no trabalho rural."
+---
+
 # PGRTR - Gerenciamento de Riscos no Trabalho Rural (NR-31)
 
 O **PGRTR (Programa de Gerenciamento de Riscos no Trabalho Rural)** é o equivalente ao PGR para o setor agropecuário, regulamentado pela norma setorial **NR-31**. Ele substituiu o antigo PGSSMATR.

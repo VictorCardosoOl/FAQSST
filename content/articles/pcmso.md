@@ -1,3 +1,12 @@
+---
+id: "pcmso"
+question: "PCMSO - Controle Médico de Saúde Ocupacional (NR-07)"
+category: "Saúde e Segurança"
+date: "04 Jan 2026"
+tags: ["PCMSO", "NR-07", "Exames", "ASO"]
+answer: "Diretrizes para o monitoramento da saúde dos trabalhadores."
+---
+
 # Programa de Controle Médico de Saúde Ocupacional (PCMSO) - NR-07
 
 O **PCMSO**, regido pela NR-07, é o programa responsável por monitorar a saúde dos trabalhadores em relação aos riscos aos quais estão expostos. Ele atua de forma integrada ao PGR, utilizando o Inventário de Riscos para definir os exames e controles médicos necessários.
