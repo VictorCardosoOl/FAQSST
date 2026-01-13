@@ -1,3 +1,12 @@
+---
+id: "intro-sst"
+question: "Medicina Ocupacional e Segurança do Trabalho"
+category: "Saúde e Segurança"
+date: "01 Jan 2026"
+tags: ["Medicina Ocupacional", "Segurança do Trabalho", "Conceitos"]
+answer: "Entenda as diferenças e a complementariedade entre Medicina e Segurança do Trabalho."
+---
+
 # Medicina Ocupacional e Segurança do Trabalho: Entenda a Diferença
 
 Embora atuem juntas pela proteção do trabalhador, Medicina Ocupacional e Segurança do Trabalho são áreas distintas com focos complementares. Entender essa diferença é vital para a gestão eficiente de SST.
