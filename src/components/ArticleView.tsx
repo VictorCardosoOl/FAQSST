@@ -125,10 +125,10 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="max-w-4xl mx-auto px-6"
+            className="max-w-6xl mx-auto px-6"
           >
             {/* Editorial Header */}
-            <header className="mb-16 md:mb-24 text-center max-w-3xl mx-auto">
+            <header className="mb-20 md:mb-28 text-center max-w-4xl mx-auto">
               <motion.div variants={itemVariants} className="flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--accent)] mb-6">
                 <span>{article.category}</span>
                 <span className="w-1 h-1 rounded-full bg-current opacity-40" />
