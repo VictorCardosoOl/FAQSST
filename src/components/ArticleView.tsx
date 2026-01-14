@@ -303,16 +303,19 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
         </AnimatePresence>
       )}
 
-      {/* Discrete Toast Notification */}
+      {/* Discrete Toast Notification (Ultra-Minimalist B&W) */}
       <AnimatePresence>
         {toastMessage && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-12 left-1/2 -translate-x-1/2 bg-gray-900/90 text-white px-6 py-3 rounded-full text-sm font-medium shadow-xl backdrop-blur-sm z-[60] border border-white/10"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] px-6 py-2.5 bg-black text-white rounded-full shadow-2xl border border-white/10"
           >
-            {toastMessage}
+            <p className="font-serif italic text-sm md:text-base leading-none">
+              {toastMessage}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
