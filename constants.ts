@@ -149,14 +149,7 @@ export const FAQ_DATA: FAQItem[] = (catalog.map((item: any) => ({
     tags: ['SST', 'NR', 'Introdução'],
     content: () => import('./src/content/gerenciamento-de-riscos/IntroducaoSST')
   },
-  {
-    id: 'ltcat-guia-completo',
-    question: 'Documentos Ocupacionais (PGR, PCMSO, LTCAT)',
-    answer: 'Guia técnico sobre os programas: finalidade, validade e diferenças entre eles.',
-    category: Category.SST,
-    tags: ['PGR', 'PCMSO', 'LTCAT', 'Documentos'],
-    content: () => import('./src/content/gerenciamento-de-riscos/PGR_PCMSO_LTCAT')
-  },
+
   {
     id: 'diferenca-li-lp',
     question: 'Diferença entre LI (Insalubridade) e LP (Periculosidade)',
@@ -165,12 +158,5 @@ export const FAQ_DATA: FAQItem[] = (catalog.map((item: any) => ({
     tags: ['Insalubridade', 'Periculosidade', 'Laudo'],
     content: () => import('./src/content/gerenciamento-de-riscos/LaudosInsalubridadePericulosidade')
   },
-  {
-    id: 'migracao-gerenciamento-riscos-sigo-w3-para-sigo-web',
-    question: 'Migração de Riscos: W3 para Sigo Web',
-    answer: 'Protocolos para migração de dados, correção de vínculos quebrados e unificação de setores/funções.',
-    category: Category.SST,
-    tags: ['Migração', 'Erro', 'Vínculo'],
-    content: () => import('./src/content/gerenciamento-de-riscos/MigracaoW3Web')
-  }
+
 ]);
