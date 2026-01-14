@@ -2,8 +2,7 @@ export enum Category {
   SST = 'Saúde e Segurança',
   PREVIDENCIARIO = 'Previdenciário',
   ESOCIAL = 'eSocial e Governo',
-  SUPORTE = 'Suporte e Processos Internos',
-  FINANCEIRO = 'Financeiro e Faturamento'
+
 }
 
 export interface FAQItem {
