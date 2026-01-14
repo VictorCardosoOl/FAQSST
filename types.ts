@@ -1,7 +1,8 @@
 export enum Category {
   SST = 'Saúde e Segurança',
   PREVIDENCIARIO = 'Previdenciário',
-  ESOCIAL = 'eSocial e Governo'
+  ESOCIAL = 'eSocial e Governo',
+  SUPORTE = 'Suporte e Processos Internos'
 }
 
 export interface FAQItem {
@@ -10,7 +11,7 @@ export interface FAQItem {
   answer: string;
   category: Category;
   tags: string[];
-  content?: () => Promise<{ default: { content: string } }>;
+  content?: any;
   date?: string;
   searchText?: string;
 }

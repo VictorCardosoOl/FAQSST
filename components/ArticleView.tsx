@@ -16,7 +16,7 @@ interface ArticleViewProps {
 }
 
 export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNavigate, nav }) => {
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string | React.ComponentType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -27,9 +27,9 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
       try {
         if (typeof article.content === 'function') {
           const module = await article.content();
-          // The data is now pre-processed into a JSON chunk with a "content" field
+          // The data can be a JSON chunk with a "content" string OR a React Component
           const rawContent = module.default.content;
-          if (mounted) setContent(rawContent);
+          if (mounted) setContent(() => rawContent); // Use callback to safe set function or value
         } else {
           if (mounted) setContent(article.content || article.answer);
         }
@@ -47,11 +47,12 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   }, [article]);
 
   const htmlContent = useMemo(() => {
-    if (!content) return '';
+    if (!content || typeof content !== 'string') return '';
     const rawHtml = marked.parse(content) as string;
     return DOMPurify.sanitize(rawHtml);
   }, [content]);
 
+  // ... (Related Articles) restored below
   const relatedArticles = useMemo(() => {
     if (!article.tags || article.tags.length === 0) return [];
 
@@ -155,8 +156,13 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
             <motion.div
               variants={itemVariants}
               className="article-content-render"
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />
+            >
+              {typeof content === 'string' ? (
+                <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+              ) : (
+                content && React.createElement(content as React.ComponentType)
+              )}
+            </motion.div>
 
             {/* Related Articles */}
             {relatedArticles.length > 0 && (
