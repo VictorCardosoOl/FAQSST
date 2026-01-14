@@ -3,6 +3,7 @@ export enum Category {
   PREVIDENCIARIO = 'Previdenciário',
   ESOCIAL = 'eSocial e Governo',
   TROUBLESHOOTING = 'Solução de Problemas',
+  COLETIVO = 'Atendimento e Cultura',
 }
 
 export interface FAQItem {
