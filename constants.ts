@@ -116,5 +116,61 @@ export const FAQ_DATA: FAQItem[] = (catalog.map((item: any) => ({
     category: Category.ESOCIAL,
     tags: ['e-CAC', 'Procuração', 'Certificado'],
     content: () => import('./src/content/esocial/ECAC_eSocial')
+  },
+  {
+    id: 'parametros-financeiros',
+    question: 'Parâmetros de Faturamento',
+    answer: 'Configurações de cobrança, exames, pacotes e contratos no módulo financeiro.',
+    category: Category.FINANCEIRO,
+    tags: ['Faturamento', 'Configuração', 'Parâmetros'],
+    content: () => import('./src/content/financeiro/ParametrosFaturamento')
+  },
+  {
+    id: 'cnab-remessa-retorno',
+    question: 'CNAB: Guia de Remessa e Retorno',
+    answer: 'Como gerar remessas bancárias (240/400) e processar o retorno para baixa automática.',
+    category: Category.FINANCEIRO,
+    tags: ['CNAB', 'Boleto', 'Banco'],
+    content: () => import('./src/content/financeiro/GuiaCNAB')
+  },
+  {
+    id: 'processo-faturamento-empresarial',
+    question: 'Processo de Faturamento Completo',
+    answer: 'Fluxo passo a passo para faturar contratos e pedidos e gerar notas fiscais (RPS).',
+    category: Category.FINANCEIRO,
+    tags: ['Faturamento', 'RPS', 'Nota Fiscal'],
+    content: () => import('./src/content/financeiro/ProcessoFaturamento')
+  },
+  {
+    id: 'introducao-sst-novos-funcionarios',
+    question: 'Introdução à SST e Normas Regulamentadoras',
+    answer: 'Conceitos básicos de Saúde e Segurança e resumo das principais NRs (01, 05, 07, 15, 16, 17, 35).',
+    category: Category.SST,
+    tags: ['SST', 'NR', 'Introdução'],
+    content: () => import('./src/content/gerenciamento-de-riscos/IntroducaoSST')
+  },
+  {
+    id: 'ltcat-guia-completo',
+    question: 'Documentos Ocupacionais (PGR, PCMSO, LTCAT)',
+    answer: 'Guia técnico sobre os programas: finalidade, validade e diferenças entre eles.',
+    category: Category.SST,
+    tags: ['PGR', 'PCMSO', 'LTCAT', 'Documentos'],
+    content: () => import('./src/content/gerenciamento-de-riscos/PGR_PCMSO_LTCAT')
+  },
+  {
+    id: 'diferenca-li-lp',
+    question: 'Diferença entre LI (Insalubridade) e LP (Periculosidade)',
+    answer: 'Comparativo completo: riscos, adicionais e quando solicitar cada laudo.',
+    category: Category.SST,
+    tags: ['Insalubridade', 'Periculosidade', 'Laudo'],
+    content: () => import('./src/content/gerenciamento-de-riscos/LaudosInsalubridadePericulosidade')
+  },
+  {
+    id: 'migracao-gerenciamento-riscos-sigo-w3-para-sigo-web',
+    question: 'Migração de Riscos: W3 para Sigo Web',
+    answer: 'Protocolos para migração de dados, correção de vínculos quebrados e unificação de setores/funções.',
+    category: Category.SST,
+    tags: ['Migração', 'Erro', 'Vínculo'],
+    content: () => import('./src/content/gerenciamento-de-riscos/MigracaoW3Web')
   }
 ]);
