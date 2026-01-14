@@ -1,0 +1,341 @@
+/* ===================================================================
+ * LÓGICA DE LAYOUT E ESTADOS DA SIDEBAR (APENAS DESKTOP)
+ * Estas regras só se aplicarão em telas com 1025px de largura ou mais.
+ * =================================================================== */
+@media (min-width: 1025px) {
+    body:not(.sidebar-estado-expandido) {
+        --sidebar-current-width: 68px;
+    }
+
+    body.sidebar-estado-expandido {
+        --sidebar-current-width: var(--sidebar-width);
+    }
+
+    #page-container {
+        grid-template-columns: var(--sidebar-current-width) 1fr;
+        transition: grid-template-columns .5s var(--easing-curve);
+    }
+
+    .sidebar {
+        width: var(--sidebar-current-width);
+    }
+
+    body:not(.sidebar-estado-expandido) .sidebar-header h2,
+    body:not(.sidebar-estado-expandido) .sidebar-footer .profile-info,
+    body:not(.sidebar-estado-expandido) .sidebar-nav-link p {
+        opacity: 0;
+        width: 0;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    body:not(.sidebar-estado-expandido) .sidebar-nav-link,
+    body:not(.sidebar-estado-expandido) .profile-section {
+        justify-content: center;
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover {
+        width: var(--sidebar-width);
+        box-shadow: 4px 0 30px -5px var(--shadow-color);
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-header h2,
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer .profile-info,
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link p {
+        opacity: 1;
+        width: auto;
+        pointer-events: auto;
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
+        justify-content: flex-start;
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover .profile-section {
+        justify-content: space-between;
+    }
+    
+    body:not(.sidebar-estado-expandido) .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
+        opacity: 1;
+    }
+}
+
+/* responsividade.css */
+
+/* ===================================================================
+ * REGRAS DE RESPONSIVIDADE (MOBILE-FIRST)
+ * =================================================================== */
+
+/* Tablets e modo mobile (a partir de 1024px) */
+@media (max-width: 1024px) {
+  /* Esconde o botão de controle de estado da sidebar do desktop */
+  #sidebar-toggle {
+    display: none;
+  }
+  
+  /* Garante que o botão do menu mobile (hambúrguer) seja exibido */
+  #mobile-menu-button {
+    display: flex !important; /* Usar flex para garantir alinhamento */
+  }
+
+  /* Altera o layout principal para permitir a sidebar flutuante */
+  #page-container {
+    display: block;
+  }
+
+  /* Posiciona a sidebar fora da tela por padrão */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    transform: translateX(-100%);
+    z-index: 1001;
+    transition: transform 0.4s var(--transition-curve);
+    border-right: 1px solid var(--border-color);
+    box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Exibe a sidebar quando a classe .visible for adicionada (via JS) */
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+
+  /* Garante que o conteúdo da sidebar fique visível no modo mobile */
+  .sidebar.visible .sidebar-nav-link p,
+  .sidebar.visible .sidebar-footer p,
+  .sidebar.visible .sidebar-header h2 {
+    opacity: 1 !important;
+    width: auto !important;
+  }
+  .sidebar.visible .sidebar-nav-link,
+  .sidebar.visible .sidebar-footer {
+    justify-content: flex-start !important;
+  }
+  .sidebar.visible .sidebar-footer {
+    justify-content: space-between !important;
+  }
+
+  /* Overlay que cobre o conteúdo quando a sidebar está aberta */
+  #sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--transition-curve);
+  }
+
+  #sidebar-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Ajusta o rodapé de busca para ocupar a largura toda */
+  #footer-search {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  
+  /* Ajusta os botões de navegação dos artigos */
+  .article-navigation.prev-button {
+    left: 1rem;
+  }
+  .article-navigation.next-button {
+    right: 1rem;
+  }
+}
+
+/* Celulares maiores e tablets em modo retrato (a partir de 768px) */
+@media (max-width: 768px) {
+  #app {
+    padding: 1.5rem;
+    padding-bottom: 120px;
+  }
+
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-content h1 {
+    font-size: 2.25rem;
+  }
+
+  #footer-search .max-w-4xl {
+    padding: 0.5rem 1rem;
+  }
+
+  #search-input {
+    font-size: 0.9rem;
+    padding-left: 50px;
+  }
+
+  #search-filter-button {
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  #search-filter-button span {
+    display: none;
+  }
+
+  #floating-group-filter {
+    top: 1rem;
+    right: 1rem;
+  }
+  #floating-group-filter .group-filter-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .article-navigation {
+    width: 38px;
+    height: 38px;
+  }
+  .article-navigation.prev-button {
+    left: 0.5rem;
+  }
+  .article-navigation.next-button {
+    right: 0.5rem;
+  }
+}
+
+/* Celulares menores (a partir de 480px) */
+@media (max-width: 480px) {
+  #app {
+    padding: 1rem;
+    padding-bottom: 100px;
+  }
+
+  .article-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .card-link {
+    padding: 1.25rem;
+  }
+}
+@media (max-width: 768px) {
+  .article-navigation {
+    display: none;
+  }
+}
+
+/* ====================== */
+/* ANIMAÇÕES */
+/* ====================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-medium) forwards;
+}
+
+/* ====================== */
+/* RESPONSIVIDADE */
+/* ====================== */
+@media (max-width: 1200px) {
+  #app {
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  #page-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    z-index: 1000;
+    transition: transform var(--transition-medium);
+  }
+  
+  .sidebar.visible {
+    transform: translateX(100%);
+  }
+  
+  #footer-search {
+    left: 0;
+  }
+  
+  .article-navigation.prev-button {
+    left: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #app {
+    padding: 1.5rem;
+    padding-bottom: 120px;
+  }
+  
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .article-content h1 {
+    font-size: 2rem;
+  }
+  
+  .article-navigation {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  #app {
+    padding: 1rem;
+    padding-bottom: 100px;
+  }
+  
+  .search-bar {
+    padding: 0.5rem;
+  }
+  
+  #search-input {
+    padding: 0.5rem;
+  }
+  
+  .search-filter-button span {
+    display: none;
+  }
+}
+
+/* ====================== */
+/* COMPONENTE: TAGS */
+/* ====================== */
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--hover-bg-color);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.tag:hover {
+  background-color: var(--border-color);
+  transform: translateY(-1px);
+}

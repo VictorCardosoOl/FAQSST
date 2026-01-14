@@ -1,0 +1,10 @@
+Como funciona o credenciado e prestador parceiro no Sigo Web?
+
+
+Tenho uma Clínica em São Paulo e uma credenciada em Manaus, por exemplo.
+
+O credenciado atenderá meus clientes, no sistema é feito de forma manual.
+
+Prestador Parceiro é quando meu credenciado ou alguma outra clínica, pede para eu atender os clientes dele cobrando tal valor de mim. 
+No sistema é feito de forma automática, geração de boleto, remessa CNAB, RPS e assim a emissão da Nota Fiscal.
+

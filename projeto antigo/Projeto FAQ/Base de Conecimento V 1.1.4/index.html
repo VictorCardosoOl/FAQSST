@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base de Conhecimento</title>
+
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="icon" href="assets/IMG/Fav _Icon/Claro/favicon.ico">
+
+  <link rel="apple-touch-icon" href="images/icon-192x192.png">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div id="page-container">
+    <aside id="sidebar" class="sidebar">
+      <div class="flex flex-col gap-4 h-full">
+        <div class="sidebar-header">
+          <div class="flex items-center justify-between w-full">
+            <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer h-10">
+              <div class="size-6">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path>
+                </svg>
+              </div>
+              <h2 class="text-lg font-bold tracking-tight">Wise System</h2>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-hover-bg-color">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="sidebar-nav" class="flex flex-col gap-1 flex-1 overflow-y-auto"></div>
+        <div class="sidebar-footer">
+          <p class="text-xs opacity-50">© 2024 Wise System</p>
+          <div class="flex items-center">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar Tema">
+              <span class="sun-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              </span>
+              <span class="moon-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              </span>
+            </button>
+
+        
+
+            <button id="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Alterar modo da barra lateral">
+              <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m11 17-5-5 5-5" />
+                <path d="m18 17-5-5 5-5" />
+              </svg>
+              <svg class="icon-float" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15.4 14.3L21 20" />
+                <path
+                  d="M12.4 2.6a1 1 0 0 0-1.8 0l-2.2 4.3-4.4.6a1 1 0 0 0-.6 1.7l3.2 3.1-.8 4.4a1 1 0 0 0 1.5 1l3.9-2 3.9 2a1 1 0 0 0 1.5-1l-.8-4.4 3.2-3.1a1 1 0 0 0-.6-1.7l-4.4-.6-2.2-4.3z" />
+              </svg>
+              <svg class="icon-expand" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m13 17 5-5-5-5" />
+                <path d="m6 17 5-5-5-5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main id="app-container" class="main-content">
+      <div id="content-wrapper" data-scroll-container>
+        <div id="app" class="app-content"></div>
+      </div>
+    </main>
+  </div>
+
+  <footer id="footer-search">
+    <div class="max-w-4xl mx-auto px-4 py-3">
+      <div class="relative">
+        <button id="search-filter-button" class="search-filter-button"></button>
+        <input id="search-input" onkeyup="handleSearch(event.target.value)" placeholder="Pesquisar artigos..."
+          type="search" class="w-full h-12 pl-14 pr-24 text-base rounded-full" />
+        <div id="search-filter-menu" class="search-filter-menu">
+          <div class="filter-menu-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <path fill="currentColor"
+                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+              </path>
+            </svg>
+            <input type="text" id="filter-menu-input" placeholder="Filtrar módulos..." class="filter-menu-input">
+          </div>
+          <div id="filter-menu-list" class="filter-menu-list"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+  <script src="assets/js/sidebar.js"></script>
+
+  <script src="assets/js/data/modules/coletivo.js"></script>
+  <script src="assets/js/data/modules/duvidas.js"></script>
+  <script src="assets/js/data/modules/eSocial.js"></script>
+  <script src="assets/js/data/modules/gerenciamento_de_riscos.js"></script>
+
+  <script src="assets/js/data/modules/problemas.js"></script>
+  <script src="assets/js/data/modules/financeiro.js"></script>
+
+
+  <script src="assets/js/data/index.js"></script>
+  <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>

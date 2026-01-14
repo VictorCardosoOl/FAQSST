@@ -27,11 +27,8 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
       try {
         if (typeof article.content === 'function') {
           const module = await article.content();
-          let rawContent = module.default;
-          // Strip frontmatter if present (starts with ---)
-          if (rawContent.startsWith('---')) {
-            rawContent = rawContent.replace(/^---[\s\S]*?---\s*/, '');
-          }
+          // The data is now pre-processed into a JSON chunk with a "content" field
+          const rawContent = module.default.content;
           if (mounted) setContent(rawContent);
         } else {
           if (mounted) setContent(article.content || article.answer);

@@ -1,0 +1,56 @@
+• Fluxograma do módulo e visão geral do sistema
+Apresentar o fluxograma específico de cada módulo e, em seguida, o fluxograma geral que ilustra toda a cadeia de uso do sistema – desde o cadastro da empresa até o atendimento, faturamento e checagem final.
+
+• Fluxograma sobre operação de uso do Sigo durante o processo de implantação e uso no dia a dia
+
+• O que é RPS e sua integração com o sistema
+Explicar o conceito de RPS (Recibo Provisório de Serviço), sua função na emissão de notas fiscais e como o sistema da Wise realiza essa integração.
+
+• O que é CNAB e sua aplicação no sistema
+Apresentar o conceito de CNAB (Centro Nacional de Automação Bancária), como ele é utilizado para geração e envio de arquivos bancários e sua aplicação prática no sistema Wise.
+
+• História da Wise
+Artigo institucional contando a trajetória da empresa Wise, sua missão, visão, valores e principais marcos desde a fundação.
+
+• Links úteis – vídeo aulas
+Artigo com curadoria dos principais vídeos tutoriais e aulas práticas para uso do sistema, com links organizados por tema ou módulo.
+
+• Entendendo a empresa: natureza jurídica e obrigações legais
+Explicação sobre o que é a natureza jurídica de uma empresa, como funcionam os tipos societários, o processo de criação do CNPJ e quais são as principais obrigações legais com os colaboradores.
+
+• Sistema tributário e seu impacto na emissão de notas fiscais
+Artigo explicando como funciona o sistema tributário nacional, os tipos de tributos, deduções e retenções, e como isso impacta diretamente a emissão de notas fiscais pelo sistema.
+
+• O que são as NRs e como interpretá-las
+Apresentação do conceito de NRs (Normas Regulamentadoras), como interpretá-las corretamente, entender seus incisos e aplicabilidade prática na área de saúde e segurança do trabalho.
+
+• Transmissão de eventos via Pessoa Física (CAEPF)
+Explicação sobre como transmitir eventos utilizando um cadastro de pessoa física no CAEPF (Cadastro de Atividade Econômica da Pessoa Física) e sua relação com o sistema.
+
+• Certificados Digitais – tipos e uso em nuvem
+Guia sobre os tipos de certificados digitais (A1, A3, em nuvem), como funcionam, para que servem e como são utilizados no sistema para autenticação e emissão de documentos fiscais.
+
+• Processo de implantação do sistema na empresa
+Lista prática com as etapas necessárias para implantação do sistema, desde o levantamento de dados até o treinamento e validação final.
+
+• Como funciona o atendimento técnico e suporte da Wise
+Explicação sobre os canais de suporte disponíveis, horários de atendimento, SLA e boas práticas para solicitar ajuda.
+
+• Erros comuns na utilização do sistema e como evitá-los
+Lista de problemas recorrentes e dicas para prevenir falhas no uso do sistema.
+
+• Artigo sobre processos
+
+• O que é o PGR (Programa de Gerenciamento de Riscos), tipos de levantamento e validade
+Entenda a importância do PGR, os diferentes tipos de levantamento de riscos e o prazo de validade do documento segundo a legislação vigente.
+
+• PCMSO: o que é, quais eventos contempla e sua importância na saúde ocupacional
+Saiba o que é o Programa de Controle Médico de Saúde Ocupacional, os exames e eventos que ele abrange, e sua relevância para a prevenção à saúde do trabalhador.
+
+• LTCAT: o que é, finalidade, validade e quando é necessário elaborar
+Descubra o que é o Laudo Técnico das Condições Ambientais do Trabalho, os eventos que ele contempla, sua validade e em quais situações a elaboração é obrigatória.
+
+• Diferença entre LI e LP: o que são, quando solicitar e para que servem
+Entenda o que significam a Licença de Instalação (LI) e a Licença de Operação (LP), suas finalidades e em que momento são exigidas pelos órgãos ambientais.
+
+• Artigo informando os prazos de validade dos documentos, quando há necessidade de elaborar eles, o que seria implantação, renovação e revisão nos programas. 

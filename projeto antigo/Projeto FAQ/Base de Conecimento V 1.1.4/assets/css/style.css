@@ -1,0 +1,972 @@
+/* ===================================================================
+ *
+ * BASE DE CONHECIMENTO - FOLHA DE ESTILO PRINCIPAL
+ *
+ * Autor: Victor Cardoso (Análise por Parceiro de Programação)
+ * Versão: 2.0 (Refatorada)
+ *
+ * ===================================================================
+ *
+ * ÍNDICE
+ *
+ * 1. BASE: VARIÁVEIS
+ * - Cores, Fontes, Tamanhos, Transições
+ *
+ * 2. BASE: RESET E ESTILOS GLOBAIS
+ * - Reset do navegador, Estilos do Body
+ *
+ * 3. BASE: TIPOGRAFIA
+ * - Estilos para h1, h2, p, a, etc.
+ *
+ * 4. BASE: ANIMAÇÕES
+ * - Definições de @keyframes
+ *
+ * 5. LAYOUT: ESTRUTURA DA PÁGINA
+ * - Grid principal, containers #app e #content-wrapper
+ *
+ * 6. COMPONENTE: SIDEBAR
+ * - Estilos da barra lateral e seus estados (desktop e mobile)
+ *
+ * 7. COMPONENTE: CARDS
+ * - Estilos para .card-link, .module-grid, etc.
+ *
+ * 8. COMPONENTE: BOTÕES
+ * - Botões de tema, sidebar, copiar código, etc.
+ *
+ * 9. COMPONENTE: RODAPÉ DE BUSCA (FOOTER SEARCH)
+ * - Barra de busca fixa com efeito glass e menu de filtro
+ *
+ * 10. COMPONENTE: NAVEGAÇÃO DE ARTIGO
+ * - Botões laterais fixos para navegar entre artigos
+ *
+ * 11. COMPONENTE: TAGS
+ * - Estilos para as tags de artigos
+ *
+ * 12. RESPONSIVIDADE (MEDIA QUERIES)
+ * - Ajustes para tablets e celulares (sempre no final)
+ *
+ * =================================================================== */
+
+
+/* ===================================================================
+ * 1. BASE: VARIÁVEIS
+ * =================================================================== */
+:root {
+  /* Cores (Modo Claro) */
+  --bg-color: #fbfbfb;
+  --card-bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --text-color-light: #5a5a5a;
+  --border-color: #eaeaea;
+  --hover-bg-color: #f6f6f6;
+  --hover-border-color: #dcdcdc;
+  --shadow-color: rgba(0, 0, 0, 0.04);
+  --shadow-color-hover: rgba(0, 0, 0, 0.08);
+  --highlight-color: rgba(255, 212, 0, 0.3);
+
+  /* Efeito Glass (Modo Claro) */
+  --glass-bg: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(200, 200, 200, 0.3);
+  --glass-outer-border-color: rgba(0, 0, 0, 0.08);
+  --glass-text-color: var(--text-color);
+  --glass-placeholder-color: rgba(0, 0, 0, 0.4);
+  --glass-button-bg: rgba(0, 0, 0, 0.03);
+  --glass-button-hover-bg: rgba(0, 0, 0, 0.06);
+
+  /* Gradientes */
+  --bg-color-gradient-light: linear-gradient(180deg, #fdfdfd 0%, #f8f8f8 100%);
+
+  /* Métricas, Tipografia e Animações */
+  --sidebar-width: 220px;
+  --sidebar-current-width: var(--sidebar-width); /* Padrão para desktop expandido */
+  --radius: 0.875rem;
+  --transition-fast: 0.25s;
+  --transition-medium: 0.4s;
+  --transition-slow: 0.6s;
+  --easing-curve: cubic-bezier(0.4, 0, 0.2, 1);
+  --font-family: 'Inter', sans-serif;
+  --font-weight-body: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+}
+
+body.dark-mode {
+  /* Cores (Modo Escuro) */
+  --bg-color: #0d0d0d;
+  --card-bg-color: #131313;
+  --text-color: #f0f0f0;
+  --text-color-light: #a0a0a0;
+  --border-color: #2a2a2a;
+  --hover-bg-color: #1a1a1a;
+  --hover-border-color: #3a3a3a;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-color-hover: rgba(0, 0, 0, 0.3);
+  --highlight-color: rgba(255, 212, 0, 0.5);
+
+  /* Efeito Glass (Modo Escuro) */
+  --glass-bg: rgba(25, 25, 25, 0.3);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-outer-border-color: rgba(255, 255, 255, 0.1);
+  --glass-text-color: var(--text-color);
+  --glass-placeholder-color: rgba(255, 255, 255, 0.4);
+  --glass-button-bg: rgba(255, 255, 255, 0.06);
+  --glass-button-hover-bg: rgba(255, 255, 255, 0.12);
+
+  /* Gradientes */
+  --bg-color-gradient-dark: #0d0d0d;
+}
+
+
+/* ===================================================================
+ * 2. BASE: RESET E ESTILOS GLOBAIS
+ * =================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-body);
+  line-height: 1.6;
+  transition: background-color var(--transition-medium) var(--easing-curve), color var(--transition-medium) var(--easing-curve);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* ===================================================================
+ * 3. BASE: TIPOGRAFIA
+ * =================================================================== */
+h1, h2, h3 {
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  color: var(--text-color);
+}
+
+p, span, div {
+  color: var(--text-color-light);
+}
+
+.article-content h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+.article-content h2 {
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 2rem auto;
+  display: block;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  transition: transform var(--transition-slow) ease;
+}
+
+/* Tratamento de overflow para tabelas e blocos de código */
+.article-content pre,
+.article-content table {
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+  position: relative; /* Para o botão de copiar */
+}
+
+/* Destaque de texto em busca */
+mark {
+  background-color: var(--highlight-color);
+  color: inherit;
+  padding: 0 0.1em;
+  border-radius: 0.2em;
+}
+
+
+/* ===================================================================
+ * 4. BASE: ANIMAÇÕES
+ * =================================================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-medium) forwards;
+}
+
+
+/* ===================================================================
+ * 5. LAYOUT: ESTRUTURA DA PÁGINA
+ * =================================================================== */
+#page-container {
+  display: grid;
+  grid-template-columns: var(--sidebar-current-width) 1fr;
+  height: 100vh;
+  overflow: hidden;
+  transition: grid-template-columns .5s var(--easing-curve);
+}
+
+#content-wrapper {
+  height: 100%;
+}
+
+#app {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4rem;
+  padding-bottom: 150px; /* Espaço para o footer de busca */
+}
+
+/* Animação de entrada do conteúdo */
+#app.animate-in {
+  animation: fadeIn var(--transition-slow) var(--easing-curve) forwards;
+}
+
+/* Overlay para o menu mobile */
+#sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--easing-curve);
+}
+
+#sidebar-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+/* ===================================================================
+ * 6. COMPONENTE: SIDEBAR (VERSÃO ELEGANTE)
+ * Foco em micro-interações, espaçamento e hierarquia visual.
+ * =================================================================== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: var(--sidebar-current-width);
+  position: relative;
+  z-index: 1001;
+  background-image: var(--bg-color-gradient-light);
+  box-shadow: inset -1px 0 0 var(--border-color);
+  transition: width .5s var(--easing-curve), transform .4s var(--easing-curve);
+  padding: 0.5rem; /* NOVO: Um padding base para a sidebar inteira */
+}
+
+body.dark-mode .sidebar {
+  background-image: none !important; /* Remove o gradiente */
+  background-color: var(--bg-color) !important;
+}
+
+/* NOVO: Variáveis RGB para usar em sombras com transparência */
+:root {
+  --text-color-rgb: 26, 26, 26;
+  --shadow-color-rgb: 0, 0, 0;
+}
+body.dark-mode {
+  --text-color-rgb: 240, 240, 240;
+  --shadow-color-rgb: 0, 0, 0;
+}
+
+/* REFINADO: Header com separador e alinhamento aprimorado */
+.sidebar-header {
+  padding: 1rem 0.75rem 1.25rem 0.75rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header h2 {
+  white-space: nowrap;
+  transition: opacity .3s var(--easing-curve);
+  font-weight: var(--font-weight-bold);
+}
+
+/* REFINADO: Container principal da navegação com mais respiro */
+#sidebar-nav {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 0.5rem; /* Espaço após o header */
+}
+
+/* REFINADO: Estilo base dos links de navegação */
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem; /* Mais espaço entre ícone e texto */
+  padding: 0.875rem;
+  border-radius: 0.625rem; /* Bordas mais arredondadas */
+  position: relative;
+  color: var(--text-color-light);
+  margin-bottom: 0.25rem;
+  /* REFINADO: Transições mais detalhadas para os novos efeitos */
+  transition: color 0.25s var(--easing-curve), 
+              background-color 0.25s var(--easing-curve), 
+              transform 0.25s var(--easing-curve), 
+              box-shadow 0.3s var(--easing-curve);
+  cursor: pointer;
+}
+
+/* REFINADO: Efeito de HOVER - Sutil e informativo */
+.sidebar-nav-link:hover:not(.active) {
+  color: var(--text-color);
+  background-color: var(--hover-bg-color);
+  transform: scale(1.02); /* Efeito de "aproximação" */
+}
+
+/* REFINADO: Estado ATIVO - Claro, destacado e com profundidade */
+.sidebar-nav-link.active {
+  color: var(--text-color);
+  background-color: var(--hover-bg-color);
+  font-weight: 600; /* Texto semi-bold para destaque */
+  box-shadow: 0 4px 12px -2px rgba(var(--shadow-color-rgb), 0.1);
+}
+
+/* REFINADO: Controle de texto para evitar quebras de linha */
+.sidebar-nav-link p,
+.sidebar-footer .profile-info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity .3s var(--easing-curve);
+}
+
+/* REFINADO: Rodapé com mais destaque e organização */
+.sidebar-footer {
+  margin-top: auto; /* Empurra para o fundo */
+  padding: 0.75rem;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-color); /* Separador visual */
+}
+
+.sidebar-footer .flex.items-center {
+  background-color: var(--hover-bg-color);
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+}
+
+/* NOVO: Estilo unificado para botões do rodapé */
+.sidebar-footer button {
+  flex: 1;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 0.625rem;
+  color: var(--text-color-light);
+  transition: all 0.25s var(--easing-curve);
+}
+
+.sidebar-footer button:hover {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 8px -1px rgba(var(--shadow-color-rgb), 0.1);
+}
+
+
+/* Lógica de estados da Sidebar para Desktop (mantida) */
+@media (min-width: 1025px) {
+    body:not(.sidebar-estado-expandido) {
+        --sidebar-current-width: 80px; /* Um pouco mais largo para acomodar os ícones confortavelmente */
+    }
+    
+    body.sidebar-estado-expandido {
+        --sidebar-current-width: var(--sidebar-width);
+    }
+    
+    body:not(.sidebar-estado-expandido) .sidebar-header h2,
+    body:not(.sidebar-estado-expandido) .sidebar-footer .profile-info,
+    body:not(.sidebar-estado-expandido) .sidebar-nav-link p {
+        opacity: 0;
+        width: 0;
+        pointer-events: none;
+    }
+    
+    body:not(.sidebar-estado-expandido) .sidebar-nav-link {
+        justify-content: center;
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover {
+        width: var(--sidebar-width);
+        box-shadow: 4px 0 30px -5px var(--shadow-color);
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-header h2,
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer .profile-info,
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link p {
+        opacity: 1;
+        width: auto;
+        pointer-events: auto;
+    }
+    
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
+        justify-content: flex-start;
+    }
+    
+    /* Tooltip para sidebar recolhida */
+    .tooltip {
+      position: absolute;
+      left: 90px; /* Ajustado para a nova largura */
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--card-bg-color);
+      color: var(--text-color);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .875rem;
+      white-space: nowrap;
+      box-shadow: 0 6px 16px -2px var(--shadow-color);
+      z-index: 1002;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s ease-in-out, transform .2s ease-in-out;
+    }
+
+    body:not(.sidebar-estado-expandido) .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
+        opacity: 1;
+        transform: translateY(-50%) translateX(5px);
+    }
+}
+
+/* ===================================================================
+ * 7. COMPONENTE: CARDS
+ * =================================================================== */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.75rem;
+  margin-top: 4rem;
+}
+
+.article-group {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.card-link {
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg-color);
+  transition: all var(--transition-medium) var(--easing-curve);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  display: block;
+}
+
+.card-link:hover {
+  border-color: var(--hover-border-color);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 10px 25px var(--shadow-color-hover);
+}
+
+
+/* ===================================================================
+ * 8. COMPONENTE: BOTÕES
+ * =================================================================== */
+
+/* Botão de Tema (Sol/Lua) */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--easing-curve);
+  color: var(--text-color-light);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
+  transform: scale(1.1);
+}
+
+.theme-toggle-btn .sun-icon { display: none; }
+.theme-toggle-btn .moon-icon { display: block; }
+body.dark-mode .theme-toggle-btn .sun-icon { display: block; }
+body.dark-mode .theme-toggle-btn .moon-icon { display: none; }
+
+/* Botão de Estado da Sidebar (Desktop) */
+#sidebar-toggle { display: none; } /* Escondido por padrão, aparece no desktop */
+@media (min-width: 1025px) {
+  #sidebar-toggle { display: grid; }
+}
+
+.sidebar-toggle-btn {
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: .5rem;
+  cursor: pointer;
+  color: var(--text-color-light);
+  position: relative;
+  transition: all .3s var(--easing-curve);
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: var(--glass-button-hover-bg);
+  color: var(--text-color);
+}
+
+.sidebar-toggle-btn svg {
+  grid-area: 1/1;
+  opacity: 0;
+  transform: scale(.8) rotate(-15deg);
+  transition: opacity .4s var(--easing-curve),transform .4s var(--easing-curve);
+}
+
+body.sidebar-estado-expandido .sidebar-toggle-btn .icon-collapse,
+body.sidebar-estado-recolhido .sidebar-toggle-btn .icon-float,
+body.sidebar-estado-flutuante .sidebar-toggle-btn .icon-expand {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Botão de Menu Mobile (Hamburguer) */
+#mobile-menu-button { display: none; } /* Escondido por padrão, aparece no mobile */
+
+/* Botão de Copiar Código */
+.copy-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: var(--card-bg-color);
+  color: var(--text-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+pre:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
+}
+
+
+/* ===================================================================
+ * 9. COMPONENTE: RODAPÉ DE BUSCA (VERSÃO FINAL COM PROPORÇÕES CORRIGIDAS)
+ * =================================================================== */
+
+/* Container Principal do Rodapé */
+#footer-search {
+  position: fixed;
+  bottom: 0;
+  z-index: 50;
+  left: var(--sidebar-current-width);
+  right: 0;
+  transition: left .5s var(--easing-curve);
+}
+
+/* CORREÇÃO: Padding vertical reduzido para diminuir a altura total */
+#footer-search .max-w-4xl {
+  padding: 0.5rem 2rem; /* Reduzido de 0.75rem para 0.5rem */
+}
+
+/* Container com efeito Glass */
+#footer-search .relative {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem; /* Espaçamento interno um pouco menor */
+  
+  /* CORREÇÃO: Altura total reduzida para um visual mais fino e elegante */
+  height: 2.75rem; /* 44px - Uma altura mais padrão e discreta */
+  
+  padding: 0 0.375rem; /* Padding interno menor */
+  position: relative;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 0 0 1px var(--glass-outer-border-color), 0 8px 30px -10px var(--shadow-color);
+  transition: all var(--transition-medium) var(--easing-curve);
+}
+
+/* Efeito de foco refinado para a nova altura */
+#footer-search .relative:focus-within {
+  border-color: rgba(var(--text-color-rgb), 0.4);
+  box-shadow: inset 0 0 0 1.5px rgba(var(--text-color-rgb), 0.4), 
+              0 0 0 3px rgba(var(--text-color-rgb), 0.1),
+              0 8px 30px -10px var(--shadow-color-hover);
+}
+
+/* Botão de filtro ajustado para o novo tamanho */
+#search-filter-button {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0.5rem;
+  height: calc(100% - 8px); /* Altura relativa ao container */
+  padding: 0 0.875rem; /* Padding horizontal ajustado */
+  border-radius: 999px;
+  background-color: var(--glass-button-bg);
+  color: var(--glass-text-color);
+  font-size: 0.8rem; /* Fonte um pouco menor para melhor encaixe */
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--easing-curve);
+}
+#search-filter-button:hover {
+  background-color: var(--glass-button-hover-bg);
+}
+
+/* Ícone do SVG com tamanho ajustado */
+#search-filter-button svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.7;
+}
+
+/* Input de busca ajustado para o novo layout */
+#search-input {
+  flex-grow: 1;
+  width: auto;
+  height: 100%;
+  padding: 0 0.5rem;
+  background: transparent !important;
+  border: none !important;
+  
+  color: var(--glass-text-color);
+  font-size: 0.9rem; /* Fonte ligeiramente menor para proporção */
+}
+
+/* --- MENU DE FILTRO (POP-UP) --- */
+/* Mantido o design elegante, mas garantindo que ele se origine da nova barra */
+.search-filter-menu {
+  position: absolute;
+  bottom: calc(100% + 8px); /* Distância menor */
+  left: 0;
+  width: 280px;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 16px 40px -10px var(--shadow-color-hover);
+  border-radius: 1rem;
+  padding: 0.75rem;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--transition-medium) var(--easing-curve);
+}
+.search-filter-menu.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filter-menu-input-wrapper {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+.filter-menu-input-wrapper svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  color: var(--text-color-light);
+}
+#filter-menu-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 1rem 0 2.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+}
+/* ... (outros estilos do menu mantidos) */
+/* Menu de Filtro da Busca */
+.search-filter-menu {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  width: 280px;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px var(--shadow-color);
+  padding: 0.5rem;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--transition-medium) var(--easing-curve);
+}
+
+.search-filter-menu.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filter-menu-input-wrapper {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.filter-menu-input-wrapper svg {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: var(--text-color-light);
+}
+
+.filter-menu-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.filter-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast) var(--easing-curve);
+}
+
+.filter-menu-item:hover,
+.filter-menu-item.active {
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
+}
+
+#search-input {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#search-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/* ===================================================================
+ * 10. COMPONENTE: NAVEGAÇÃO DE ARTIGO
+ * =================================================================== */
+.article-navigation {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  cursor: pointer;
+  z-index: 40;
+  transition: all var(--transition-fast), left var(--transition-medium) var(--easing-curve);
+}
+
+.article-navigation.prev-button {
+  left: calc(var(--sidebar-current-width) + 1.5rem);
+}
+
+.article-navigation.next-button {
+  right: 1.5rem;
+}
+
+.article-navigation:hover {
+  background-color: var(--hover-bg-color);
+  box-shadow: 0 6px 16px var(--shadow-color-hover);
+  transform: translateY(-50%) scale(1.05);
+}
+
+
+/* ===================================================================
+ * 11. COMPONENTE: TAGS
+ * =================================================================== */
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--hover-bg-color);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.tag:hover {
+  background-color: var(--border-color);
+  transform: translateY(-1px);
+}
+
+
+/* ===================================================================
+ * 12. RESPONSIVIDADE (MEDIA QUERIES)
+ * Organizado do maior para o menor breakpoint.
+ * =================================================================== */
+
+/* Telas Grandes (Ajuste de Padding) */
+@media (max-width: 1200px) {
+  #app {
+    padding: 2.5rem;
+    padding-bottom: 150px;
+  }
+}
+
+/* Tablets e Mobile (até 1024px) */
+@media (max-width: 1024px) {
+  /* Esconde o botão de controle de estado da sidebar do desktop */
+  #sidebar-toggle {
+    display: none;
+  }
+  
+  /* Garante que o botão do menu mobile (hambúrguer) seja exibido */
+  #mobile-menu-button {
+    display: flex !important;
+  }
+
+  /* Altera o layout principal para a sidebar se sobrepor */
+  #page-container {
+    display: block; /* Remove o grid layout */
+  }
+
+  /* Posiciona a sidebar fora da tela por padrão */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px !important; /* Largura fixa para o menu mobile */
+    transform: translateX(-100%);
+    box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Exibe a sidebar quando a classe .visible for adicionada */
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+
+  /* Garante que o conteúdo da sidebar fique visível no modo mobile */
+  .sidebar .sidebar-nav-link p,
+  .sidebar .sidebar-header h2 {
+    opacity: 1 !important;
+    width: auto !important;
+  }
+  .sidebar .sidebar-nav-link {
+    justify-content: flex-start !important;
+  }
+  
+  /* Rodapé de busca ocupa a largura toda */
+  #footer-search {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  
+  /* Ajusta os botões de navegação dos artigos */
+  .article-navigation.prev-button {
+    left: 1rem;
+  }
+  .article-navigation.next-button {
+    right: 1rem;
+  }
+}
+
+/* Celulares maiores e tablets em modo retrato (até 768px) */
+@media (max-width: 768px) {
+  #app {
+    padding: 1.5rem;
+    padding-bottom: 120px;
+  }
+
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-content h1 {
+    font-size: 2.25rem;
+  }
+
+  #footer-search .max-w-4xl {
+    padding: 0.5rem 1rem;
+  }
+
+  #search-input {
+    font-size: 0.9rem;
+  }
+
+  /* Esconde o texto do botão de filtro, mantendo só o ícone */
+  #search-filter-button span {
+    display: none;
+  }
+
+  #search-filter-button {
+    padding: 0 0.75rem;
+  }
+
+  .article-navigation {
+    display: none; /* Esconde botões de navegação em telas pequenas */
+  }
+}
+
+/* Celulares menores (até 480px) */
+@media (max-width: 480px) {
+  #app {
+    padding: 1rem;
+    padding-bottom: 100px;
+  }
+
+  .article-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .card-link {
+    padding: 1.25rem;
+  }
+}
+
