@@ -27,7 +27,12 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
       try {
         if (typeof article.content === 'function') {
           const module = await article.content();
-          if (mounted) setContent(module.default);
+          let rawContent = module.default;
+          // Strip frontmatter if present (starts with ---)
+          if (rawContent.startsWith('---')) {
+            rawContent = rawContent.replace(/^---[\s\S]*?---\s*/, '');
+          }
+          if (mounted) setContent(rawContent);
         } else {
           if (mounted) setContent(article.content || article.answer);
         }
