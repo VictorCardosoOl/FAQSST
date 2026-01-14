@@ -47,6 +47,78 @@ export const FAQ_DATA: FAQItem[] = (catalog.map((item: any) => ({
     tags: ['e-CAC', 'Procuração', 'Certificado'],
     content: () => import('./content/esocial/ECAC_eSocial')
   },
+  {
+    id: 'evento-s2210-comunicacao-cat',
+    question: 'S-2210: Comunicação de Acidente de Trabalho',
+    answer: 'Guia completo sobre a CAT no eSocial: prazos, obrigatoriedade e preenchimento.',
+    category: Category.ESOCIAL,
+    tags: ['S-2210', 'CAT', 'Acidente'],
+    content: () => import('./content/esocial/S2210')
+  },
+  {
+    id: 'evento-s2220-monitoramento-saude',
+    question: 'S-2220: Monitoramento da Saúde do Trabalhador',
+    answer: 'Tudo sobre o envio de exames (ASO) e sua relação com o PPP eletrônico.',
+    category: Category.ESOCIAL,
+    tags: ['S-2220', 'ASO', 'Exames'],
+    content: () => import('./content/esocial/S2220')
+  },
+  {
+    id: 'evento-s2221-exame-toxicologico',
+    question: 'S-2221: Exame Toxicológico',
+    answer: 'Obrigatoriedade e procedimentos para envio do exame toxicológico de motoristas profissionais.',
+    category: Category.ESOCIAL,
+    tags: ['S-2221', 'Toxicológico', 'Motorista'],
+    content: () => import('./content/esocial/S2221')
+  },
+  {
+    id: 'evento-s2240-condicoes-ambientais',
+    question: 'S-2240: Condições Ambientais do Trabalho',
+    answer: 'Como informar agentes nocivos e riscos ambientais para fins de aposentadoria especial.',
+    category: Category.ESOCIAL,
+    tags: ['S-2240', 'Riscos', 'Ambiente'],
+    content: () => import('./content/esocial/S2240')
+  },
+  {
+    id: 'eventos-sst-orgaos-publicos',
+    question: 'SST para Órgãos Públicos',
+    answer: 'Regras específicas para envio de eventos SST de servidores estatutários e celetistas.',
+    category: Category.ESOCIAL,
+    tags: ['Órgão Público', 'SST', 'Servidor'],
+    content: () => import('./content/esocial/OrgaosPublicos')
+  },
+  {
+    id: 'esocial-sst-transmission',
+    question: 'Rotina de Transmissão de SST',
+    answer: 'Entenda como funciona o fluxo de envio e retorno de eventos no sistema Sigo.',
+    category: Category.ESOCIAL,
+    tags: ['Transmissão', 'Mensageria', 'Fluxo'],
+    content: () => import('./content/esocial/RotinaSST')
+  },
+  {
+    id: 'funcionarios-declarantes-esocial',
+    question: 'Funcionários e Declarantes',
+    answer: 'Regras de matrícula, identificação e cadastro de declarantes no eSocial.',
+    category: Category.ESOCIAL,
+    tags: ['Cadastro', 'Matrícula', 'Declarante'],
+    content: () => import('./content/esocial/FuncionariosDeclarantes')
+  },
+  {
+    id: 'erro-s2210-cat',
+    question: 'Erro S-2210: Hora do Acidente Inválida',
+    answer: 'Como corrigir rejeições relacionadas à hora do acidente ou incompatibilidade com tipo de CAT.',
+    category: Category.TROUBLESHOOTING,
+    tags: ['Erro', 'S-2210', 'CAT'],
+    content: () => import('./content/troubleshooting/ErroS2210')
+  },
+  {
+    id: 'resolucao-erros-s2240',
+    question: 'Erro S-2240: Agentes Nocivos Não Preenchidos',
+    answer: 'Solução para rejeições por falta de risco informado ou inconsistência de datas.',
+    category: Category.TROUBLESHOOTING,
+    tags: ['Erro', 'S-2240', 'Riscos'],
+    content: () => import('./content/troubleshooting/ErroS2240')
+  },
 
 
 

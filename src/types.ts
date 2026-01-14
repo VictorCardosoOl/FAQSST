@@ -2,7 +2,7 @@ export enum Category {
   SST = 'Saúde e Segurança',
   PREVIDENCIARIO = 'Previdenciário',
   ESOCIAL = 'eSocial e Governo',
-
+  TROUBLESHOOTING = 'Solução de Problemas',
 }
 
 export interface FAQItem {
