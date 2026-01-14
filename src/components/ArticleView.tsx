@@ -299,26 +299,28 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                 </h4>
               </div>
             </motion.footer>
+
+            {/* Discrete Toast Notification (Sticky Content-Aligned & Elegant) */}
+            <AnimatePresence>
+              {toastMessage && (
+                <div className="sticky bottom-12 z-[100] flex justify-center w-full pointer-events-none">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="pointer-events-auto px-8 py-3 bg-black/90 backdrop-blur-sm text-white rounded-full shadow-2xl border border-white/10"
+                  >
+                    <p className="font-serif italic text-lg md:text-xl leading-snug whitespace-nowrap">
+                      {toastMessage}
+                    </p>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </AnimatePresence>
       )}
-
-      {/* Discrete Toast Notification (Ultra-Minimalist B&W) */}
-      <AnimatePresence>
-        {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] px-6 py-2.5 bg-black text-white rounded-full shadow-2xl border border-white/10"
-          >
-            <p className="font-serif italic text-sm md:text-base leading-none">
-              {toastMessage}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Back to Top Button */}
       <AnimatePresence>
