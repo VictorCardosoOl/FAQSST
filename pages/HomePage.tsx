@@ -50,7 +50,7 @@ export const HomePage: React.FC = () => {
                         {categoryParam ? (
                             <span>{categoryParam}</span>
                         ) : (
-                            <>Base de <span className="italic font-normal">Conhecimento SST</span></>
+                            <>Base de Conhecimento SST</>
                         )}
                     </h1>
                 </div>
