@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const CONTENT_DIR = path.join(__dirname, '../content/articles');
+const CONTENT_DIR = path.join(__dirname, '../src/content/articles');
 const OUTPUT_DIR = path.join(__dirname, '../src/data');
 const CATALOG_FILE = path.join(OUTPUT_DIR, 'catalog.json');
 const MAPPING_FILE = path.join(OUTPUT_DIR, 'mapping.ts');
