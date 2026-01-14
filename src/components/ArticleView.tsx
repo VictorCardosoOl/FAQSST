@@ -37,6 +37,19 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' && nav.prev) {
+        onNavigate(nav.prev);
+      } else if (e.key === 'ArrowRight' && nav.next) {
+        onNavigate(nav.next);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nav, onNavigate]);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -127,9 +140,11 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
         description={article.answer.substring(0, 150)}
       />
 
+
+
       {/* Reading Progress Bar (Discrete Bottom) */}
       <motion.div
-        className="fixed bottom-0 left-0 right-0 h-[3px] bg-gray-400/50 origin-left z-50"
+        className="fixed bottom-0 left-0 right-0 h-[3px] bg-black origin-left z-50"
         style={{ scaleX }}
       />
 
@@ -240,15 +255,15 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
               </motion.div>
             )}
 
-            {/* Footer Navigation (Fixed Logic) */}
+            {/* Footer Navigation (Restored Links + Keyboard Support) */}
             <motion.footer
               variants={itemVariants}
               className="mt-16 pt-12 border-t border-[var(--border)] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 no-print"
             >
               {nav.prev ? (
-                <button
-                  type="button"
-                  onClick={() => onNavigate(nav.prev)}
+                <Link
+                  to={`/artigo/${nav.prev.id}`}
+                  onClick={scrollToTop}
                   className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300 block w-full cursor-pointer"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
@@ -258,13 +273,13 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                   <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
                     {nav.prev.question}
                   </h4>
-                </button>
+                </Link>
               ) : <div />}
 
               {nav.next && (
-                <button
-                  type="button"
-                  onClick={() => onNavigate(nav.next)}
+                <Link
+                  to={`/artigo/${nav.next.id}`}
+                  onClick={scrollToTop}
                   className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300 block w-full flex flex-col items-end cursor-pointer"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
@@ -274,7 +289,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                   <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
                     {nav.next.question}
                   </h4>
-                </button>
+                </Link>
               )}
             </motion.footer>
           </motion.div>
