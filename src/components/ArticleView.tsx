@@ -156,7 +156,13 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
             {/* Main Content */}
             <motion.div
               variants={itemVariants}
-              className="article-content-render"
+              className="article-content-render prose prose-lg prose-slate max-w-none
+                prose-headings:font-serif prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-gray-900
+                prose-p:leading-8 prose-p:text-gray-600 prose-p:font-light
+                prose-strong:font-semibold prose-strong:text-gray-800
+                prose-blockquote:border-l-2 prose-blockquote:border-blue-500 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-700
+                prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+                prose-li:marker:text-gray-400 prose-img:rounded-lg prose-img:shadow-sm"
             >
               {typeof content === 'string' ? (
                 <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
@@ -174,11 +180,11 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                     <Link
                       key={related.id}
                       to={`/artigo/${related.id}`}
-                      className="group flex flex-col items-start text-left p-6 rounded-2xl bg-[var(--bg-island)] border border-[var(--border)]/50 hover:border-[var(--text-main)] transition-all duration-300"
+                      className="group flex flex-col items-start text-left p-8 rounded-2xl bg-gray-50/50 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-lg hover:shadow-gray-100/50 transition-all duration-500"
                     >
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--accent)] mb-3">{related.category}</span>
-                      <h4 className="font-serif text-lg leading-tight mb-2 group-hover:underline decoration-1 underline-offset-4">{related.question}</h4>
-                      <p className="text-sm text-[var(--text-muted)] line-clamp-2">{related.answer}</p>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600/60 mb-4">{related.category}</span>
+                      <h4 className="font-serif text-xl leading-tight mb-3 text-gray-900 group-hover:text-blue-700 transition-colors">{related.question}</h4>
+                      <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed font-light">{related.answer}</p>
                     </Link>
                   ))}
                 </div>
