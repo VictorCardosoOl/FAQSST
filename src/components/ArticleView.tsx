@@ -41,6 +41,15 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Scroll to top when article changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [article.id]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [article.id]);
+
   useEffect(() => {
     let mounted = true;
     setIsLoading(true);
@@ -238,8 +247,9 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
             >
               {nav.prev ? (
                 <button
+                  type="button"
                   onClick={() => onNavigate(nav.prev)}
-                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300 block w-full"
+                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300 block w-full cursor-pointer"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
                     <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
@@ -253,8 +263,9 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
 
               {nav.next && (
                 <button
+                  type="button"
                   onClick={() => onNavigate(nav.next)}
-                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300 block w-full flex flex-col items-end"
+                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300 block w-full flex flex-col items-end cursor-pointer"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
                     Próximo

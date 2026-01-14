@@ -46,6 +46,10 @@
     --selection: rgba(255, 255, 255, 0.2);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply antialiased transition-colors duration-500 bg-[var(--bg-main)] text-[var(--text-body)] font-sans;
   }
