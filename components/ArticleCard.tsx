@@ -1,27 +1,21 @@
 import React from 'react';
 import { Plus, Check, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FAQItem } from '../types';
 
 interface ArticleCardProps {
   item: FAQItem;
-  onClick: () => void;
+  to?: string;            // Nova prop para link nativo
+  onClick?: () => void;   // Opcional para manter compatibilidade
   isInQueue: boolean;
   onToggleQueue: (e: React.MouseEvent) => void;
   featured?: boolean;
 }
 
-export const ArticleCard: React.FC<ArticleCardProps> = ({ item, onClick, isInQueue, onToggleQueue, featured }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-  >
-    <div
-      onClick={onClick}
-      className={`group cursor-pointer relative py-6 border-b border-[var(--border)] transition-all duration-700 lg:hover:pl-4`}
-    >
+export const ArticleCard: React.FC<ArticleCardProps> = ({ item, to, onClick, isInQueue, onToggleQueue, featured }) => {
+  const CardContent = (
+    <div className={`group cursor-pointer relative py-6 border-b border-[var(--border)] transition-all duration-700 lg:hover:pl-4`}>
       {/* Indicador de Hover Lateral */}
       <div className="absolute left-0 top-6 bottom-6 w-[2px] bg-[var(--text-main)] scale-y-0 lg:group-hover:scale-y-100 transition-transform duration-700 origin-top z-10" />
 
@@ -63,5 +57,24 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ item, onClick, isInQue
         </div>
       </div>
     </div>
-  </motion.div>
-);
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {to ? (
+        <Link to={to} className="block">
+          {CardContent}
+        </Link>
+      ) : (
+        <div onClick={onClick}>
+          {CardContent}
+        </div>
+      )}
+    </motion.div>
+  );
+};

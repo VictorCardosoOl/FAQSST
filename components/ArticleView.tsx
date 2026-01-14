@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
 import { marked } from 'marked';
+import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FAQItem } from '../types';
@@ -170,15 +171,15 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                 <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] mb-8">Conteúdo Relacionado</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedArticles.map(related => (
-                    <button
+                    <Link
                       key={related.id}
-                      onClick={() => onNavigate(related)}
+                      to={`/artigo/${related.id}`}
                       className="group flex flex-col items-start text-left p-6 rounded-2xl bg-[var(--bg-island)] border border-[var(--border)]/50 hover:border-[var(--text-main)] transition-all duration-300"
                     >
                       <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--accent)] mb-3">{related.category}</span>
                       <h4 className="font-serif text-lg leading-tight mb-2 group-hover:underline decoration-1 underline-offset-4">{related.question}</h4>
                       <p className="text-sm text-[var(--text-muted)] line-clamp-2">{related.answer}</p>
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </motion.div>
@@ -190,9 +191,9 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
               className="mt-16 pt-12 border-t border-[var(--border)] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 no-print"
             >
               {nav.prev ? (
-                <button
-                  onClick={() => onNavigate(nav.prev)}
-                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300"
+                <Link
+                  to={`/artigo/${nav.prev.id}`}
+                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300 block"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
                     <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
@@ -201,13 +202,13 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                   <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
                     {nav.prev.question}
                   </h4>
-                </button>
+                </Link>
               ) : <div />}
 
               {nav.next && (
-                <button
-                  onClick={() => onNavigate(nav.next)}
-                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300"
+                <Link
+                  to={`/artigo/${nav.next.id}`}
+                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300 block"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
                     Próximo
@@ -216,7 +217,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                   <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
                     {nav.next.question}
                   </h4>
-                </button>
+                </Link>
               )}
             </motion.footer>
           </motion.div>

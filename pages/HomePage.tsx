@@ -71,7 +71,7 @@ export const HomePage: React.FC = () => {
                     <ArticleCard
                         key={item.id}
                         item={item}
-                        onClick={() => navigate(`/artigo/${item.id}`)}
+                        to={`/artigo/${item.id}`}
                         isInQueue={queue.includes(item.id)}
                         onToggleQueue={(e) => { e.stopPropagation(); toggleQueue(item.id); }}
                         featured={i === 0 && !categoryParam && !searchQuery}
