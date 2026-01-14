@@ -258,19 +258,23 @@
    * ------------------------------------
    */
   .glossary-term {
-    border-bottom: 2px dotted #2563eb;
-    /* blue-600 */
+    border-bottom: 2px dotted #059669;
+    /* emerald-600 */
+    background-color: #ecfdf5;
+    /* emerald-50 */
+    padding: 0 2px;
+    border-radius: 2px;
     cursor: help;
     position: relative;
-    color: #1e40af;
-    /* blue-800 */
+    color: #065f46;
+    /* emerald-800 */
     font-weight: 500;
     transition: all 0.2s;
   }
 
   .glossary-term:hover {
-    background-color: #eff6ff;
-    /* blue-50 */
+    background-color: #d1fae5;
+    /* emerald-100 */
     border-bottom-style: solid;
   }
 

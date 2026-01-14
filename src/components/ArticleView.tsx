@@ -74,10 +74,12 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
     let sanitizedHtml = DOMPurify.sanitize(rawHtml);
 
     // Inject Glossary Tooltips
-    // We strictly match whole words to avoid partial replacement (e.g. dont replace "CIPA" inside "PARTICIPA")
+    // Case insensitive matching ('gi')
     Object.entries(glossaryData).forEach(([term, definition]) => {
-      const regex = new RegExp(`\\b(${term})\\b`, 'g');
-      sanitizedHtml = sanitizedHtml.replace(regex, `<span class="glossary-term" data-tooltip="${definition}">$1</span>`);
+      const regex = new RegExp(`\\b(${term})\\b`, 'gi');
+      sanitizedHtml = sanitizedHtml.replace(regex, (match) =>
+        `<span class="glossary-term" data-tooltip="${definition}">${match}</span>`
+      );
     });
 
     return sanitizedHtml;
@@ -116,9 +118,9 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
         description={article.answer.substring(0, 150)}
       />
 
-      {/* Reading Progress Bar */}
+      {/* Reading Progress Bar (Discrete Bottom) */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50"
+        className="fixed bottom-0 left-0 right-0 h-[3px] bg-gray-400/50 origin-left z-50"
         style={{ scaleX }}
       />
 
@@ -215,29 +217,29 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                 <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] mb-8">Veja também</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedArticles.map(related => (
-                    <Link
+                    <button
                       key={related.id}
-                      to={`/artigo/${related.id}`}
-                      className="group flex flex-col items-start text-left p-8 rounded-2xl bg-gray-50/50 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-lg hover:shadow-gray-100/50 transition-all duration-500"
+                      onClick={() => onNavigate(related)}
+                      className="group flex flex-col items-start text-left p-8 rounded-2xl bg-gray-50/50 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-lg hover:shadow-gray-100/50 transition-all duration-500 w-full"
                     >
                       <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600/60 mb-4">{related.category}</span>
                       <h4 className="font-serif text-xl leading-tight mb-3 text-gray-900 group-hover:text-blue-700 transition-colors">{related.question}</h4>
                       <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed font-light">{related.answer}</p>
-                    </Link>
+                    </button>
                   ))}
                 </div>
               </motion.div>
             )}
 
-            {/* Footer Navigation */}
+            {/* Footer Navigation (Fixed Logic) */}
             <motion.footer
               variants={itemVariants}
               className="mt-16 pt-12 border-t border-[var(--border)] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 no-print"
             >
               {nav.prev ? (
-                <Link
-                  to={`/artigo/${nav.prev.id}`}
-                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300 block"
+                <button
+                  onClick={() => onNavigate(nav.prev)}
+                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300 block w-full"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
                     <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
@@ -246,13 +248,13 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                   <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
                     {nav.prev.question}
                   </h4>
-                </Link>
+                </button>
               ) : <div />}
 
               {nav.next && (
-                <Link
-                  to={`/artigo/${nav.next.id}`}
-                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300 block"
+                <button
+                  onClick={() => onNavigate(nav.next)}
+                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300 block w-full flex flex-col items-end"
                 >
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
                     Próximo
@@ -261,7 +263,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                   <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
                     {nav.next.question}
                   </h4>
-                </Link>
+                </button>
               )}
             </motion.footer>
           </motion.div>
