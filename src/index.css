@@ -252,6 +252,74 @@
     margin: 4rem auto;
     width: 150px;
   }
+
+  /* 
+   * GLOSSARY TOOLTIPS
+   * ------------------------------------
+   */
+  .glossary-term {
+    border-bottom: 2px dotted #2563eb;
+    /* blue-600 */
+    cursor: help;
+    position: relative;
+    color: #1e40af;
+    /* blue-800 */
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .glossary-term:hover {
+    background-color: #eff6ff;
+    /* blue-50 */
+    border-bottom-style: solid;
+  }
+
+  .glossary-term::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #1f2937;
+    /* gray-800 */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.825rem;
+    font-family: var(--font-sans);
+    line-height: 1.4;
+    white-space: normal;
+    width: max-content;
+    max-width: 280px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    pointer-events: none;
+    text-align: center;
+  }
+
+  .glossary-term::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    border: 6px solid transparent;
+    border-top-color: #1f2937;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glossary-term:hover::after,
+  .glossary-term:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-8px);
+  }
 }
 
 @keyframes revealUp {

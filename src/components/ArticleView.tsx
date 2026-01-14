@@ -1,13 +1,14 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUp, ChevronRight } from 'lucide-react';
 import { marked } from 'marked';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { FAQItem } from '../types';
 import { SEOHead } from './SEOHead';
 import { ArticleSkeleton } from './ArticleSkeleton';
 import { FAQ_DATA } from '../constants';
+import glossaryData from '../data/glossary.json';
 
 interface ArticleViewProps {
   article: FAQItem;
@@ -19,6 +20,26 @@ interface ArticleViewProps {
 export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNavigate, nav }) => {
   const [content, setContent] = useState<string | React.ComponentType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // Scroll listener for Back to Top
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -28,32 +49,40 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
       try {
         if (typeof article.content === 'function') {
           const module = await article.content();
-          // The data can be a JSON chunk with a "content" string OR a React Component
           const rawContent = module.default.content;
-          if (mounted) setContent(() => rawContent); // Use callback to safe set function or value
+          if (mounted) setContent(() => rawContent);
         } else {
           if (mounted) setContent(article.content || article.answer);
         }
       } catch (err) {
         console.error("Failed to load article content", err);
-        if (mounted) setContent(article.answer); // Fallback
+        if (mounted) setContent(article.answer);
       } finally {
         if (mounted) setIsLoading(false);
       }
     };
 
     loadContent();
-
     return () => { mounted = false; };
   }, [article]);
 
   const htmlContent = useMemo(() => {
     if (!content || typeof content !== 'string') return '';
+
+    // Parse Markdown
     const rawHtml = marked.parse(content) as string;
-    return DOMPurify.sanitize(rawHtml);
+    let sanitizedHtml = DOMPurify.sanitize(rawHtml);
+
+    // Inject Glossary Tooltips
+    // We strictly match whole words to avoid partial replacement (e.g. dont replace "CIPA" inside "PARTICIPA")
+    Object.entries(glossaryData).forEach(([term, definition]) => {
+      const regex = new RegExp(`\\b(${term})\\b`, 'g');
+      sanitizedHtml = sanitizedHtml.replace(regex, `<span class="glossary-term" data-tooltip="${definition}">$1</span>`);
+    });
+
+    return sanitizedHtml;
   }, [content]);
 
-  // ... (Related Articles) restored below
   const relatedArticles = useMemo(() => {
     if (!article.tags || article.tags.length === 0) return [];
 
@@ -71,45 +100,46 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
     exit: { opacity: 0 }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
   };
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-20 relative">
       <SEOHead
         title={`${article.question} | SST FAQ`}
         description={article.answer.substring(0, 150)}
       />
 
-      {/* Navigation Top */}
-      <nav className="sticky top-0 z-10 w-full bg-[var(--bg-island)]/80 backdrop-blur-md border-b border-[var(--border)] mb-12 no-print transition-all duration-300">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <button
-            onClick={onBack}
-            className="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
-          >
-            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            <span>Voltar</span>
-          </button>
+      {/* Reading Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50"
+        style={{ scaleX }}
+      />
 
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] opacity-60 hidden sm:block">
-              {article.category}
+      {/* Navigation Top (Smart Breadcrumbs) */}
+      <nav className="sticky top-0 z-10 w-full bg-[var(--bg-island)]/80 backdrop-blur-md border-b border-[var(--border)] mb-12 no-print transition-all duration-300">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4 text-xs font-medium text-[var(--text-muted)]">
+            <button
+              onClick={onBack}
+              className="hover:text-blue-600 transition-colors flex items-center gap-1"
+            >
+              <ArrowLeft size={14} />
+              <span className="hidden sm:inline">Voltar</span>
+            </button>
+            <span className="text-gray-300">|</span>
+            <Link to="/" className="hover:text-blue-600 transition-colors">Início</Link>
+            <ChevronRight size={12} className="text-gray-400" />
+            <span className="uppercase tracking-wide opacity-80">{article.category}</span>
+            <ChevronRight size={12} className="text-gray-400 hidden sm:block" />
+            <span className="font-semibold text-[var(--text-main)] truncate max-w-[150px] sm:max-w-xs hidden sm:block">
+              {article.question}
             </span>
           </div>
         </div>
@@ -149,8 +179,13 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                 <p className="text-xl md:text-2xl text-[var(--text-muted)] font-serif italic leading-relaxed max-w-2xl mx-auto">
                   {article.answer}
                 </p>
-                <div className="absolute -top-4 -left-8 text-6xl text-[var(--text-muted)] opacity-10 font-serif">“</div>
+                <div className="absolute -top-6 -left-8 text-7xl text-gray-200 opacity-50 font-serif select-none">“</div>
               </motion.div>
+
+              {/* Decorative Divider */}
+              <div className="w-full flex justify-center mt-12 mb-8">
+                <span className="inline-block w-24 h-[1px] bg-gray-300"></span>
+              </div>
             </header>
 
             {/* Main Content */}
@@ -162,7 +197,10 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
                 prose-strong:font-semibold prose-strong:text-gray-800
                 prose-blockquote:border-l-2 prose-blockquote:border-blue-500 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-700
                 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-                prose-li:marker:text-gray-400 prose-img:rounded-lg prose-img:shadow-sm"
+                prose-li:marker:text-gray-400 prose-img:rounded-lg prose-img:shadow-sm
+                
+                /* Drop Cap Styling */
+                first-letter:float-left first-letter:text-[4.5rem] first-letter:leading-[0.8] first-letter:font-serif first-letter:mr-3 first-letter:text-gray-900 first-letter:font-medium"
             >
               {typeof content === 'string' ? (
                 <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
@@ -174,7 +212,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
             {/* Related Articles */}
             {relatedArticles.length > 0 && (
               <motion.div variants={itemVariants} className="mt-24 pt-12 border-t border-[var(--border)] no-print">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] mb-8">Conteúdo Relacionado</h3>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] mb-8">Veja também</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedArticles.map(related => (
                     <Link
@@ -229,6 +267,22 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
           </motion.div>
         </AnimatePresence>
       )}
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            onClick={scrollToTop}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-8 right-8 z-40 p-3 bg-white border border-gray-200 shadow-lg rounded-full text-gray-500 hover:text-blue-600 hover:border-blue-200 transition-all duration-300"
+            title="Voltar ao topo"
+          >
+            <ArrowUp size={20} />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
