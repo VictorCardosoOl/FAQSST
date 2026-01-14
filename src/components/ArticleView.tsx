@@ -21,12 +21,35 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   const [content, setContent] = useState<string | React.ComponentType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleNavAttempt = (direction: 'prev' | 'next') => {
+    const target = direction === 'prev' ? nav.prev : nav.next;
+    if (target) {
+      onNavigate(target);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      showToast(direction === 'prev'
+        ? "Este é o primeiro artigo desta seção."
+        : "Você chegou ao último artigo desta seção.");
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Scroll listener for Back to Top
   useEffect(() => {
@@ -40,25 +63,17 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft' && nav.prev) {
-        onNavigate(nav.prev);
-      } else if (e.key === 'ArrowRight' && nav.next) {
-        onNavigate(nav.next);
+      if (e.key === 'ArrowLeft') {
+        handleNavAttempt('prev');
+      } else if (e.key === 'ArrowRight') {
+        handleNavAttempt('next');
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nav, onNavigate]);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   // Scroll to top when article changes
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [article.id]);
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [article.id]);
@@ -139,8 +154,6 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
         title={`${article.question} | SST FAQ`}
         description={article.answer.substring(0, 150)}
       />
-
-
 
       {/* Reading Progress Bar (Discrete Bottom) */}
       <motion.div
@@ -255,46 +268,54 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
               </motion.div>
             )}
 
-            {/* Footer Navigation (Restored Links + Keyboard Support) */}
+            {/* Footer Navigation (Hybrid logic: Link if active, Button calls toast if inactive) */}
             <motion.footer
               variants={itemVariants}
               className="mt-16 pt-12 border-t border-[var(--border)] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 no-print"
             >
-              {nav.prev ? (
-                <Link
-                  to={`/artigo/${nav.prev.id}`}
-                  onClick={scrollToTop}
-                  className="group text-left space-y-3 hover:bg-[var(--bg-island)] p-6 -ml-6 rounded-2xl transition-all duration-300 block w-full cursor-pointer"
-                >
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
-                    <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-                    Anterior
-                  </span>
-                  <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
-                    {nav.prev.question}
-                  </h4>
-                </Link>
-              ) : <div />}
+              <div
+                onClick={() => handleNavAttempt('prev')}
+                className={`group text-left space-y-3 p-6 -ml-6 rounded-2xl transition-all duration-300 block w-full cursor-pointer ${!nav.prev ? 'opacity-40 grayscale hover:bg-transparent cursor-not-allowed' : 'hover:bg-[var(--bg-island)]'}`}
+              >
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2">
+                  <ArrowLeft size={14} className={nav.prev ? "group-hover:-translate-x-1 transition-transform" : ""} />
+                  Anterior
+                </span>
+                <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
+                  {nav.prev ? nav.prev.question : "Início do Módulo"}
+                </h4>
+              </div>
 
-              {nav.next && (
-                <Link
-                  to={`/artigo/${nav.next.id}`}
-                  onClick={scrollToTop}
-                  className="group text-right md:text-right space-y-3 hover:bg-[var(--bg-island)] p-6 -mr-6 rounded-2xl transition-all duration-300 block w-full flex flex-col items-end cursor-pointer"
-                >
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
-                    Próximo
-                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
-                    {nav.next.question}
-                  </h4>
-                </Link>
-              )}
+              <div
+                onClick={() => handleNavAttempt('next')}
+                className={`group text-right md:text-right space-y-3 p-6 -mr-6 rounded-2xl transition-all duration-300 block w-full flex flex-col items-end cursor-pointer ${!nav.next ? 'opacity-40 grayscale hover:bg-transparent cursor-not-allowed' : 'hover:bg-[var(--bg-island)]'}`}
+              >
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors flex items-center gap-2 justify-end">
+                  Próximo
+                  <ArrowRight size={14} className={nav.next ? "group-hover:translate-x-1 transition-transform" : ""} />
+                </span>
+                <h4 className="text-xl font-serif text-[var(--text-main)] leading-tight group-hover:underline decoration-1 underline-offset-4">
+                  {nav.next ? nav.next.question : "Final do Módulo"}
+                </h4>
+              </div>
             </motion.footer>
           </motion.div>
         </AnimatePresence>
       )}
+
+      {/* Discrete Toast Notification */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="fixed bottom-12 left-1/2 -translate-x-1/2 bg-gray-900/90 text-white px-6 py-3 rounded-full text-sm font-medium shadow-xl backdrop-blur-sm z-[60] border border-white/10"
+          >
+            {toastMessage}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Back to Top Button */}
       <AnimatePresence>
