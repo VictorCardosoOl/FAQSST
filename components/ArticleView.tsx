@@ -1,8 +1,11 @@
+
 import React, { useMemo, useState, useEffect } from 'react';
-import { ArrowLeft, ArrowRight, Calendar, Tag, StickyNote, Save, Check, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Tag, StickyNote, Save, Check, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import { FAQItem } from '../types';
 import { FadeInSection } from './FadeInSection';
+import { useToast } from '../context/ToastContext';
 
 interface ArticleViewProps {
   article: FAQItem;
@@ -16,8 +19,8 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   const [noteContent, setNoteContent] = useState(article.notes || '');
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
   const [isNoteDirty, setIsNoteDirty] = useState(false);
+  const { showToast } = useToast();
 
-  // Sincroniza o estado local quando o artigo muda
   useEffect(() => {
     setNoteContent(article.notes || '');
     setIsNoteDirty(false);
@@ -33,14 +36,11 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   const handleSaveNote = () => {
     if (onUpdateNote) {
       setSaveStatus('saving');
-      
-      // Simula um pequeno delay para feedback visual (UX)
       setTimeout(() => {
         onUpdateNote(noteContent);
         setIsNoteDirty(false);
         setSaveStatus('saved');
-        
-        // Reseta o status de "Salvo" após 2 segundos
+        showToast("Nota pessoal salva com sucesso.", "success");
         setTimeout(() => setSaveStatus('idle'), 2000);
       }, 400);
     }
@@ -54,7 +54,9 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
   };
 
   const htmlContent = useMemo(() => {
-    return marked.parse(article.content || article.answer);
+    const rawMarkup = marked.parse(article.content || article.answer) as string;
+    // SECURITY: Sanitizing HTML to prevent XSS
+    return DOMPurify.sanitize(rawMarkup);
   }, [article.content, article.answer]);
 
   return (
@@ -68,12 +70,40 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
           <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
           Voltar para Lista
         </button>
-        <span className="type-tiny font-black uppercase tracking-[0.2em] px-3 py-1 bg-[var(--border)] rounded-full text-[var(--text-body)]">
-          {article.category}
-        </span>
+
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => nav.prev && onNavigate(nav.prev)}
+            disabled={!nav.prev}
+            className={`p-2 rounded-full border border-[var(--border)] transition-all ${
+              nav.prev 
+                ? 'hover:bg-[var(--text-main)] hover:text-[var(--bg-main)] cursor-pointer' 
+                : 'opacity-30 cursor-not-allowed'
+            }`}
+            title={nav.prev ? `Anterior: ${nav.prev.question}` : 'Sem artigo anterior'}
+          >
+            <ChevronLeft size={14} />
+          </button>
+
+          <span className="type-tiny font-black uppercase tracking-[0.2em] px-3 py-1 bg-[var(--border)] rounded-full text-[var(--text-body)]">
+            {article.category}
+          </span>
+
+          <button 
+            onClick={() => nav.next && onNavigate(nav.next)}
+            disabled={!nav.next}
+            className={`p-2 rounded-full border border-[var(--border)] transition-all ${
+              nav.next 
+                ? 'hover:bg-[var(--text-main)] hover:text-[var(--bg-main)] cursor-pointer' 
+                : 'opacity-30 cursor-not-allowed'
+            }`}
+            title={nav.next ? `Próximo: ${nav.next.question}` : 'Sem próximo artigo'}
+          >
+            <ChevronRight size={14} />
+          </button>
+        </div>
       </nav>
 
-      {/* Header */}
       <header className="mb-[var(--space-lg)] space-y-[var(--space-md)] pb-[var(--space-md)] border-b border-[var(--border)]">
         <div className="space-y-[var(--space-sm)]">
           <h1 className="type-display font-serif font-medium leading-[1.05] tracking-tight text-[var(--text-main)]">
@@ -106,16 +136,13 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
         </p>
       </header>
 
-      {/* Content & Notes Grid */}
       <FadeInSection className="pb-24 grid grid-cols-1 gap-[var(--space-lg)]">
         
-        {/* Main Content */}
         <article 
           className="prose prose-stone dark:prose-invert max-w-none text-[var(--text-body)]"
           dangerouslySetInnerHTML={{ __html: htmlContent }} 
         />
 
-        {/* Personal Notes Section */}
         <div className="mt-[var(--space-lg)] bg-[var(--surface-note)] border border-[var(--border)] rounded-xl p-[var(--space-md)] relative group transition-all duration-300 hover:shadow-lg no-print ring-1 ring-transparent focus-within:ring-[var(--border)]">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 type-tiny font-black uppercase tracking-widest text-[var(--text-muted)] select-none">
@@ -162,13 +189,8 @@ export const ArticleView: React.FC<ArticleViewProps> = ({ article, onBack, onNav
             className="w-full bg-transparent border-0 resize-y min-h-[160px] focus:ring-0 text-[var(--text-body)] type-small leading-relaxed placeholder:text-[var(--text-muted)]/40 font-mono text-sm"
             aria-label="Editor de notas pessoais"
           />
-          
-          <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] block"></span>
-          </div>
         </div>
         
-        {/* Footer Nav */}
         <footer className="mt-[var(--space-lg)] pt-[var(--space-md)] border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-2 gap-[var(--space-md)] no-print">
           {nav.prev ? (
             <button 

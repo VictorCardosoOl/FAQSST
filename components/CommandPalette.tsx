@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Command } from 'cmdk';
-import { Search, Hash, Sun, Moon, Sparkles, Archive, Bookmark, X } from 'lucide-react';
+import { Search, Hash, Sun, Moon, Archive, Bookmark, X } from 'lucide-react';
 import { FAQItem, Category } from '../types';
 import { FAQ_DATA } from '../constants';
 
@@ -26,7 +26,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       
       <Command className="relative w-full max-w-2xl animate-in fade-in zoom-in duration-200">
         <div className="flex items-center justify-between px-4">
-          <Command.Input placeholder="O que você deseja buscar ou fazer?" />
+          <Command.Input placeholder="Navegue pelo conhecimento..." />
           <button onClick={onClose} className="p-2 text-stone-400 hover:text-stone-600">
             <X size={16} />
           </button>
@@ -34,7 +34,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
         <Command.List className="p-2 max-h-[60vh] overflow-y-auto">
           <Command.Empty className="p-8 text-center text-sm text-stone-400">
-            Nenhum conhecimento ou comando encontrado.
+            Nenhum resultado encontrado.
           </Command.Empty>
 
           <Command.Group heading="Artigos Recomendados">
@@ -55,7 +55,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             ))}
           </Command.Group>
 
-          <Command.Group heading="Navegação Inteligente">
+          <Command.Group heading="Navegação Global">
             <Command.Item onSelect={() => { onSelectCategory(null); onClose(); }}>
               <Archive size={16} />
               <span>Acervo Completo</span>
@@ -72,7 +72,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             ))}
           </Command.Group>
 
-          <Command.Group heading="Interface e Sistema">
+          <Command.Group heading="Interface">
             <Command.Item onSelect={() => { onToggleTheme(); onClose(); }}>
               {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
               <span>Alternar para Modo {isDarkMode ? 'Claro' : 'Escuro'}</span>
@@ -86,7 +86,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             <span>↵ Selecionar</span>
           </div>
           <div className="flex items-center gap-2">
-            <Sparkles size={10} /> TeamWiki Pro Engine
+            TeamWiki Knowledge Base
           </div>
         </div>
       </Command>
