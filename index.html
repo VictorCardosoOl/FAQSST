@@ -1,22 +1,147 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>TeamWiki | Conhecimento Arquitetônico</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="metadata.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Palette */
+        --bg-main: #ffffff;
+        --bg-island: rgba(255, 255, 255, 0.98);
+        --text-main: #000000;
+        --text-body: #0a0a0a;
+        --text-muted: #404040;
+        --accent: #000000;
+        --border: rgba(0, 0, 0, 0.12);
+        --selection: rgba(0, 0, 0, 0.1);
+        --surface-note: #fafafa;
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>SST FAQ | Base de Conhecimento</title>
-  <meta name="theme-color" content="#ffffff">
+        /* Fluid Typography Scale (Mobile to Desktop) */
+        --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+        --font-sm: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
+        --font-base: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+        --font-lg: clamp(1.125rem, 1.05rem + 0.3vw, 1.35rem);
+        --font-xl: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+        --font-2xl: clamp(2rem, 1.7rem + 1.2vw, 3rem);
+        --font-3xl: clamp(2.5rem, 2rem + 2vw, 4.5rem);
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap"
-    rel="stylesheet">
+        /* Fluid Spacing */
+        --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 1rem);
+        --space-md: clamp(1rem, 0.8rem + 1vw, 2rem);
+        --space-lg: clamp(2rem, 1.5rem + 2vw, 4rem);
+        --space-layout: clamp(1rem, 5vw, 4rem); /* Responsive container padding */
+      }
 
+      body.dark {
+        --bg-main: #000000;
+        --bg-island: rgba(12, 12, 12, 0.98);
+        --text-main: #ffffff;
+        --text-body: #fafafa;
+        --text-muted: #a3a3a3;
+        --accent: #ffffff;
+        --border: rgba(255, 255, 255, 0.15);
+        --selection: rgba(255, 255, 255, 0.2);
+        --surface-note: #0f0f0f;
+      }
 
-</head>
+      * {
+        box-sizing: border-box;
+      }
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
+      /* Custom Scrollbar - Elegant & Minimal */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
+      }
 
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-body);
+        font-size: var(--font-base);
+        line-height: 1.6;
+        transition: background-color 0.4s ease, color 0.4s ease;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      .glass {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .reveal {
+        animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      @keyframes revealUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Typography Utilities using Vars */
+      .type-display { font-size: var(--font-3xl); }
+      .type-h1 { font-size: var(--font-2xl); }
+      .type-h2 { font-size: var(--font-xl); }
+      .type-body { font-size: var(--font-base); }
+      .type-small { font-size: var(--font-sm); }
+      .type-tiny { font-size: var(--font-xs); }
+
+      /* Prose Overrides for Fluidity */
+      .prose {
+        max-width: 65ch !important;
+        font-size: var(--font-base) !important;
+      }
+      .prose h1, .prose h2, .prose h3 {
+        color: var(--text-main) !important;
+        font-family: 'Playfair Display', serif;
+        margin-top: var(--space-lg) !important;
+        margin-bottom: var(--space-md) !important;
+        line-height: 1.1 !important;
+      }
+      .prose p { margin-bottom: 1.5em !important; }
+      .prose blockquote {
+        border-left-width: 2px !important;
+        border-color: var(--text-main) !important;
+        font-style: italic;
+        padding-left: var(--space-md) !important;
+      }
+    </style>
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "marked": "https://esm.sh/marked@^15.0.0",
+    "cmdk": "https://esm.sh/cmdk@1.0.0",
+    "vitest": "https://esm.sh/vitest@^4.0.16",
+    "@testing-library/react": "https://esm.sh/@testing-library/react@^16.3.1",
+    "vitest/": "https://esm.sh/vitest@^4.0.16/"
+  }
+}
+</script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
