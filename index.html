@@ -24,6 +24,11 @@
         --success: #10b981;
         --info: #3b82f6;
 
+        /* Layout Dimensions */
+        --header-height: clamp(5rem, 8vh, 7rem);
+        --max-width-content: 900px;
+        --max-width-reading: 75ch;
+
         /* Fluid Typography Scale (Mobile to Desktop) */
         --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
         --font-sm: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
@@ -37,7 +42,17 @@
         --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 1rem);
         --space-md: clamp(1rem, 0.8rem + 1vw, 2rem);
         --space-lg: clamp(2rem, 1.5rem + 2vw, 4rem);
-        --space-layout: clamp(1rem, 5vw, 4rem); /* Responsive container padding */
+        --space-layout: clamp(1rem, 5vw, 4rem); 
+
+        /* Z-Index Layering System */
+        --z-negative: -1;
+        --z-normal: 1;
+        --z-sticky: 40;
+        --z-menu-backdrop: 50;
+        --z-menu-panel: 55;
+        --z-header: 60;
+        --z-modal: 100;
+        --z-toast: 110;
       }
 
       body.dark {
@@ -107,7 +122,7 @@
 
       /* Prose Overrides for Fluidity */
       .prose {
-        max-width: 65ch !important;
+        max-width: var(--max-width-reading) !important;
         font-size: var(--font-base) !important;
       }
       .prose h1, .prose h2, .prose h3 {
@@ -137,6 +152,7 @@
     "marked": "https://esm.sh/marked@^15.0.0",
     "dompurify": "https://esm.sh/dompurify@3.0.9",
     "cmdk": "https://esm.sh/cmdk@1.0.0",
+    "gsap": "https://esm.sh/gsap@3.12.5",
     "vitest": "https://esm.sh/vitest@^4.0.16",
     "@testing-library/react": "https://esm.sh/@testing-library/react@^16.3.1",
     "vitest/": "https://esm.sh/vitest@^4.0.16/"

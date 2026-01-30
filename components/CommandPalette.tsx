@@ -21,10 +21,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4">
+    <div className="fixed inset-0 z-[var(--z-modal)] flex items-start justify-center pt-[15vh] px-4">
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       
-      <Command className="relative w-full max-w-2xl animate-in fade-in zoom-in duration-200">
+      <Command className="relative w-full max-w-2xl animate-in fade-in zoom-in duration-200 z-[var(--z-modal)]">
         <div className="flex items-center justify-between px-4">
           <Command.Input placeholder="Navegue pelo conhecimento..." />
           <button onClick={onClose} className="p-2 text-stone-400 hover:text-stone-600">
