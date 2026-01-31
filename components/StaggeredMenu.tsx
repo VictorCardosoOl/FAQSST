@@ -1,5 +1,5 @@
 
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUI } from '../context/UIContext';
 import { Moon, Sun } from 'lucide-react';
@@ -26,10 +26,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
+  
+  // Smart Navbar State
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const navigate = useNavigate();
   const { isDarkMode, toggleDarkMode } = useUI();
 
-  // Custom Hook handles all GSAP logic
+  // Custom Hook handles all GSAP logic with 'left' position
   const { 
     refs, 
     textLines, 
@@ -37,7 +43,45 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     playClose, 
     animateIcon, 
     animateText 
-  } = useStaggeredMenuAnimation(open);
+  } = useStaggeredMenuAnimation(open, 'left');
+
+  // --- Scroll Logic for Smart Navbar & Visuals ---
+  useEffect(() => {
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      // Logic for Visual Style (Glass/Border)
+      setIsScrolled(currentScrollY > 20);
+
+      // Logic for Hiding/Showing
+      if (openRef.current) {
+        setShowNavbar(true);
+        return;
+      }
+
+      if (currentScrollY < 10) {
+        setShowNavbar(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // Scrolling Down -> Hide
+        setShowNavbar(false);
+      } else {
+        // Scrolling Up -> Show
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', controlNavbar);
+    return () => {
+      window.removeEventListener('scroll', controlNavbar);
+    };
+  }, [lastScrollY]);
+
+  // Force navbar visible when menu opens
+  useEffect(() => {
+    if (open) setShowNavbar(true);
+  }, [open]);
 
   const toggleMenu = useCallback(() => {
     const target = !openRef.current;
@@ -71,30 +115,39 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         <div className="sm-prelayer" style={{ background: isDarkMode ? '#262626' : '#e5e5e5' }} />
       </div>
 
-      <header className="staggered-menu-header">
-        <div className="sm-logo" onClick={() => { onLogoClick?.(); if(open) toggleMenu(); }}>
-           <span className="sm-logo-text">{logoLabel}</span>
-        </div>
-
-        <button
-          ref={refs.toggleBtnRef}
-          className="sm-toggle"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          onClick={toggleMenu}
-        >
-          <span className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={refs.textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>{l}</span>
-              ))}
+      <header 
+        className={`staggered-menu-header ${isScrolled ? 'scrolled-view' : ''} ${
+          showNavbar ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
+        <div className="w-full max-w-[var(--max-width-content)] mx-auto flex items-center justify-between h-full">
+          {/* Toggle Button (Left) */}
+          <button
+            ref={refs.toggleBtnRef}
+            className="sm-toggle group"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            onClick={toggleMenu}
+          >
+            <span ref={refs.iconRef} className="sm-icon" aria-hidden="true">
+              <span className="sm-icon-line" />
+              <span className="sm-icon-line sm-icon-line-v" />
             </span>
-          </span>
-          <span ref={refs.iconRef} className="sm-icon" aria-hidden="true">
-            <span className="sm-icon-line" />
-            <span className="sm-icon-line sm-icon-line-v" />
-          </span>
-        </button>
+            <span className="sm-toggle-textWrap" aria-hidden="true">
+              <span ref={refs.textInnerRef} className="sm-toggle-textInner">
+                {textLines.map((l, i) => (
+                  <span className="sm-toggle-line" key={i}>{l}</span>
+                ))}
+              </span>
+            </span>
+          </button>
+
+          {/* Logo (Right) - Updated Style */}
+          <div className="sm-logo group" onClick={() => { onLogoClick?.(); if(open) toggleMenu(); }}>
+            <span className="w-2 h-2 rounded-full bg-[var(--text-main)] mr-3 transition-transform duration-300 group-hover:scale-150" />
+            <span className="sm-logo-text">{logoLabel}</span>
+          </div>
+        </div>
       </header>
 
       <aside ref={refs.panelRef} className="staggered-menu-panel" aria-hidden={!open}>

@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 
 export const useStaggeredMenuAnimation = (
   open: boolean, 
-  position: 'right' | 'left' = 'right', 
+  position: 'right' | 'left' = 'left', // Alterado padrão para 'left'
   changeMenuColorOnOpen: boolean = true,
   menuButtonColor: string = '#000',
   openMenuButtonColor: string = '#000'
@@ -21,6 +21,9 @@ export const useStaggeredMenuAnimation = (
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
 
+  // Define a direção do movimento baseada na posição
+  const offscreen = position === 'left' ? -100 : 100;
+
   // Initial Setup
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -32,14 +35,14 @@ export const useStaggeredMenuAnimation = (
       if (!panel || !icon || !textInner) return;
 
       const preLayers = preContainer ? Array.from(preContainer.querySelectorAll('.sm-prelayer')) : [];
-      const offscreen = 100;
 
+      // Configura posição inicial baseada na direção (esquerda ou direita)
       gsap.set([panel, ...preLayers], { xPercent: offscreen });
       gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
       gsap.set(textInner, { yPercent: 0 });
     });
     return () => ctx.revert();
-  }, [position]);
+  }, [position, offscreen]);
 
   const buildOpenTimeline = useCallback(() => {
     const panel = panelRef.current;
@@ -62,23 +65,23 @@ export const useStaggeredMenuAnimation = (
 
     const tl = gsap.timeline({ paused: true });
 
-    // Layers
+    // Layers Animation
     layers.forEach((el, i) => {
-      tl.fromTo(el, { xPercent: 100 }, { xPercent: 0, duration: 0.5, ease: 'power4.out' }, i * 0.07);
+      tl.fromTo(el, { xPercent: offscreen }, { xPercent: 0, duration: 0.5, ease: 'power4.out' }, i * 0.07);
     });
 
-    // Panel
+    // Panel Animation
     const lastTime = layers.length ? (layers.length - 1) * 0.07 : 0;
     const panelInsertTime = lastTime + (layers.length ? 0.08 : 0);
     const panelDuration = 0.65;
     
     tl.fromTo(panel, 
-      { xPercent: 100 }, 
+      { xPercent: offscreen }, 
       { xPercent: 0, duration: panelDuration, ease: 'power4.out' }, 
       panelInsertTime
     );
 
-    // Items
+    // Items Animation
     if (itemEls.length) {
       const itemsStart = panelInsertTime + panelDuration * 0.25;
       tl.to(itemEls, { yPercent: 0, rotate: 0, duration: 1, ease: 'power4.out', stagger: { each: 0.08, from: 'start' } }, itemsStart);
@@ -88,14 +91,14 @@ export const useStaggeredMenuAnimation = (
       }
     }
 
-    // Footer
+    // Footer Animation
     if (footer) {
       tl.to(footer, { opacity: 1, y: 0, duration: 0.5, delay: 0.4 });
     }
 
     openTlRef.current = tl;
     return tl;
-  }, []);
+  }, [offscreen]);
 
   const playOpen = useCallback(() => {
     if (busyRef.current) return;
@@ -122,13 +125,13 @@ export const useStaggeredMenuAnimation = (
     
     closeTweenRef.current?.kill();
     closeTweenRef.current = gsap.to(all, {
-      xPercent: 100,
+      xPercent: offscreen, // Return to offscreen position
       duration: 0.4,
       ease: 'power3.in',
       overwrite: 'auto',
       onComplete: () => { busyRef.current = false; }
     });
-  }, []);
+  }, [offscreen]);
 
   const animateIcon = useCallback((opening: boolean) => {
     const icon = iconRef.current;
